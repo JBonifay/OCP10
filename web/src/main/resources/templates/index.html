@@ -1,91 +1,15 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-
-  <!-- Material Design for Bootstrap fonts and icons -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
-
-  <!-- Material Design for Bootstrap CSS -->
-  <link crossorigin="anonymous" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" rel="stylesheet">
-
-  <title>Bibliothèque</title>
+  <meta charset="UTF-8">
+  <title>Login</title>
 </head>
 <body>
 
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap">
-  <a class="navbar-brand col-sm-3 col-md-2 text-center" href="#">Bibliothèque</a>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a href="login.html"><button class="btn btn-raised btn-secondary" type="button">Connection</button></a>
-    </li>
-  </ul>
-</nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light">
-      <div class="mt-5">
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-              <h3 class="text-center text-dark">Utilisateur</h3>
-            <hr>
-            <a class="nav-link" href="#">
-              <button class="btn btn-secondary btn-block btn-lg" type="button">Les ouvrages</button>
-            </a>
-            <a class="nav-link" href="#">
-              <button class="btn btn-secondary btn-block btn-lg" type="button">Mes réservations</button>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
 
-    <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
-      <h2>Liste des ouvrages</h2>
-      <hr>
-      <br>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nom du livre</th>
-            <th>Autheur</th>
-            <th>Date de sortie</th>
-          </tr>
-          </thead>
-          <tbody>
-          <th:block th:each="livre : ${livres}">
-          <tr>
-            <td th:text="${livre.id}"></td>
-            <td th:text="${livre.name}"></td>
-            <td th:text="${livre.author}"></td>
-            <td th:text="${livre.releaseDate}"></td>
-          </tr>
-          </th:block>
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
-</div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-        src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-        src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
-<script>$(document).ready(function () {
-  $('body').bootstrapMaterialDesign();
-});</script>
+
+
 </body>
 </html>
