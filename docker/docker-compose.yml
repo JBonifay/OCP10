@@ -22,6 +22,7 @@ services:
       # Where our data will be persisted
     volumes:
       - ./ouvrage.sql:/docker-entrypoint-initdb.d/ouvrage.sql
+      - ./stock.sql:/docker-entrypoint-initdb.d/stock.sql
 
   Mysql_reservation:
     image: mysql:latest
