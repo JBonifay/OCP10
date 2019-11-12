@@ -1,10 +1,10 @@
-package com.openclassrooms.livres;
+package com.openclassrooms.ouvrage;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LivresApplicationTests {
+class OuvrageApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,13 +1,13 @@
-package com.openclassrooms.livres;
+package com.openclassrooms.ouvrage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LivresApplication {
+public class OuvrageApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LivresApplication.class, args);
+		SpringApplication.run(OuvrageApplication.class, args);
 	}
 
 }
