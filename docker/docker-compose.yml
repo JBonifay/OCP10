@@ -46,3 +46,24 @@ services:
     volumes:
       - ./reservation.sql:/docker-entrypoint-initdb.d/reservation.sql
 
+Mysql_utilisateur:
+  image: mysql:latest
+  container_name: "bibliotheque_utilisateur"
+  restart: always
+  environment:
+    MYSQL_DATABASE: 'utilisateur'
+    # So you don't have to use root, but you can if you like
+    MYSQL_USER: 'bibliotheque'
+    # You can use whatever password you like
+    MYSQL_PASSWORD: 'rootbibliotheque'
+    # Password for root access
+    MYSQL_ROOT_PASSWORD: 'rootbibliotheque'
+  ports:
+    # <Port exposed> : < MySQL Port running inside container>
+    - '3308:3306'
+  expose:
+    # Opens port 3306 on the container
+    - '3306'
+    # Where our data will be persisted
+  volumes:
+    - ./utilisateur.sql:/docker-entrypoint-initdb.d/utilisateur.sql
