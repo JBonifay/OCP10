@@ -17,8 +17,6 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    final DataSource dataSource;
-
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
@@ -53,14 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select ADRESSE_EMAIL, MOT_DE_PASSE, ENABLED from UTILISATEUR where ADRESSE_EMAIL = ?")
-                .authoritiesByUsernameQuery("SELECT ADRESSE_EMAIL, ROLE FROM UTILISATEUR WHERE ADRESSE_EMAIL = ?");
 
-        auth.inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder().encode("password")).roles("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
     }
 
     @Bean
