@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface LivreProxy {
 
     @GetMapping("/livre")
-    Page<LivreBean> getLivreList(Pageable pageable);
+    List<LivreBean> getLivreList();
 
 }
 
