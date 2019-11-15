@@ -14,17 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class Ouvrage {
+public class Stock {
 
     @Id
     @GeneratedValue
-    private int    id;
-    private String name;
-    private String author;
-    private Date   releaseDate;
-
-    @OneToOne
-    @JoinColumn(name = "id_ouvrage", referencedColumnName = "id_ouvrage")
-    private Stock stock;
+    private int    ouvrageId;
+    private int    quantite;
 
 }

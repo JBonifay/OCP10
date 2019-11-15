@@ -16,7 +16,7 @@ public class OuvrageService {
     private final OuvrageRepository ouvrageRepository;
 
     public List<Ouvrage> getAllOuvrageList(Pageable pageable) {
-        return ouvrageRepository.findAll(pageable).toList();
+        return ouvrageRepository.findAll(pageable).getContent();
     }
 
 }
