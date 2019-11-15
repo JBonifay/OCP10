@@ -76,6 +76,7 @@
     <spring-boot-configuration-processor>2.1.8.RELEASE</spring-boot-configuration-processor>
     <spring-boot-maven-plugin>2.2.1.RELEASE</spring-boot-maven-plugin>
     <spring-boot-starter-data-rest>2.2.1.RELEASE</spring-boot-starter-data-rest>
+    <spring-cloud-config-server>2.1.4.RELEASE</spring-cloud-config-server>
     <lombok>1.18.10</lombok>
   </properties>
 
@@ -83,6 +84,11 @@
   <!-- Add typical dependencies for a web application -->
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-config-server</artifactId>
+        <version>${spring-cloud-config-server}</version>
+      </dependency>
       <dependency>
         <artifactId>spring-cloud-starter-config</artifactId>
         <groupId>org.springframework.cloud</groupId>

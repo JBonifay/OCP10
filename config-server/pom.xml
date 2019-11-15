@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>config-server</artifactId>
-  <version>${project.version}</version>
+  <version>0.0.1</version>
   <name>config-server</name>
   <description>Gestion du server de fichiers de configuration</description>
 
@@ -48,18 +48,6 @@
       </exclusions>
     </dependency>
   </dependencies>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <build>
     <plugins>

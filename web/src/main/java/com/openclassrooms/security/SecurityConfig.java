@@ -19,32 +19,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers("/css/**")
-                .antMatchers("/images/**")
-                .antMatchers("/video/**");
+
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/inscription").permitAll()
-                .antMatchers("/modification/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginProcessingUrl("/appLogin")
-                .defaultSuccessUrl("/index", true)
-                .and()
-                .logout()
-                .logoutUrl("/appLogout")
-                .logoutSuccessUrl("/index")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID");
 
-        httpSecurity.csrf().disable();
 
     }
 

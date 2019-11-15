@@ -11,7 +11,7 @@
 
 
 	<artifactId>web</artifactId>
-	<version>${project.version}</version>
+	<version>0.0.1</version>
 	<name>web</name>
 	<description>Gestion de l'utilisateur UI / Web</description>
 

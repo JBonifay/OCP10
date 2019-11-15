@@ -16,7 +16,7 @@ public class OuvragesController {
     @GetMapping("/ouvrages")
     public ModelAndView getOuvragesPage(Pageable pageable) {
         ModelAndView ouvrages = new ModelAndView("ouvrages");
-        ouvrages.addObject("livres", livreProxy.getLivreList());
+        ouvrages.addObject("livres", livreProxy.getLivreList(pageable));
         return ouvrages;
     }
 

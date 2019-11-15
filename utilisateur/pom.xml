@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>utilisateur</artifactId>
-  <version>${project.version}</version>
+  <version>0.0.1</version>
   <name>utilisateur</name>
   <description>Gestion des utilisateurs</description>
 

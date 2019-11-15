@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>reservation</artifactId>
-	<version>${project.version}</version>
+	<version>0.0.1</version>
 	<name>reservation</name>
 	<description>Gestion des réservations</description>
 
