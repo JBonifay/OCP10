@@ -53,18 +53,18 @@
           <thead>
           <tr>
             <th>Id</th>
-            <th>Nom du livre</th>
+            <th>Nom de l'ouvrage</th>
             <th>Autheur</th>
             <th>Date de sortie</th>
           </tr>
           </thead>
           <tbody>
-          <th:block th:each="livre : ${livres}">
+          <th:block th:each="ouvrage : ${ouvrages}">
           <tr>
-            <td th:text="${livre.id}"></td>
-            <td th:text="${livre.name}"></td>
-            <td th:text="${livre.author}"></td>
-            <td th:text="${livre.releaseDate}"></td>
+            <td th:text="${ouvrage.id}"></td>
+            <td th:text="${ouvrage.name}"></td>
+            <td th:text="${ouvrage.author}"></td>
+            <td th:text="${ouvrage.releaseDate}"></td>
           </tr>
           </th:block>
           </tbody>
