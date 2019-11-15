@@ -78,12 +78,18 @@
     <spring-boot-starter-data-rest>2.2.1.RELEASE</spring-boot-starter-data-rest>
     <spring-cloud-config-server>2.1.4.RELEASE</spring-cloud-config-server>
     <lombok>1.18.10</lombok>
+    <mysql-connector-java>8.0.18</mysql-connector-java>
   </properties>
 
 
   <!-- Add typical dependencies for a web application -->
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql-connector-java}</version>
+      </dependency>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-config-server</artifactId>

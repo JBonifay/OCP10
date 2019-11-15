@@ -24,10 +24,4 @@ public class Ouvrage {
     private String author;
     private Date   releaseDate;
 
-    @OneToMany
-    @JoinTable(name = "stock",
-               joinColumns = @JoinColumn(name = "id"),
-               inverseJoinColumns = @JoinColumn(name = "quantite"))
-    private int quantiteEnStock;
-
 }
