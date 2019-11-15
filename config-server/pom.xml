@@ -4,16 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.openclassrooms.bibliotheque</groupId>
+    <groupId>com.openclassrooms</groupId>
     <artifactId>bibliotheque</artifactId>
-    <version>0.0.1</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
-  
-  <groupId>com.openclassrooms</groupId>
+
   <artifactId>config-server</artifactId>
   <version>${project.version}</version>
   <name>config-server</name>
-  <description>Config server</description>
+  <description>Gestion du server de fichiers de configuration</description>
 
   <properties>
     <java.version>1.8</java.version>

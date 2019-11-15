@@ -4,16 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.openclassrooms.bibliotheque</groupId>
+    <groupId>com.openclassrooms</groupId>
     <artifactId>bibliotheque</artifactId>
-    <version>0.0.1</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.openclassrooms</groupId>
   <artifactId>utilisateur</artifactId>
   <version>${project.version}</version>
   <name>utilisateur</name>
-  <description>Microservice dédié à utilisateur</description>
+  <description>Gestion des utilisateurs</description>
 
   <properties>
     <java.version>1.8</java.version>
