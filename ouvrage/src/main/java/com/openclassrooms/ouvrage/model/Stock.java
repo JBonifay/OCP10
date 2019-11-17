@@ -1,11 +1,12 @@
 package com.openclassrooms.ouvrage.model;
 
-import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "stock")
 public class Stock {
 
     @Id
-    @GeneratedValue
+    @Column(name = "ouvrage_id")
     private int    ouvrageId;
+
+    @Column(name = "quantite")
     private int    quantite;
 
+    // @OneToOne
+    // @MapsId
+    // private Ouvrage ouvrage;
 }
