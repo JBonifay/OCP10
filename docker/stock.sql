@@ -1,11 +1,14 @@
-create table stock
+CREATE TABLE `stock`
 (
-	id int auto_increment,
-	ouvrage_id int not null,
-	quantite int not null,
-	constraint stock_pk
-		primary key (id)
+ `id`         int NOT NULL ,
+ `ouvrage_id` int NOT NULL ,
+ `quantite`   int NOT NULL ,
+
+PRIMARY KEY (`id`),
+KEY `fkIdx_16` (`ouvrage_id`),
+CONSTRAINT `FK_16` FOREIGN KEY `fkIdx_16` (OUVRAGE_ID) REFERENCES ouvrage (ouvrage_id)
 );
+
 
 INSERT
 INTO stock

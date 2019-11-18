@@ -1,12 +1,13 @@
-CREATE TABLE ouvrage
+CREATE TABLE `ouvrage`
 (
-    ouvrage_id   INT NOT NULL AUTO_INCREMENT,
-    name         VARCHAR(100) NOT NULL,
-    author       VARCHAR(100) NOT NULL,
-    release_date DATE         NOT NULL,
+ `id`           int NOT NULL ,
+ `name`         varchar(45) NOT NULL ,
+ `author`       varchar(45) NOT NULL ,
+ `release_date` date NOT NULL ,
 
-    PRIMARY KEY (ouvrage_id)
+PRIMARY KEY (`id`)
 );
+
 
 INSERT
 INTO ouvrage
