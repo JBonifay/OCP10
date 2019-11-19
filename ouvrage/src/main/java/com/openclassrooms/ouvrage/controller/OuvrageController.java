@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OuvrageController {
 
+    // SRP Single responsability principe
+    // Solid
+
     private final OuvrageService ouvrageService;
 
     @GetMapping(value = "/ouvrage")
