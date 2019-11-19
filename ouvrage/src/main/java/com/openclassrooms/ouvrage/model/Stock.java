@@ -1,11 +1,8 @@
 package com.openclassrooms.ouvrage.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,10 +19,10 @@ public class Stock {
     @Column(name = "stock_id")
     private int stockId;
 
+    @Column(name = "ouvrage_id")
+    private int    ouvrageId;
+
     @Column(name = "quantite")
     private int    quantite;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ouvrage_id", unique = true)
-    private Ouvrage ouvrage;
 }
