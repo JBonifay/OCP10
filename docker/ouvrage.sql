@@ -1,11 +1,11 @@
-CREATE TABLE `ouvrage`
+CREATE TABLE ouvrage.ouvrage
 (
- `id`           int NOT NULL ,
- `name`         varchar(45) NOT NULL ,
- `author`       varchar(45) NOT NULL ,
- `release_date` date NOT NULL ,
+    ouvrage_id   INT         NOT NULL,
+    name         VARCHAR(45) NOT NULL,
+    author       VARCHAR(45) NOT NULL,
+    release_date DATE        NOT NULL,
 
-PRIMARY KEY (`id`)
+    PRIMARY KEY (ouvrage_id)
 );
 
 

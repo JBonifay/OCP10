@@ -1,12 +1,13 @@
-CREATE TABLE `stock`
+CREATE TABLE ouvrage.stock
 (
- `id`         int NOT NULL ,
- `ouvrage_id` int NOT NULL ,
- `quantite`   int NOT NULL ,
+    stock_id   INT NOT NULL AUTO_INCREMENT,
+    ouvrage_id INT NOT NULL,
+    # unique
+    quantite   INT NOT NULL,
 
-PRIMARY KEY (`id`),
-KEY `fkIdx_16` (`ouvrage_id`),
-CONSTRAINT `FK_16` FOREIGN KEY `fkIdx_16` (OUVRAGE_ID) REFERENCES ouvrage (ouvrage_id)
+    PRIMARY KEY (stock_id),
+    CONSTRAINT stock_ouvrage_ouvrage_id_fk
+        FOREIGN KEY (ouvrage_id) REFERENCES ouvrage.ouvrage (ouvrage_id)
 );
 
 

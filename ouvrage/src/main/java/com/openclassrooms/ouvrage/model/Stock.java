@@ -19,16 +19,13 @@ import lombok.NoArgsConstructor;
 public class Stock {
 
     @Id
-    @Column(name = "id")
-    private int id;
-    //
-    // @Column(name = "ouvrage_id")
-    // private int    ouvrageId;
+    @Column(name = "stock_id")
+    private int stockId;
 
     @Column(name = "quantite")
     private int    quantite;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ouvrage_id",unique = true)
+    @JoinColumn(name = "ouvrage_id", unique = true)
     private Ouvrage ouvrage;
 }

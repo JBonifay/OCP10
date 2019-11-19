@@ -21,7 +21,7 @@ public class Ouvrage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "ouvrage_id")
     private int id;
 
     @Column(name = "name")
