@@ -8,14 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OuvrageDto {
+public class OuvrageStockDto {
 
-    private int    ouvrageId;
     private String name;
     private String author;
     private Date   releaseDate;
-    private int    stockId;
     private int    quantite;
-
 
 }
