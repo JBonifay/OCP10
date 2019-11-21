@@ -34,6 +34,9 @@ public class Ouvrage {
     @Column(name = "release_date")
     private Date releaseDate;
 
+    @Column(name = "summary")
+    private String summary;
+
     @OneToOne
     @JoinColumn(name = "ouvrage_id")
     private Stock stock;

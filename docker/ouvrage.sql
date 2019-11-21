@@ -1,9 +1,10 @@
 CREATE TABLE ouvrage.ouvrage
 (
-    ouvrage_id   INT         NOT NULL,
-    name         VARCHAR(45) NOT NULL,
-    author       VARCHAR(45) NOT NULL,
-    release_date DATE        NOT NULL,
+    ouvrage_id   INT          NOT NULL,
+    name         VARCHAR(45)  NOT NULL,
+    author       VARCHAR(45)  NOT NULL,
+    release_date DATE         NOT NULL,
+    summary      VARCHAR(300) NOT NULL,
 
     PRIMARY KEY (ouvrage_id)
 );

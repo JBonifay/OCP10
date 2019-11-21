@@ -17,4 +17,8 @@ public class OuvrageService {
         return ouvrageRepository.findAll(pageable).getContent();
     }
 
+    public Ouvrage getOuvrageById(int id) {
+        return ouvrageRepository.getOne(id);
+    }
+
 }

@@ -52,19 +52,19 @@
         <table class="table table-striped table-sm">
           <thead>
           <tr>
-            <th>Id</th>
             <th>Nom de l'ouvrage</th>
             <th>Autheur</th>
             <th>Date de sortie</th>
+            <th>Nombre en stock</th>
           </tr>
           </thead>
           <tbody>
           <th:block th:each="ouvrage : ${ouvrages}">
           <tr>
-            <td th:text="${ouvrage.id}"></td>
             <td th:text="${ouvrage.name}"></td>
             <td th:text="${ouvrage.author}"></td>
             <td th:text="${ouvrage.releaseDate}"></td>
+            <td th:text="${ouvrage.quantite}"></td>
           </tr>
           </th:block>
           </tbody>

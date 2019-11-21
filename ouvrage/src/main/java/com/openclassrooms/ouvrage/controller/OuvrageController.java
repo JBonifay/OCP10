@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -20,6 +21,11 @@ public class OuvrageController {
     @GetMapping(value = "/ouvrage")
     public ResponseEntity<List<OuvrageStockDto>> listeDesOuvrage(Pageable pageable) {
         return ResponseEntity.ok(ouvrageMapper.toProductDTOs(ouvrageService.getAll(pageable)));
+    }
+
+    @GetMapping(value = "/ouvrage")
+    public ResponseEntity<OuvrageStockDto> descriptionOuvrage(@PathVariable int id) {
+        return ResponseEntity.ok(ouvrageMapper.toProductDTO(ouvrageService.getOuvrageById(id)));
     }
 
 }
