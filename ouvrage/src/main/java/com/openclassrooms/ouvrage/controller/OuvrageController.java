@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OuvrageController {
 
-    // private final OuvrageService ouvrageService;
+    private final OuvrageService ouvrageService;
 
     @GetMapping(value = "/ouvrage")
     public List<OuvrageStockDto> listeDesOuvrage(Pageable pageable) {
-        // return ouvrageService.getAllOuvrageList(pageable);
-        return null;
+        return ouvrageService.getAllOuvrageList(pageable);
     }
 
 }
