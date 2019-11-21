@@ -1,18 +1,16 @@
 package com.openclassrooms.ouvrage.dto;
 
 import com.openclassrooms.ouvrage.model.Ouvrage;
+import java.util.List;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface OuvrageMapper {
 
-    OuvrageMapper INSTANCE = Mappers.getMapper(OuvrageMapper.class);
+    List<OuvrageStockDto> toProductDTOs(List<Ouvrage> ouvrageList);
 
-    OuvrageDto ouvrageDtoToOuvrageStockDto(OuvrageDto ouvrageDto);
+    OuvrageDto toProductDTO(Ouvrage ouvrage);
 
-    OuvrageStockDto ouvrageToOuvrageStockDto(Ouvrage ouvrage);
-
-    OuvrageStockDto ouvrageStockDtoToOuvrageDto(OuvrageStockDto ouvrageStockDto);
+    Ouvrage toProduct(OuvrageDto ouvrageDto);
 
 }
