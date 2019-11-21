@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OuvrageBean {
 
-    private int id;
     private String name;
     private String author;
     private Date releaseDate;
+    private int quantite;
 
 }
