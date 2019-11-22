@@ -16,35 +16,12 @@
 </head>
 <body>
 
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap">
-  <a class="navbar-brand col-sm-3 col-md-2 text-center" href="#">Bibliothèque</a>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a href="login.html">
-        <button class="btn btn-raised btn-secondary" type="button">Connection</button>
-      </a>
-    </li>
-  </ul>
-</nav>
+<nav class="" th:replace="fragments/navbar.html :: nav"></nav>
 
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light">
-      <div class="mt-5">
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <h3 class="text-center text-dark">Utilisateur</h3>
-            <hr>
-            <a class="nav-link" href="#">
-              <button class="btn btn-secondary btn-block btn-lg" type="button">Les ouvrages</button>
-            </a>
-            <a class="nav-link" href="#">
-              <button class="btn btn-secondary btn-block btn-lg" type="button">Mes réservations</button>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+
+    <nav class="" th:replace="fragments/sidenav.html :: nav"></nav>
 
     <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
 
