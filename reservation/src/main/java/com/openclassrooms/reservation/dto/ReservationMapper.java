@@ -1,5 +1,11 @@
 package com.openclassrooms.reservation.dto;
 
-public class ReservationMapper {
+import com.openclassrooms.reservation.model.Reservation;
+import org.mapstruct.Mapper;
+
+@Mapper
+public interface ReservationMapper {
+
+    ReservationDto toReservationDto(Reservation reservation);
 
 }
