@@ -1,5 +1,6 @@
 package com.openclassrooms.ouvrage.dto;
 
+
 import com.openclassrooms.ouvrage.model.Ouvrage;
 import java.util.List;
 import org.mapstruct.InheritConfiguration;
@@ -15,8 +16,11 @@ public interface OuvrageMapper {
     @InheritConfiguration
     List<OuvrageStockDto> toProductDTOs(List<Ouvrage> ouvrageList);
 
+    OuvrageDescriptionDto toOuvrageDescriptionDto(Ouvrage ouvrage);
+
     OuvrageDto toProductDTO(Ouvrage ouvrage);
 
     Ouvrage toProduct(OuvrageDto ouvrageDto);
+
 
 }

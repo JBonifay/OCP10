@@ -1,13 +1,13 @@
 CREATE TABLE ouvrage.ouvrage
 (
-    ouvrage_id      INT          NOT NULL,
-    name            VARCHAR(45)  NOT NULL,
-    author          VARCHAR(45)  NOT NULL,
-    release_date    DATE         NOT NULL,
-    summary         VARCHAR(300) NOT NULL,
-    editor          VARCHAR(45)  NOT NULL,
-    number_of_pages INT          NOT NULL,
-    notation        INT          NOT NULL,
+    ouvrage_id      INT           NOT NULL,
+    name            VARCHAR(45)   NOT NULL,
+    author          VARCHAR(45)   NOT NULL,
+    release_date    DATE          NOT NULL,
+    summary         VARCHAR(1000) NOT NULL,
+    editor          VARCHAR(45)   NOT NULL,
+    number_of_pages INT           NOT NULL,
+    notation        INT           NOT NULL,
 
     PRIMARY KEY (ouvrage_id)
 );

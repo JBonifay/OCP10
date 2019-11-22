@@ -1,5 +1,7 @@
 package com.openclassrooms.ouvrage.controller;
 
+
+import com.openclassrooms.ouvrage.dto.OuvrageDescriptionDto;
 import com.openclassrooms.ouvrage.dto.OuvrageMapper;
 import com.openclassrooms.ouvrage.dto.OuvrageStockDto;
 import com.openclassrooms.ouvrage.service.OuvrageService;
@@ -24,8 +26,9 @@ public class OuvrageController {
     }
 
     @GetMapping(value = "/ouvrage")
-    public ResponseEntity<OuvrageStockDto> descriptionOuvrage(@PathVariable int id) {
-        return ResponseEntity.ok(ouvrageMapper.toProductDTO(ouvrageService.getOuvrageById(id)));
+    public ResponseEntity<OuvrageDescriptionDto> descriptionOuvrage(@PathVariable int id) {
+        return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrageService.getOuvrageById(id)));
+
     }
 
 }
