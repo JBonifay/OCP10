@@ -37,6 +37,15 @@ public class Ouvrage {
     @Column(name = "summary")
     private String summary;
 
+    @Column(name = "editor")
+    private String editor;
+
+    @Column(name = "page_number")
+    private int numberOfPages;
+
+    @Column(name = "notation")
+    private int notation;
+
     @OneToOne
     @JoinColumn(name = "ouvrage_id")
     private Stock stock;
