@@ -25,8 +25,8 @@ import org.hibernate.validator.constraints.Length;
 public class Ouvrage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ouvrage_id")
     private int id;
 
