@@ -13,6 +13,6 @@ public class OuvrageBean {
     private String name;
     private String author;
     private Date releaseDate;
-    private int quantite;
+    private int quantity;
 
 }

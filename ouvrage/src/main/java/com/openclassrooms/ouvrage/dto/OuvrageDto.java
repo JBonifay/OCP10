@@ -19,6 +19,6 @@ public class OuvrageDto {
     private int    numberOfPages;
     private int    notation;
     private int    stockId;
-    private int    quantite;
+    private int    quantity;
 
 }

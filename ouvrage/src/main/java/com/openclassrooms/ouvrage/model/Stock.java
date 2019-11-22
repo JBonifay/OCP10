@@ -22,7 +22,7 @@ public class Stock {
     @Column(name = "ouvrage_id")
     private int    ouvrageId;
 
-    @Column(name = "quantite")
-    private int    quantite;
+    @Column(name = "quantity")
+    private int    quantity;
 
 }

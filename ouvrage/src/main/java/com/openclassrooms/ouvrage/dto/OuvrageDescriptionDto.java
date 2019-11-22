@@ -17,6 +17,6 @@ public class OuvrageDescriptionDto {
     private String editor;
     private int    numberOfPages;
     private int    notation;
-    private int    quantite;
+    private int    quantity;
 
 }
