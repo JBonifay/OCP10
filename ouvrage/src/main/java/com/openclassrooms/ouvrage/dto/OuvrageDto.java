@@ -15,6 +15,9 @@ public class OuvrageDto {
     private String author;
     private Date   releaseDate;
     private String summary;
+    private String editor;
+    private int    numberOfPages;
+    private int    notation;
     private int    stockId;
     private int    quantite;
 

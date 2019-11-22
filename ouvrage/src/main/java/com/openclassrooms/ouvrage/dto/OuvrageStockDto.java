@@ -12,6 +12,7 @@ public class OuvrageStockDto {
 
     private String name;
     private String author;
+    private String editor;
     private Date   releaseDate;
     private int    quantite;
 
