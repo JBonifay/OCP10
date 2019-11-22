@@ -79,7 +79,7 @@
         <nav>
           <ul class="pagination pagination-sm">
             <li class="page-item"><a class="page-link text-dark" href="#" tabindex="-1">Previous</a></li>
-            <th:block th:each="page: ${#numbers.sequence(pageNumber -5 , pageNumber +5)}">
+            <th:block th:each="page: ${#numbers.sequence(1, pageNumber)}">
               <li class="page-item"><a class="page-link text-dark" th:href="@{'/listedesouvrages?page=' + ${page -1}}" th:text="${page}"></a></li>
             </th:block>
             <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
