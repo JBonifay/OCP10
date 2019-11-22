@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @RequiredArgsConstructor
@@ -20,8 +22,15 @@ public class OuvragePageController {
 
         RestPageImpl ouvragePage = ouvrageProxy.getAllOuvrageListByPage(pageable);
 
-        ouvrages.addObject("ouvrages", ouvragePage);
+        ouvrages.addObject("ouvrages", ouvragePage.getContent());
         ouvrages.addObject("pageNumber", ouvragePage.getTotalPages());
+
+        return ouvrages;
+    }
+
+    @GetMapping("/listedesouvrages/ouvrage{ouvrageId}")
+    public ModelAndView getOuvragesPage(@PathVariable String ouvrageId) {
+        ModelAndView ouvrages = new ModelAndView("ouvrage");
 
         return ouvrages;
     }

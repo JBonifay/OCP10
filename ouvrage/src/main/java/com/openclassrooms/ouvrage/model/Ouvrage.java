@@ -28,7 +28,7 @@ public class Ouvrage {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ouvrage_id")
-    private int id;
+    private int ouvrageId;
 
     @Length(min = 3, max = 10)
     @Column(name = "name")

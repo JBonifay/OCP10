@@ -13,15 +13,7 @@ public interface OuvrageMapper {
     @Mapping(source = "stock.quantity", target = "quantity")
     OuvrageStockDto toOuvrageStockDto(Ouvrage ouvrage);
 
-    @InheritConfiguration
-    List<OuvrageStockDto> toProductDTOs(List<Ouvrage> ouvrageList);
-
     @Mapping(source = "stock.quantity", target = "quantity")
     OuvrageDescriptionDto toOuvrageDescriptionDto(Ouvrage ouvrage);
-
-    OuvrageDto toProductDTO(Ouvrage ouvrage);
-
-    Ouvrage toProduct(OuvrageDto ouvrageDto);
-
 
 }
