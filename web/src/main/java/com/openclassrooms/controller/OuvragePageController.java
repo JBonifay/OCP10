@@ -1,13 +1,12 @@
 package com.openclassrooms.controller;
 
-import com.openclassrooms.beans.OuvrageDescriptionBean;
+import com.openclassrooms.beans.ouvrage.OuvrageDescriptionBean;
 import com.openclassrooms.proxies.OuvrageProxy;
 import com.openclassrooms.proxies.RestPageImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;

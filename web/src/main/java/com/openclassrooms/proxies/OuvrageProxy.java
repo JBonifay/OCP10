@@ -1,7 +1,7 @@
 package com.openclassrooms.proxies;
 
-import com.openclassrooms.beans.OuvrageDescriptionBean;
-import com.openclassrooms.beans.OuvrageStockBean;
+import com.openclassrooms.beans.ouvrage.OuvrageDescriptionBean;
+import com.openclassrooms.beans.ouvrage.OuvrageStockBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;

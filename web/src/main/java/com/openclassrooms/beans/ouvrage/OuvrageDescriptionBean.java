@@ -1,4 +1,4 @@
-package com.openclassrooms.beans;
+package com.openclassrooms.beans.ouvrage;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;
