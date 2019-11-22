@@ -1,5 +1,6 @@
 package com.openclassrooms.controller;
 
+import com.openclassrooms.beans.OuvrageDescriptionBean;
 import com.openclassrooms.proxies.OuvrageProxy;
 import com.openclassrooms.proxies.RestPageImpl;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +31,12 @@ public class OuvragePageController {
 
     @GetMapping("/listedesouvrages/ouvrage{ouvrageId}")
     public ModelAndView getOuvragesPage(@PathVariable String ouvrageId) {
-        ModelAndView ouvrages = new ModelAndView("ouvrage");
+        ModelAndView description = new ModelAndView("description");
 
-        return ouvrages;
+        OuvrageDescriptionBean ouvrageDescriptionBean = ouvrageProxy.getOuvrageDescriptionById(ouvrageId);
+        description.addObject("ouvrage", ouvrageDescriptionBean);
+
+        return description;
     }
 
 }

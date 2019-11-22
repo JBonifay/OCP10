@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OuvrageBean {
+public class OuvrageStockBean {
 
     private int ouvrageId;
     private String name;
