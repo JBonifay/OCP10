@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,8 +30,8 @@ public class OuvragePageController {
         return ouvrages;
     }
 
-    @GetMapping("/listedesouvrages/ouvrage{ouvrageId}")
-    public ModelAndView getOuvragesPage(@PathVariable String ouvrageId) {
+    @RequestMapping("/ouvrage")
+    public ModelAndView getOuvragesPage(@RequestParam(value = "id") String ouvrageId) {
         ModelAndView description = new ModelAndView("description");
 
         OuvrageDescriptionBean ouvrageDescriptionBean = ouvrageProxy.getOuvrageDescriptionById(ouvrageId);

@@ -13,7 +13,7 @@ public interface OuvrageProxy {
     @GetMapping("/ouvrage")
     RestPageImpl<OuvrageStockBean> getAllOuvrageListByPage(Pageable pageable);
 
-    @GetMapping("/ouvrage{id}")
+    @GetMapping("/ouvrage/{id}")
     OuvrageDescriptionBean getOuvrageDescriptionById(@PathVariable String id);
 
 }
