@@ -40,7 +40,7 @@ public class Ouvrage {
     @Column(name = "editor")
     private String editor;
 
-    @Column(name = "page_number")
+    @Column(name = "number_of_pages")
     private int numberOfPages;
 
     @Column(name = "notation")
