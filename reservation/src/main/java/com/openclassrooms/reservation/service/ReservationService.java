@@ -12,8 +12,5 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
 
-    public List<Reservation> getAllReservation() {
-        return reservationRepository.findAll();
-    }
 
 }

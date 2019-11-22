@@ -13,9 +13,6 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @GetMapping
-    public List<Reservation> getAllReservation() {
-        return reservationService.getAllReservation();
-    }
+
 
 }
