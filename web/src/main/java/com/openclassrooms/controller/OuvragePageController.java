@@ -1,6 +1,7 @@
 package com.openclassrooms.controller;
 
 import com.openclassrooms.proxies.OuvrageProxy;
+import com.openclassrooms.proxies.RestPageImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,11 @@ public class OuvragePageController {
     @GetMapping("/listedesouvrages")
     public ModelAndView getOuvragesPage(Pageable pageable) {
         ModelAndView ouvrages = new ModelAndView("listedesouvrages");
-        ouvrages.addObject("ouvrages", ouvrageProxy.getAllOuvrageListByPage(pageable));
+
+        RestPageImpl ouvragePage = ouvrageProxy.getAllOuvrageListByPage(pageable);
+
+        ouvrages.addObject("ouvrages", ouvragePage);
+        ouvrages.addObject("pageNumber", ouvragePage.getTotalPages());
 
         return ouvrages;
     }

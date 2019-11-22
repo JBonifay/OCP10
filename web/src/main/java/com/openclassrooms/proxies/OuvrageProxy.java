@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface OuvrageProxy {
 
     @GetMapping("/ouvrage")
-    List<OuvrageBean> getAllOuvrageListByPage(Pageable pageable);
+    RestPageImpl<OuvrageBean> getAllOuvrageListByPage(Pageable pageable);
 
 }
 

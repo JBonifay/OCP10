@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,9 @@ public class OuvrageController {
 
     @GetMapping(value = "/ouvrage")
     public ResponseEntity listeDesOuvrage(Pageable pageable) {
-        List ouvrageList = Optional.ofNullable(ouvrageService.getAll(pageable)).orElse(new ArrayList());
-        return ResponseEntity.ok(ouvrageMapper.toProductDTOs(ouvrageList));
+        return ResponseEntity.ok(ouvrageService.getAll(pageable).map(ouvrageMapper::toOuvrageStockDto));
+
+
     }
 
     @RequestMapping(value = "/ouvrage/{id}")
