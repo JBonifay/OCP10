@@ -16,7 +16,7 @@ public class ReservationPageController {
     public ModelAndView getOuvragesPage() {
         ModelAndView reservation = new ModelAndView("reservation");
 
-        String utilisateurId = "1";
+        int utilisateurId = 1;
 
         reservationProxy.getAllReservationListByUtilisateurId(utilisateurId);
 
