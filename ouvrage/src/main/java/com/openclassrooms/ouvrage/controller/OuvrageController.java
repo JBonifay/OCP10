@@ -6,12 +6,15 @@ import com.openclassrooms.ouvrage.dto.OuvrageMapper;
 import com.openclassrooms.ouvrage.exceptions.ProduitIntrouvableException;
 import com.openclassrooms.ouvrage.model.Ouvrage;
 import com.openclassrooms.ouvrage.service.OuvrageService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -22,14 +25,14 @@ public class OuvrageController {
     private final OuvrageMapper  ouvrageMapper;
 
     @GetMapping(value = "/ouvrage")
-    public ResponseEntity listeDesOuvrage(Pageable pageable) {
+    public ResponseEntity getAllOuvrageListe(Pageable pageable) {
         return ResponseEntity.ok(ouvrageService.getAll(pageable).map(ouvrageMapper::toOuvrageStockDto));
 
 
     }
 
     @RequestMapping(value = "/ouvrage/{ouvrageId}")
-    public ResponseEntity<OuvrageDescriptionDto> descriptionOuvrage(@PathVariable int ouvrageId) throws ProduitIntrouvableException {
+    public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId) throws ProduitIntrouvableException {
 
         Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
 
@@ -38,6 +41,14 @@ public class OuvrageController {
         }
 
         return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrage));
+    }
+
+    @GetMapping("/ouvrage/reservation")
+    public ResponseEntity getAllOuvrageByReservationList(List<Integer> ouvrageIdList) {
+
+        System.out.println(ouvrageIdList.toString());
+
+        return null;
     }
 
 }

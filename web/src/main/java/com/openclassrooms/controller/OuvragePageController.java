@@ -30,7 +30,7 @@ public class OuvragePageController {
     }
 
     @RequestMapping("/ouvrage")
-    public ModelAndView getOuvragesPage(@RequestParam(value = "id") String ouvrageId) {
+    public ModelAndView getOuvragesPage(@RequestParam(value = "id") int ouvrageId) {
         ModelAndView description = new ModelAndView("description");
 
         OuvrageDescriptionBean ouvrageDescriptionBean = ouvrageProxy.getOuvrageDescriptionById(ouvrageId);
