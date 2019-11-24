@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OuvrageRepository extends JpaRepository<Ouvrage, Integer> {
 
-    Ouvrage findById(int id);
+    Ouvrage findByOuvrageId(int ouvrageId);
 
 }

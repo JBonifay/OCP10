@@ -20,8 +20,8 @@ public class OuvrageService {
         return ouvrageRepository.findAll(pageable);
     }
 
-    public Ouvrage findOuvrageById(int id) {
-        return ouvrageRepository.findById(id);
+    public Ouvrage findOuvrageById(int ouvrageId) {
+        return ouvrageRepository.findByOuvrageId(ouvrageId);
     }
 
 }

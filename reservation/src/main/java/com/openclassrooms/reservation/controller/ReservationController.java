@@ -4,6 +4,7 @@ import com.openclassrooms.reservation.dto.ReservationDto;
 import com.openclassrooms.reservation.dto.ReservationMapper;
 import com.openclassrooms.reservation.dto.ReservationOuvrageInfoDto;
 import com.openclassrooms.reservation.exception.ReservationIntrouvable;
+import com.openclassrooms.reservation.exception.ReservationIntrouvableException;
 import com.openclassrooms.reservation.model.Reservation;
 import com.openclassrooms.reservation.service.ReservationService;
 import java.util.ArrayList;
@@ -24,6 +25,13 @@ public class ReservationController {
 
     @GetMapping(value = "/reservation/{reservationId}")
     private ResponseEntity<ReservationDto> getReservationById(@PathVariable int reservationId) {
+
+        Reservation reservation = reservationService.findReservationById(reservationId);
+
+        if (reservation == null) {
+            throw new ReservationIntrouvableException("Reservation introuvable.");
+        }
+
         return ResponseEntity.ok(reservationMapper.toReservationDto(reservationService.findReservationById(
             reservationId)));
     }

@@ -28,10 +28,10 @@ public class OuvrageController {
 
     }
 
-    @RequestMapping(value = "/ouvrage/{id}")
-    public ResponseEntity<OuvrageDescriptionDto> descriptionOuvrage(@PathVariable int id) throws ProduitIntrouvableException {
+    @RequestMapping(value = "/ouvrage/{ouvrageId}")
+    public ResponseEntity<OuvrageDescriptionDto> descriptionOuvrage(@PathVariable int ouvrageId) throws ProduitIntrouvableException {
 
-        Ouvrage ouvrage = ouvrageService.findOuvrageById(id);
+        Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
 
         if (ouvrage == null) {
             throw new ProduitIntrouvableException("Ouvrage introuvable.");
