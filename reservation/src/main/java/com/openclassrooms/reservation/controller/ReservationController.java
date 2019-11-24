@@ -2,6 +2,7 @@ package com.openclassrooms.reservation.controller;
 
 import com.openclassrooms.reservation.dto.ReservationDto;
 import com.openclassrooms.reservation.dto.ReservationMapper;
+import com.openclassrooms.reservation.dto.ReservationOuvrageInfoDto;
 import com.openclassrooms.reservation.exception.ReservationIntrouvable;
 import com.openclassrooms.reservation.model.Reservation;
 import com.openclassrooms.reservation.service.ReservationService;
@@ -28,10 +29,10 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/reservation/utilisateur/{utilisateurId}")
-    private ResponseEntity<List<ReservationDto>> getReservationByUtilisateurId(@PathVariable int utilisateurId) throws ReservationIntrouvable {
-        List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
-        List<ReservationDto> dtos = new ArrayList<>();
-        reservationDtos.forEach(reservation -> dtos.add(reservationMapper.toReservationDto(reservation)));
+    private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationByUtilisateurId(@PathVariable int utilisateurId) throws ReservationIntrouvable {
+        List<Reservation>               reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
+        List<ReservationOuvrageInfoDto> dtos            = new ArrayList<>();
+        reservationDtos.forEach(reservation -> dtos.add(reservationMapper.toReservationOuvrageInfoDto(reservation)));
 
         return ResponseEntity.ok(dtos);
     }
