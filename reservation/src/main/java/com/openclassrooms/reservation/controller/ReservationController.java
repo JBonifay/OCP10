@@ -21,9 +21,15 @@ public class ReservationController {
     private final ReservationMapper  reservationMapper;
 
 
-    @GetMapping(value = "/reservation/{id}")
-    private ResponseEntity<List<ReservationDto>> getReservationByUtilisateurId(@PathVariable int id) throws ReservationIntrouvable {
-        List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(id);
+    @GetMapping(value = "/reservation/{reservationId}")
+    private ResponseEntity<ReservationDto> getReservationById(@PathVariable int reservationId) {
+        return ResponseEntity.ok(reservationMapper.toReservationDto(reservationService.findReservationById(
+            reservationId)));
+    }
+
+    @GetMapping(value = "/reservation/utilisateur/{utilisateurId}")
+    private ResponseEntity<List<ReservationDto>> getReservationByUtilisateurId(@PathVariable int utilisateurId) throws ReservationIntrouvable {
+        List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
         List<ReservationDto> dtos = new ArrayList<>();
         reservationDtos.forEach(reservation -> dtos.add(reservationMapper.toReservationDto(reservation)));
 

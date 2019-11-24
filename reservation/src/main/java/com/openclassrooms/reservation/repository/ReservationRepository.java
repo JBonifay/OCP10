@@ -9,6 +9,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     List<Reservation> findAllByUtilisateurId(int id);
 
-    Reservation findFirstByUtilisateurId(int id);
+    Reservation findByReservationId(int reservationId);
 
 }
