@@ -38,11 +38,13 @@
   <!-- ===== Modules ===== -->
   <modules>
     <module>batch</module>
-    <module>config-server</module>
     <module>ouvrage</module>
     <module>reservation</module>
     <module>utilisateur</module>
     <module>web</module>
+
+    <module>config-server</module>
+    <module>eureka</module>
   </modules>
 
   <!-- ===== Build config ===== -->

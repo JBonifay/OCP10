@@ -1,8 +1,8 @@
-package com.openclassrooms.controller;
+package com.openclassrooms.bibliotheque.web.controller;
 
-import com.openclassrooms.beans.ouvrage.OuvrageDescriptionBean;
-import com.openclassrooms.proxies.OuvrageProxy;
-import com.openclassrooms.proxies.RestPageImpl;
+import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageDescriptionBean;
+import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
+import com.openclassrooms.bibliotheque.web.proxies.RestPageImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,8 @@ public class OuvragePageController {
     public ModelAndView getOuvragesPage(@RequestParam(value = "id") int ouvrageId) {
         ModelAndView description = new ModelAndView("description");
 
-        OuvrageDescriptionBean ouvrageDescriptionBean = ouvrageProxy.getOuvrageDescriptionById(ouvrageId);
+        OuvrageDescriptionBean ouvrageDescriptionBean = ouvrageProxy.getOuvrageDescriptionById(ouvrageId).getBody();
+
         description.addObject("ouvrage", ouvrageDescriptionBean);
 
         return description;

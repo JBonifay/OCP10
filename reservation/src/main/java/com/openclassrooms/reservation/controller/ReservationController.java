@@ -7,8 +7,8 @@ import com.openclassrooms.reservation.exception.ReservationIntrouvable;
 import com.openclassrooms.reservation.exception.ReservationIntrouvableException;
 import com.openclassrooms.reservation.model.Reservation;
 import com.openclassrooms.reservation.service.ReservationService;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,9 +39,10 @@ public class ReservationController {
     @GetMapping(value = "/reservation/utilisateur/{utilisateurId}")
     private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationByUtilisateurId(@PathVariable int utilisateurId) throws ReservationIntrouvable {
         List<Reservation>               reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
-        List<ReservationOuvrageInfoDto> dtos            = new ArrayList<>();
-        reservationDtos.forEach(reservation -> dtos.add(reservationMapper.toReservationOuvrageInfoDto(reservation)));
 
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(reservationDtos.stream()
+                                                .map(reservationMapper::toReservationOuvrageInfoDto)
+                                                .collect(Collectors.toList()));
+
     }
 }

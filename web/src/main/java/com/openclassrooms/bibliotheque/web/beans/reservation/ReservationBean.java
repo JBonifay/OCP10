@@ -1,4 +1,4 @@
-package com.openclassrooms.beans.reservation;
+package com.openclassrooms.bibliotheque.web.beans.reservation;
 
 import java.sql.Date;
 import lombok.AllArgsConstructor;

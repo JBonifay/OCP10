@@ -1,4 +1,4 @@
-package com.openclassrooms.proxies;
+package com.openclassrooms.bibliotheque.web.proxies;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

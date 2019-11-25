@@ -1,9 +1,8 @@
-package com.openclassrooms.proxies;
+package com.openclassrooms.bibliotheque.web.proxies;
 
-import com.openclassrooms.beans.reservation.ReservationBean;
+import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 

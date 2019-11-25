@@ -1,4 +1,4 @@
-package com.openclassrooms.controller;
+package com.openclassrooms.bibliotheque.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

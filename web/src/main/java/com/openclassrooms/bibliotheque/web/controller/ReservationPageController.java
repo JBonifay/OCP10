@@ -1,10 +1,10 @@
-package com.openclassrooms.controller;
+package com.openclassrooms.bibliotheque.web.controller;
 
-import com.openclassrooms.beans.ouvrage.OuvrageIdNameBean;
-import com.openclassrooms.beans.reservation.ReservationBean;
-import com.openclassrooms.dto.OuvrageReservationDto;
-import com.openclassrooms.proxies.OuvrageProxy;
-import com.openclassrooms.proxies.ReservationProxy;
+import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageIdNameBean;
+import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
+import com.openclassrooms.bibliotheque.web.dto.OuvrageReservationDto;
+import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
+import com.openclassrooms.bibliotheque.web.proxies.ReservationProxy;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +31,8 @@ public class ReservationPageController {
 
         reservationBeanList.forEach(reservationBean -> {
             OuvrageIdNameBean ouvrageIdNameBean = ouvrageProxy.getOuvrageIdNameBean(reservationBean.getOuvrageId());
+
+            ouvrageProxy.getAllOuvrageByReservationList(reservationBeanList);
 
             // Full it
             ouvrageReservationDtoList.add(new OuvrageReservationDto());
