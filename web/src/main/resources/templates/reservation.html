@@ -24,9 +24,20 @@
 
     <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
 
-      <div class="border"></div>
+      <div class="row justify-content-center">
+        <th:block th:each="reservation : ${reservationList}">
+          <div class="card m-3" style="width: 18rem;">
+            <img class="card-img-top img-fluid" src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg" alt="Image du livre">
+            <div class="card-body">
+              <h5 class="card-title text-center font-weight-bold" th:text="${reservation.name}"></h5>
+              <p class="card-text text-center" th:text="'Reservation active:'"></p>
+              <p class="card-text text-center" th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
+              <a th:href="@{'/ouvrage?id=' + ${reservation.ouvrageId}}" class="btn btn-outline-secondary d-flex justify-content-center">Description ..</a>
+            </div>
+          </div>
+        </th:block>
 
-
+      </div>
 
     </main>
   </div>
