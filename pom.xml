@@ -81,6 +81,8 @@
     <mysql-connector-java>8.0.18</mysql-connector-java>
     <org.mapstruct>1.3.0.Final</org.mapstruct>
     <org.hibernate.validator>6.1.0.Final</org.hibernate.validator>
+    <eureka-client>2.1.4.RELEASE</eureka-client>
+    <eureka-server>2.1.4.RELEASE</eureka-server>
   </properties>
 
 
@@ -159,6 +161,16 @@
         <artifactId>lombok</artifactId>
         <version>${lombok}</version>
         <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        <version>${eureka-client}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        <version>${eureka-server}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
