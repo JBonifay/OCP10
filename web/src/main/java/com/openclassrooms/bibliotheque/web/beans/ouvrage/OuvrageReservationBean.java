@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.dto;
+package com.openclassrooms.bibliotheque.web.beans.ouvrage;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OuvrageReservationDto {
+public class OuvrageReservationBean {
 
     private int    ouvrageId;
     private String name;

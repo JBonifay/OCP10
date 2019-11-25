@@ -4,7 +4,7 @@ package com.openclassrooms.ouvrage.service;
 import com.openclassrooms.ouvrage.model.Ouvrage;
 import com.openclassrooms.ouvrage.repository.OuvrageRepository;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +22,10 @@ public class OuvrageService {
 
     public Ouvrage findOuvrageById(int ouvrageId) {
         return ouvrageRepository.findByOuvrageId(ouvrageId);
+    }
+
+    public List<Ouvrage> findAllByOuvrageIdList(List<Integer> ouvrageIdList) {
+        return ouvrageIdList.stream().map(ouvrageRepository::findByOuvrageId).collect(Collectors.toList());
     }
 
 }
