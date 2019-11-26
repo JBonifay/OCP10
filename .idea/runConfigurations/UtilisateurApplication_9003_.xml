@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="UtilisateurApplication(9003)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="utilisateur" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.openclassrooms.utilisateur.UtilisateurApplication" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.openclassrooms.bibliotheque.utilisateur.UtilisateurApplication" />
     <option name="VM_PARAMETERS" value="-Dserver.port=9003" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <method v="2">
