@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ReservationApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="reservation" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.openclassrooms.reservation.ReservationApplication" />
+    <option name="VM_PARAMETERS" value="-Dserver.port=9002" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
