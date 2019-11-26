@@ -3,13 +3,18 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- =============================================================== -->
-  <!-- Informations du projet -->
-  <!-- =============================================================== -->
+  <!-- ===== Spring boot parent ===== -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.1.RELEASE</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
   <!-- ===== Informations Maven ===== -->
   <groupId>com.openclassrooms</groupId>
   <artifactId>bibliotheque</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <!-- ===== Informations générales ===== -->
@@ -27,25 +32,180 @@
     </developer>
   </developers>
 
-  <!-- ===== Spring boot parent ===== -->
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.1.RELEASE</version>
-    <relativePath />
-  </parent>
 
   <!-- ===== Modules ===== -->
   <modules>
-    <module>batch</module>
+    <module>config-server</module>
+    <module>eureka-server</module>
+    <module>zuul-server</module>
+
     <module>ouvrage</module>
     <module>reservation</module>
     <module>utilisateur</module>
     <module>web</module>
-
-    <module>config-server</module>
-    <module>eureka</module>
   </modules>
+
+  <!-- ===== Dependencies versions ===== -->
+  <properties>
+    <java.version>1.8</java.version>
+    <mapstruct.version>1.3.1.Final</mapstruct.version>
+    <lombok.version>1.18.10</lombok.version>
+    <mysql-connector-java.version>8.0.18</mysql-connector-java.version>
+    <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
+
+    <spring-cloud>2.2.0.RELEASE</spring-cloud>
+    <spring-cloud-starter-netflix-eureka-server.version>${spring-cloud}</spring-cloud-starter-netflix-eureka-server.version>
+    <spring-cloud-starter-netflix-eureka-client.version>${spring-cloud}</spring-cloud-starter-netflix-eureka-client.version>
+    <spring-cloud-starter-netflix-zuul.version>${spring-cloud}</spring-cloud-starter-netflix-zuul.version>
+    <spring-cloud-starter-config.version>${spring-cloud}</spring-cloud-starter-config.version>
+    <spring-cloud-config-server.version>${spring-cloud}</spring-cloud-config-server.version>
+    <spring-cloud-starter-openfeign.version>${spring-cloud}</spring-cloud-starter-openfeign.version>
+    <spring-cloud-starter-netflix-ribbon.version>${spring-cloud}</spring-cloud-starter-netflix-ribbon.version>
+
+    <spring-boot-version>2.2.1.RELEASE</spring-boot-version>
+    <spring-boot-configuration-processor.version>${spring-boot-version}</spring-boot-configuration-processor.version>
+    <spring-boot-starter-data-jpa.version>${spring-boot-version}</spring-boot-starter-data-jpa.version>
+    <spring-boot-starter-web.version>${spring-boot-version}</spring-boot-starter-web.version>
+    <spring-boot-devtools.version>${spring-boot-version}</spring-boot-devtools.version>
+    <spring-boot-starter-thymeleaf.version>${spring-boot-version}</spring-boot-starter-thymeleaf.version>
+    <spring-boot-starter-batch.version>${spring-boot-version}</spring-boot-starter-batch.version>
+
+    <spring-data-commons.version>${spring-boot-version}</spring-data-commons.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+  </properties>
+
+  <!-- ===== Dependencies ===== -->
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- NETFLIX StacK -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        <version>${spring-cloud-starter-netflix-eureka-server.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        <version>${spring-cloud-starter-netflix-eureka-client.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        <version>${spring-cloud-starter-netflix-zuul.version}</version>
+      </dependency>
+
+
+      <!--  Spring Cloud -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-config</artifactId>
+        <version>${spring-cloud-starter-config.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-config-server</artifactId>
+        <version>${spring-cloud-config-server.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-openfeign</artifactId>
+        <version>${spring-cloud-starter-openfeign.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        <version>${spring-cloud-starter-netflix-ribbon.version}</version>
+      </dependency>
+
+
+      <!--  Spring boot -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-configuration-processor</artifactId>
+        <version>${spring-boot-configuration-processor.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+        <version>${spring-boot-starter-data-jpa.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <version>${spring-boot-starter-web.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <version>${spring-boot-devtools.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        <version>${spring-boot-starter-thymeleaf.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-batch</artifactId>
+        <version>${spring-boot-starter-batch.version}</version>
+      </dependency>
+
+
+      <!-- Data -->
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-commons</artifactId>
+        <version>${spring-data-commons.version}</version>
+        <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernate-validator.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql-connector-java.version}</version>
+      </dependency>
+
+      <!--  Others  -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct.version}</version>
+      </dependency>
+
+      <!--   Utils   -->
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <type>maven-plugin</type>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
 
   <!-- ===== Build config ===== -->
   <build>
@@ -53,134 +213,34 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot-maven-plugin}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${mapstruct.version}</version>
+            </path>
+          </annotationProcessorPaths>
+          <compilerArgs>
+            <compilerArg>
+              -Amapstruct.defaultComponentModel=spring
+            </compilerArg>
+          </compilerArgs>
+        </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <!-- ===== Dependencies versions ===== -->
-  <properties>
-    <spring.cloud.starter.config>2.1.4.RELEASE</spring.cloud.starter.config>
-    <spring-boot-starter-data-jpa>2.2.1.RELEASE</spring-boot-starter-data-jpa>
-    <spring-boot-starter-thymeleaf>2.2.1.RELEASE</spring-boot-starter-thymeleaf>
-    <spring-boot-starter-web>2.2.1.RELEASE</spring-boot-starter-web>
-    <spring-boot-devtools>2.2.1.RELEASE</spring-boot-devtools>
-    <spring-boot-starter-data-jpa>2.2.1.RELEASE</spring-boot-starter-data-jpa>
-    <spring-boot-starter-batch>2.2.1.RELEASE</spring-boot-starter-batch>
-    <spring-cloud-starter-openfeign>2.1.3.RELEASE</spring-cloud-starter-openfeign>
-    <spring-boot-configuration-processor>2.1.8.RELEASE</spring-boot-configuration-processor>
-    <spring-boot-maven-plugin>2.2.1.RELEASE</spring-boot-maven-plugin>
-    <spring-boot-starter-data-rest>2.2.1.RELEASE</spring-boot-starter-data-rest>
-    <spring-cloud-config-server>2.1.4.RELEASE</spring-cloud-config-server>
-    <spring-cloud-starter-netflix-ribbon>2.1.4.RELEASE</spring-cloud-starter-netflix-ribbon>
-    <lombok>1.18.10</lombok>
-    <mysql-connector-java>8.0.18</mysql-connector-java>
-    <org.mapstruct>1.3.0.Final</org.mapstruct>
-    <org.hibernate.validator>6.1.0.Final</org.hibernate.validator>
-    <eureka-client>2.1.4.RELEASE</eureka-client>
-    <eureka-server>2.1.4.RELEASE</eureka-server>
-  </properties>
-
-
-  <!-- Add typical dependencies for a web application -->
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.hibernate.validator</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>${org.hibernate.validator}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mapstruct</groupId>
-        <artifactId>mapstruct</artifactId>
-        <version>${org.mapstruct}</version>
-      </dependency>
-      <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>${mysql-connector-java}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-config-server</artifactId>
-        <version>${spring-cloud-config-server}</version>
-      </dependency>
-      <dependency>
-        <artifactId>spring-cloud-starter-config</artifactId>
-        <groupId>org.springframework.cloud</groupId>
-        <version>${spring.cloud.starter.config}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-        <version>${spring-boot-starter-data-jpa}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        <version>${spring-boot-starter-thymeleaf}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>${spring-boot-starter-web}</version>
-      </dependency>
-      <dependency>
-        <artifactId>spring-cloud-starter-openfeign</artifactId>
-        <groupId>org.springframework.cloud</groupId>
-        <version>${spring-cloud-starter-openfeign}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-configuration-processor</artifactId>
-        <version>${spring-boot-configuration-processor}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-batch</artifactId>
-        <version>${spring-boot-starter-batch}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-rest</artifactId>
-        <version>${spring-boot-starter-data-rest}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-devtools</artifactId>
-        <version>${spring-boot-devtools}</version>
-        <scope>runtime</scope>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        <version>${eureka-client}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        <version>${eureka-server}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        <version>${spring-cloud-starter-netflix-ribbon}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
 </project>

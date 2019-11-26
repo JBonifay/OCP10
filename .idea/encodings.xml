@@ -4,7 +4,7 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/batch" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-server" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ouvrage" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/reservation" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/utilisateur" charset="UTF-8" />

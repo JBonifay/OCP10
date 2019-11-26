@@ -3,7 +3,9 @@ package com.openclassrooms.bibliotheque.ouvrage.dto;
 
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import org.mapstruct.Mapper;
+import org.mapstruct.MapperConfig;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
 @Mapper
 public interface OuvrageMapper {

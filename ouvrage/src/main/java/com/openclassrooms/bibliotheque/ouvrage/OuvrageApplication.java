@@ -7,7 +7,6 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@RibbonClient("microservice-ouvrage")
 public class OuvrageApplication {
 
     public static void main(String[] args) {

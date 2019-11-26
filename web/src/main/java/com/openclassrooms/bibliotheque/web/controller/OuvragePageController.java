@@ -1,10 +1,12 @@
 package com.openclassrooms.bibliotheque.web.controller;
 
+import com.netflix.discovery.converters.Auto;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageDescriptionBean;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageStockBean;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.web.proxies.RestPageImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

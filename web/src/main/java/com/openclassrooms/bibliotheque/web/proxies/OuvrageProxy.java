@@ -3,9 +3,8 @@ package com.openclassrooms.bibliotheque.web.proxies;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageDescriptionBean;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageIdNameBean;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageStockBean;
-import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
-import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageReservationBean;
 import java.util.List;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "microservice-ouvrage", url = "localhost:9001")
+@FeignClient(contextId = "microservice-ouvrage", name = "zuul-server")
+@RibbonClient(name = "microservice-ouvrage")
 public interface OuvrageProxy {
 
     @GetMapping("/ouvrage")
