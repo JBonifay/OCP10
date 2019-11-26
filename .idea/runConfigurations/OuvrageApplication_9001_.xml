@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="OuvrageApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="OuvrageApplication(9001)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="ouvrage" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.openclassrooms.ouvrage.OuvrageApplication" />
     <option name="VM_PARAMETERS" value="-Dserver.port=9001" />

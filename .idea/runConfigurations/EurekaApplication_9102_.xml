@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="EurekaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="EurekaApplication(9102)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="eureka" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.openclassrooms.eureka.EurekaApplication" />
     <option name="VM_PARAMETERS" value="-Dserver.port=9102" />

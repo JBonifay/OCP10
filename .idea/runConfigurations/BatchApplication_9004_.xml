@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BatchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="BatchApplication(9004)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="batch" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.openclassrooms.batch.BatchApplication" />
     <option name="VM_PARAMETERS" value="-Dserver.port=9004" />
