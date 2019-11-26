@@ -7,11 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="config-server" />
         <module name="batch" />
+        <module name="config-server" />
+        <module name="eureka" />
+        <module name="zuul-server" />
         <module name="utilisateur" />
         <module name="web" />
-        <module name="eureka" />
       </profile>
       <profile name="Annotation profile for Bibliotheque OC P7" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -47,6 +48,7 @@
       <module name="reservation" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="utilisateur" options="-parameters" />
       <module name="web" options="-parameters" />
+      <module name="zuul-server" options="-parameters" />
     </option>
   </component>
 </project>

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="ConfigServerApplication(9101)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="config-server" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.openclassrooms.bibliotheque.configserver.ConfigServerApplication" />
     <option name="ALTERNATIVE_JRE_PATH" />
