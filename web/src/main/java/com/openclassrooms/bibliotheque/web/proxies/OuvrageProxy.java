@@ -17,16 +17,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RibbonClient(name = "microservice-ouvrage")
 public interface OuvrageProxy {
 
-    @GetMapping("/ouvrage")
+    String MICROSERVICE_OUVRAGE = "/microservice-ouvrage";
+
+    @GetMapping(MICROSERVICE_OUVRAGE + "/ouvrage")
     ResponseEntity<RestPageImpl<OuvrageStockBean>> getAllOuvrageListByPage(Pageable pageable);
 
-    @GetMapping("/ouvrage/{ouvrageId}")
+    @GetMapping(MICROSERVICE_OUVRAGE + "/ouvrage/{ouvrageId}")
     ResponseEntity<OuvrageDescriptionBean> getOuvrageDescriptionById(@PathVariable int ouvrageId);
 
-    @GetMapping("/ouvrage/reservation/{ouvrageId}")
+    @GetMapping(MICROSERVICE_OUVRAGE + "/ouvrage/reservation/{ouvrageId}")
     ResponseEntity<OuvrageIdNameBean> getOuvrageIdNameBean(@PathVariable int ouvrageId);
 
-    @PostMapping("/ouvrage/allouvragebyouvrageidlist")
+    @PostMapping(MICROSERVICE_OUVRAGE + "/ouvrage/allouvragebyouvrageidlist")
     ResponseEntity<List<OuvrageIdNameBean>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> list);
 
 }

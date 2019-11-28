@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RibbonClient(name = "microservice-reservation")
 public interface ReservationProxy {
 
-    @GetMapping("/reservation/utilisateur/{utilisateurId}")
+    String MICROSERVICE_RESERVATION = "/microservice-reservation";
+
+    @GetMapping(MICROSERVICE_RESERVATION + "/reservation/utilisateur/{utilisateurId}")
     ResponseEntity<List<ReservationBean>> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
 
 
