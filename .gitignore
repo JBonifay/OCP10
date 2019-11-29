@@ -110,4 +110,4 @@ fabric.properties
 .idea*
 config-server-repo/
 
-!.idea*
+!.idea*.idea/
