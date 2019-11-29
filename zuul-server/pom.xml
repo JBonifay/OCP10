@@ -7,7 +7,6 @@
     <groupId>com.openclassrooms</groupId>
     <artifactId>bibliotheque</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath />
   </parent>
 
   <artifactId>zuul-server</artifactId>
