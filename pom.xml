@@ -52,8 +52,10 @@
     <lombok.version>1.18.10</lombok.version>
     <mysql-connector-java.version>8.0.18</mysql-connector-java.version>
     <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
-
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <spring-cloud>2.2.0.RELEASE</spring-cloud>
+    <spring-boot-version>2.2.1.RELEASE</spring-boot-version>
+
     <spring-cloud-starter-netflix-eureka-server.version>${spring-cloud}</spring-cloud-starter-netflix-eureka-server.version>
     <spring-cloud-starter-netflix-eureka-client.version>${spring-cloud}</spring-cloud-starter-netflix-eureka-client.version>
     <spring-cloud-starter-netflix-zuul.version>${spring-cloud}</spring-cloud-starter-netflix-zuul.version>
@@ -61,8 +63,8 @@
     <spring-cloud-config-server.version>${spring-cloud}</spring-cloud-config-server.version>
     <spring-cloud-starter-openfeign.version>${spring-cloud}</spring-cloud-starter-openfeign.version>
     <spring-cloud-starter-netflix-ribbon.version>${spring-cloud}</spring-cloud-starter-netflix-ribbon.version>
+    <spring-cloud-starter-security.version>${spring-cloud}</spring-cloud-starter-security.version>
 
-    <spring-boot-version>2.2.1.RELEASE</spring-boot-version>
     <spring-boot-configuration-processor.version>${spring-boot-version}</spring-boot-configuration-processor.version>
     <spring-boot-starter-data-jpa.version>${spring-boot-version}</spring-boot-starter-data-jpa.version>
     <spring-boot-starter-web.version>${spring-boot-version}</spring-boot-starter-web.version>
@@ -71,7 +73,6 @@
     <spring-boot-starter-batch.version>${spring-boot-version}</spring-boot-starter-batch.version>
 
     <spring-data-commons.version>${spring-boot-version}</spring-data-commons.version>
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   </properties>
 
   <!-- ===== Dependencies ===== -->
@@ -97,6 +98,11 @@
         <version>${spring-cloud-starter-netflix-zuul.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        <version>${spring-cloud-starter-netflix-ribbon.version}</version>
+      </dependency>
 
       <!--  Spring Cloud -->
       <dependency>
@@ -119,10 +125,9 @@
 
       <dependency>
         <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        <version>${spring-cloud-starter-netflix-ribbon.version}</version>
+        <artifactId>spring-cloud-starter-security</artifactId>
+        <version>${spring-cloud-starter-security.version}</version>
       </dependency>
-
 
       <!--  Spring boot -->
       <dependency>
@@ -244,5 +249,17 @@
       </plugins>
     </pluginManagement>
   </build>
+
+
+  <repositories>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
 </project>

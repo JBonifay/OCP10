@@ -7,6 +7,7 @@
     <groupId>com.openclassrooms</groupId>
     <artifactId>bibliotheque</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath />
   </parent>
 
   <artifactId>zuul-server</artifactId>
@@ -30,6 +31,11 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-security</artifactId>
     </dependency>
 
   </dependencies>
