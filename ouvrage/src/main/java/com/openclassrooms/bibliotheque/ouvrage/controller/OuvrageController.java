@@ -3,12 +3,15 @@ package com.openclassrooms.bibliotheque.ouvrage.controller;
 
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageMapper;
+import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageNameIdDto;
+import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.ouvrage.exceptions.ProduitIntrouvableException;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.service.OuvrageService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +29,7 @@ public class OuvrageController {
     private final OuvrageMapper  ouvrageMapper;
 
     @GetMapping(value = "/ouvrage")
-    public ResponseEntity getAllOuvrageListe(Pageable pageable) {
+    public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(Pageable pageable) {
         return ResponseEntity.ok(ouvrageService.getAll(pageable).map(ouvrageMapper::toOuvrageStockDto));
 
 
@@ -45,7 +48,7 @@ public class OuvrageController {
     }
 
     @PostMapping("/ouvrage/allouvragebyouvrageidlist")
-    public ResponseEntity getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
+    public ResponseEntity<List<OuvrageNameIdDto>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
 
         if (ouvrageIdList.isEmpty()) {
             throw new ProduitIntrouvableException("Erreur dans la récupération des reservations");
