@@ -31,8 +31,6 @@ public class OuvrageController {
     @GetMapping(value = "/ouvrage")
     public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(Pageable pageable) {
         return ResponseEntity.ok(ouvrageService.getAll(pageable).map(ouvrageMapper::toOuvrageStockDto));
-
-
     }
 
     @RequestMapping(value = "/ouvrage/{ouvrageId}")
