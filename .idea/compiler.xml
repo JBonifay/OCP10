@@ -30,9 +30,11 @@
         <module name="web" />
         <module name="reservation" />
         <module name="utilisateur" />
+        <module name="auth-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="auth-service" target="1.8" />
       <module name="bibliotheque" target="1.8" />
       <module name="config-server" target="1.8" />
       <module name="eureka-server" target="1.8" />
@@ -45,6 +47,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="config-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="eureka-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="ouvrage" options="-parameters -Amapstruct.defaultComponentModel=spring" />

@@ -38,6 +38,7 @@
     <module>config-server</module>
     <module>eureka-server</module>
     <module>zuul-server</module>
+    <module>auth-service</module>
 
     <module>ouvrage</module>
     <module>reservation</module>

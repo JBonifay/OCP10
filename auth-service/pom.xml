@@ -9,11 +9,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>zuul-server</artifactId>
+  <artifactId>auth-service</artifactId>
   <packaging>jar</packaging>
 
-  <name>zuul-server</name>
-  <description>Microservice Zuul server</description>
+  <name>auth-service</name>
+  <description>Microservice authentication</description>
 
   <dependencies>
 
@@ -23,23 +23,23 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
     </dependency>
 
     <dependency>
@@ -53,5 +53,4 @@
     </dependency>
 
   </dependencies>
-
 </project>
