@@ -19,11 +19,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/utilisateur</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="stock" uuid="b519e093-d5e1-444c-a1d9-80c2ee08d4c6">
+    <data-source source="LOCAL" name="jwttoken" uuid="258dbea2-522e-44f7-99e7-ca46da7b2fce">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/stock</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/jwttoken</jdbc-url>
     </data-source>
   </component>
 </project>

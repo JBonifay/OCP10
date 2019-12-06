@@ -1,20 +1,13 @@
-package com.arjun.gateway.bean.auth;
+package com.openclassrooms.bibliotheque.zuulserver.bean.auth;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@Data
 public class AuthResponse {
-    private String accessToken ;
 
-    public AuthResponse(String accessToken) {
-        this.accessToken = accessToken;
-    }
+    private String accessToken;
 
-    public AuthResponse() {
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
 }

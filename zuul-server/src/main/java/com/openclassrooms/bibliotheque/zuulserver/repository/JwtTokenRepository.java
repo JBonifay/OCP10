@@ -1,9 +1,10 @@
-package com.arjun.gateway.repository;
+package com.openclassrooms.bibliotheque.zuulserver.repository;
 
-import com.arjun.gateway.bean.auth.JwtToken;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.openclassrooms.bibliotheque.zuulserver.bean.JwtToken;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JwtTokenRepository extends MongoRepository<JwtToken,String> {
+public interface JwtTokenRepository extends JpaRepository<JwtToken, Integer> {
+
 }

@@ -1,21 +1,17 @@
 package com.openclassrooms.bibliotheque.utilisateur.service;
 
+import com.openclassrooms.bibliotheque.utilisateur.model.Utilisateur;
 import com.openclassrooms.bibliotheque.utilisateur.repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UtilisateurService implements UserDetailsService {
+public class UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
 
-
-    @Override
-    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+    public Utilisateur findUtilisateurByEmail(final String email) {
         return utilisateurRepository.findByEmail(email);
     }
 

@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.exception;
+package com.openclassrooms.bibliotheque.zuulserver.web.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
-package com.openclassrooms.bibliotheque.zuulserver.security;
+package com.openclassrooms.bibliotheque.zuulserver.security.config;
 
+import com.openclassrooms.bibliotheque.zuulserver.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .accessDeniedPage("/login");
 
         // Apply JWT
-        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+        http.apply(new JwtTokenFilterConfig(jwtTokenProvider));
 
         // Optional, if you want to test the API from a browser
         // http.httpBasic();
