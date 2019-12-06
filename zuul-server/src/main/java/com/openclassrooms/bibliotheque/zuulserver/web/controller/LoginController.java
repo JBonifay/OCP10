@@ -29,11 +29,14 @@ public class LoginController {
     @PostMapping("/signin")
     @ResponseBody
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
-
         ResponseEntity<UtilisateurBean> utilisateurBean = utilisateurProxy.findUtilisateurByEmail(loginRequest.getEmail());
 
-        String token = loginService.login(utilisateurBean.getBody());
-        return getAuthResponseResponseEntity(token);
+        if (utilisateurBean.getStatusCode() == HttpStatus.OK) {
+            String token = loginService.login(utilisateurBean.getBody());
+            return getAuthResponseResponseEntity(token);
+        } else {
+            return null;
+        }
     }
 
     @CrossOrigin("*")
