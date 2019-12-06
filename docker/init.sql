@@ -11,7 +11,7 @@ GRANT ALL PRIVILEGES ON jwttoken.* TO bibliotheque@'%';
 
 CREATE TABLE jwttoken.jwttoken
 (
-    jwttoken_id INT           NOT NULL,
+    jwttoken_id INT           NOT NULL AUTO_INCREMENT,
     jwttoken    VARCHAR(1000) NOT NULL,
 
     PRIMARY KEY (jwttoken_id)
