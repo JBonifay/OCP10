@@ -25,7 +25,7 @@ public class JwtTokenProvider {
     private static final String             AUTHORIZATION          = "Authorization";
     private final        JwtTokenRepository jwtTokenRepository;
     private final        UtilisateurProxy   utilisateurProxy;
-    private              String             secretKey              = "secret-key";
+    private              String             secretKey              = "bibliotheque-token-key";
     private              long               validityInMilliseconds = 3600000; // 1h
 
     @PostConstruct
@@ -92,6 +92,17 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = getUserDetails(token);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
+    public boolean delete(final String token) {
+        boolean exist = jwtTokenRepository.existsByTokenEquals(token);
+        if (exist) {
+            JwtToken jwtToken = jwtTokenRepository.findByTokenEquals(token);
+            jwtTokenRepository.delete(jwtToken);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

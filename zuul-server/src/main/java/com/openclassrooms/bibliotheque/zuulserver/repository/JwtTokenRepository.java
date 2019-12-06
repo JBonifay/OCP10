@@ -9,4 +9,6 @@ public interface JwtTokenRepository extends JpaRepository<JwtToken, Integer> {
 
     boolean existsByTokenEquals(String token);
 
+    JwtToken findByTokenEquals(String token);
+
 }

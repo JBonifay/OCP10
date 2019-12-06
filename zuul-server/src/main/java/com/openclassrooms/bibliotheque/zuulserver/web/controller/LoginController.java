@@ -31,7 +31,7 @@ public class LoginController {
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         ResponseEntity<UtilisateurBean> utilisateurBean = utilisateurProxy.findUtilisateurByEmail(loginRequest.getEmail());
 
-        if (utilisateurBean.getStatusCode() == HttpStatus.OK) {
+        if (utilisateurBean.getStatusCode() == HttpStatus.OK && utilisateurBean.getBody() != null) {
             String token = loginService.login(utilisateurBean.getBody());
             return getAuthResponseResponseEntity(token);
         } else {
@@ -65,7 +65,7 @@ public class LoginController {
         exposeList.add("Authorization");
         headers.setAccessControlExposeHeaders(exposeList);
         headers.set("Authorization", token);
-        return new ResponseEntity(new AuthResponse(token), headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(new AuthResponse(token), headers, HttpStatus.CREATED);
     }
 
 }
