@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class LoginController {
 
     private final LoginService     loginService;
     private final UtilisateurProxy utilisateurProxy;
 
     @CrossOrigin("*")
-    @PostMapping("/signin")
     @ResponseBody
+    @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         ResponseEntity<UtilisateurBean> utilisateurBean = utilisateurProxy.findUtilisateurByEmail(loginRequest.getEmail());
 
@@ -40,8 +41,8 @@ public class LoginController {
     }
 
     @CrossOrigin("*")
-    @PostMapping("/signout")
     @ResponseBody
+    @PostMapping("/signout")
     public ResponseEntity<AuthResponse> logout(@RequestHeader(value = "Authorization") String token) {
         HttpHeaders headers = new HttpHeaders();
         if (loginService.logout(token)) {

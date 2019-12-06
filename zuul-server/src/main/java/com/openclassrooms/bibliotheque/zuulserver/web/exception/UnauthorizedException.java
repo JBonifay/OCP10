@@ -4,11 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.UNAUTHORIZED)
-public class CustomException extends RuntimeException {
+public class UnauthorizedException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
-
-    public CustomException(String error) {
+    public UnauthorizedException(String error) {
         super(error);
     }
 

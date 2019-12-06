@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.security.config;
+package com.openclassrooms.bibliotheque.zuulserver.config;
 
 import com.openclassrooms.bibliotheque.zuulserver.security.JwtTokenFilter;
 import com.openclassrooms.bibliotheque.zuulserver.security.JwtTokenProvider;

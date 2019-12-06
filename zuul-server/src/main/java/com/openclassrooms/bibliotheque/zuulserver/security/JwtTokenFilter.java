@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.zuulserver.security;
 
-import com.openclassrooms.bibliotheque.zuulserver.web.exception.CustomException;
+import com.openclassrooms.bibliotheque.zuulserver.web.exception.UnauthorizedException;
 import io.jsonwebtoken.JwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -10,7 +10,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -28,13 +27,13 @@ public class JwtTokenFilter extends GenericFilterBean {
         if (token != null) {
             if (!jwtTokenProvider.isTokenPresentInDB(token)) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
-                throw new CustomException("Invalid JWT token");
+                throw new UnauthorizedException("Invalid JWT token");
             }
             try {
                 jwtTokenProvider.validateToken(token);
             } catch (JwtException | IllegalArgumentException e) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
-                throw new CustomException("Invalid JWT token");
+                throw new UnauthorizedException("Invalid JWT token");
             }
             Authentication auth = jwtTokenProvider.getAuthentication(token);
             //setting auth in the context.
