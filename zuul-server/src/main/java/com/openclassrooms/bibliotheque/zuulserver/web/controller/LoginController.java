@@ -51,24 +51,6 @@ public class LoginController {
         return new ResponseEntity<AuthResponse>(new AuthResponse("Logout Failed"), headers, HttpStatus.NOT_MODIFIED);
     }
 
-    /**
-     * @return boolean.
-     * if request reach here it means it is a valid token.
-     */
-    @PostMapping("/valid/token")
-    @ResponseBody
-    public Boolean isValidToken(@RequestHeader(value = "Authorization") String token) {
-        return true;
-    }
-
-
-    @PostMapping("/signin/token")
-    @CrossOrigin("*")
-    @ResponseBody
-    public ResponseEntity<AuthResponse> createNewToken(@RequestHeader(value = "Authorization") String token) {
-        String newToken = loginService.createNewToken(token);
-        return getAuthResponseResponseEntity(newToken);
-    }
 
     private ResponseEntity<AuthResponse> getAuthResponseResponseEntity(final String token) {
         HttpHeaders  headers    = new HttpHeaders();

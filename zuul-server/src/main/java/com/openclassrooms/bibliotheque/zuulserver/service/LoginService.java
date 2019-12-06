@@ -1,21 +1,11 @@
 package com.openclassrooms.bibliotheque.zuulserver.service;
 
 import com.openclassrooms.bibliotheque.zuulserver.bean.utilisateur.UtilisateurBean;
-import com.openclassrooms.bibliotheque.zuulserver.proxies.UtilisateurProxy;
-import com.openclassrooms.bibliotheque.zuulserver.repository.JwtTokenRepository;
 import com.openclassrooms.bibliotheque.zuulserver.security.JwtTokenProvider;
 import com.openclassrooms.bibliotheque.zuulserver.web.exception.CustomException;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.Manager;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

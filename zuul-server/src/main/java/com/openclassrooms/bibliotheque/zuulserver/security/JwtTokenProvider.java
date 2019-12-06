@@ -13,19 +13,15 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
 
-    private static final String             AUTH                   = "auth";
     private static final String             AUTHORIZATION          = "Authorization";
     private final        JwtTokenRepository jwtTokenRepository;
     private final        UtilisateurProxy   utilisateurProxy;
@@ -75,8 +71,7 @@ public class JwtTokenProvider {
     }
 
     public boolean isTokenPresentInDB(String token) {
-        return jwtTokenRepository.findById(Integer.decode(token))
-                                 .isPresent();
+        return jwtTokenRepository.existsByTokenEquals(token);
     }
 
     public UtilisateurBean getUserDetails(String token) {
