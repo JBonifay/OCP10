@@ -30,15 +30,18 @@ public class Ouvrage {
     @Column(name = "ouvrage_id")
     private int ouvrageId;
 
+    @NotNull
     @Length(min = 3, max = 10)
     @Column(name = "name")
     private String name;
 
+    @NotNull
     @Length(min = 3, max = 10)
     @Column(name = "author")
     private String author;
 
     @Past
+    @NotNull
     @Column(name = "release_date")
     private Date releaseDate;
 
