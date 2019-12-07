@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/auth-service/auth-service.iml" filepath="$PROJECT_DIR$/auth-service/auth-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/bibliotheque.iml" filepath="$PROJECT_DIR$/.idea/bibliotheque.iml" />
       <module fileurl="file://$PROJECT_DIR$/../bibliotheque-config/bibliotheque-config.iml" filepath="$PROJECT_DIR$/../bibliotheque-config/bibliotheque-config.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common-service/common-service.iml" filepath="$PROJECT_DIR$/common-service/common-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/ouvrage/ouvrage.iml" filepath="$PROJECT_DIR$/ouvrage/ouvrage.iml" />
