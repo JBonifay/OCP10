@@ -24,6 +24,7 @@
           <entry name="$MAVEN_REPOSITORY$/joda-time/joda-time/2.9/joda-time-2.9.jar" />
         </processorPath>
         <module name="ouvrage" />
+        <module name="common-service" />
         <module name="eureka-server" />
         <module name="config-server" />
         <module name="zuul-server" />
@@ -36,6 +37,7 @@
     <bytecodeTargetLevel>
       <module name="auth-service" target="1.8" />
       <module name="bibliotheque" target="1.8" />
+      <module name="common-service" target="1.8" />
       <module name="config-server" target="1.8" />
       <module name="eureka-server" target="1.8" />
       <module name="ouvrage" target="1.8" />
@@ -48,6 +50,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="common-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="config-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="eureka-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="ouvrage" options="-parameters -Amapstruct.defaultComponentModel=spring" />

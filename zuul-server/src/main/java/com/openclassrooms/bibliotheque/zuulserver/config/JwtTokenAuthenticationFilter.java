@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.zuulserver.config;
 
+import com.openclassrooms.commonservice.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import java.io.IOException;
