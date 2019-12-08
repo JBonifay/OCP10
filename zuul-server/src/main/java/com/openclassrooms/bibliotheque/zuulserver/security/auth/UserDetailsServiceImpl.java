@@ -1,4 +1,4 @@
-package com.openclassrooms.authservice.service;
+package com.openclassrooms.bibliotheque.zuulserver.security.auth;
 
 import java.util.Arrays;
 import java.util.List;

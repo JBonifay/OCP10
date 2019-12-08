@@ -1,7 +1,7 @@
-package com.openclassrooms.authservice.security;
+package com.openclassrooms.bibliotheque.zuulserver.security.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.openclassrooms.commonservice.security.JwtConfig;
+import com.openclassrooms.bibliotheque.zuulserver.security.jwt.JwtConfig;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;

@@ -1,7 +1,6 @@
-package com.openclassrooms.authservice.config;
+package com.openclassrooms.bibliotheque.zuulserver.security.auth;
 
-import com.openclassrooms.authservice.security.JwtUsernameAndPasswordAuthenticationFilter;
-import com.openclassrooms.commonservice.security.JwtConfig;
+import com.openclassrooms.bibliotheque.zuulserver.security.jwt.JwtConfig;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

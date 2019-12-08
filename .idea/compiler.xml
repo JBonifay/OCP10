@@ -31,7 +31,6 @@
         <module name="reservation" />
         <module name="utilisateur" />
         <module name="auth-service" />
-        <module name="common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -40,6 +39,7 @@
       <module name="common" target="1.8" />
       <module name="config-server" target="1.8" />
       <module name="eureka-server" target="1.8" />
+      <module name="microservice-auth" target="1.8" />
       <module name="ouvrage" target="1.8" />
       <module name="reservation" target="1.8" />
       <module name="utilisateur" target="1.8" />
@@ -53,6 +53,7 @@
       <module name="common" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="config-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="eureka-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="microservice-auth" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="ouvrage" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="reservation" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="utilisateur" options="-parameters -Amapstruct.defaultComponentModel=spring" />

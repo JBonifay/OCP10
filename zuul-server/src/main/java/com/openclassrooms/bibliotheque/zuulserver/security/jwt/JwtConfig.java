@@ -1,8 +1,10 @@
-package com.openclassrooms.commonservice.security;
-
+package com.openclassrooms.bibliotheque.zuulserver.security.jwt;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 @Getter
 public class JwtConfig {
