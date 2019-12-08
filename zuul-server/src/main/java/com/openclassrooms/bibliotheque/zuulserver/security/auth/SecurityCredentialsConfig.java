@@ -1,6 +1,7 @@
 package com.openclassrooms.bibliotheque.zuulserver.security.auth;
 
 import com.openclassrooms.bibliotheque.zuulserver.security.jwt.JwtConfig;
+import com.openclassrooms.bibliotheque.zuulserver.security.jwt.JwtTokenAuthenticationFilter;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity    // Enable security config. This annotation denotes config for spring security.
 public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
@@ -33,11 +35,11 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
             .and()
             // Add a filter to validate user credentials and add token in the response header
-
+            .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
             // What's the authenticationManager()?
             // An object provided by WebSecurityConfigurerAdapter, used to authenticate the user passing user's credentials
             // The filter needs this auth manager to authenticate the user.
-            .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
+            .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
             // allow all POST requests
             .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
