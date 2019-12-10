@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS utilisateur;
+
 CREATE TABLE utilisateur.utilisateur
 (
     utilisateur_id INT AUTO_INCREMENT,

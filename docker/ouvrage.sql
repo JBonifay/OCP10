@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS ouvrage;
+
 CREATE TABLE ouvrage.ouvrage
 (
     ouvrage_id      INT           NOT NULL,

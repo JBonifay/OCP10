@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS reservation;
+
 CREATE TABLE reservation.reservation
 (
     reservation_id         INT AUTO_INCREMENT,
