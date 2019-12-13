@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value = "microservice-reservation")
+@FeignClient(contextId = "ReservationProxy", value = "zuul-server")
 public interface ReservationProxy {
 
 

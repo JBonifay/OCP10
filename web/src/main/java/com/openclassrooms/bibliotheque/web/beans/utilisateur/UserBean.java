@@ -12,7 +12,7 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class UserBean implements UserDetails {
 
     @Id
     private Integer userId;

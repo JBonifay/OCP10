@@ -117,6 +117,12 @@
         <version>${spring-cloud-starter-openfeign.version}</version>
       </dependency>
 
+      <!--  Spring security -->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
+      </dependency>
 
       <!--  Spring boot -->
       <dependency>
@@ -194,12 +200,6 @@
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
         <version>${mapstruct.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt</artifactId>
-        <version>${jjwt.version}</version>
       </dependency>
 
     </dependencies>
