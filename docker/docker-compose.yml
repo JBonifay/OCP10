@@ -14,6 +14,7 @@ services:
       - '3306'
       # Where our data will be persisted
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./ouvrage.sql:/docker-entrypoint-initdb.d/ouvrage.sql
       - ./stock.sql:/docker-entrypoint-initdb.d/stock.sql
       - ./utilisateur.sql:/docker-entrypoint-initdb.d/utilisateur.sql
