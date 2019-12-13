@@ -20,7 +20,7 @@ public class OuvragePageController {
 
     private final OuvrageProxy ouvrageProxy;
 
-    @GetMapping("/listedesouvrages")
+    @GetMapping({"/listedesouvrages", "/"})
     public ModelAndView getOuvragesPage(Pageable pageable) {
         ModelAndView ouvrages = new ModelAndView("listedesouvrages");
 
