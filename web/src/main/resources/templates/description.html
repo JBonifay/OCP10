@@ -9,7 +9,8 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
 
   <!-- Material Design for Bootstrap CSS -->
-  <link crossorigin="anonymous" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+  <link crossorigin="anonymous"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
         integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" rel="stylesheet">
 
   <title>Bibliothèque</title>
@@ -27,7 +28,7 @@
       <div class="row mt-5">
 
         <div class="ml-5">
-          <img src="http://www.pngmart.com/files/1/Book-PNG-File.png" class="img-fluid" width="200" alt="...">
+          <img alt="..." class="img-fluid" src="http://www.pngmart.com/files/1/Book-PNG-File.png" width="200">
         </div>
 
         <div class="col-5 ml-5 mt-4">
@@ -41,9 +42,9 @@
         <div class="col-4">
           <p th:text="'Notation sur 5:'"></p>
           <th:block th:each="star: ${#numbers.sequence(1, ouvrage.notation)}">
-            <img class="" th:src="@{/images/star.png}" width="80" height="80">
+            <img class="" height="80" th:src="@{/images/star.png}" width="80">
           </th:block>
-          <p  class="mt-5" th:text="'Encore en stock: '"><h6 class="font-weight-bold" th:text="${ouvrage.quantity}"></h6></p>
+          <p class="mt-5" th:text="'Encore en stock: '"><h6 class="font-weight-bold" th:text="${ouvrage.quantity}"></h6></p>
         </div>
 
         <div class="mt-5">

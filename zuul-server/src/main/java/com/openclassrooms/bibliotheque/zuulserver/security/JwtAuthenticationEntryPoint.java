@@ -5,8 +5,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -18,7 +16,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         AuthenticationException authException) throws IOException, ServletException {
         log.debug("Jwt authentication failed:" + authException);
 
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED	, "Jwt authentication failed");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Jwt authentication failed");
 
     }
 

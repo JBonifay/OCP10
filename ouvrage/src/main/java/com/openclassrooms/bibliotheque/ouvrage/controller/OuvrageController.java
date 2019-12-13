@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OuvrageController {
 
     private final OuvrageService ouvrageService;
-    private final OuvrageMapper  ouvrageMapper;
+    private final OuvrageMapper ouvrageMapper;
 
     @GetMapping(value = "/ouvrage")
     public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(Pageable pageable) {
@@ -34,7 +34,8 @@ public class OuvrageController {
     }
 
     @RequestMapping(value = "/ouvrage/{ouvrageId}")
-    public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId) throws ProduitIntrouvableException {
+    public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId)
+        throws ProduitIntrouvableException {
 
         Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
 
@@ -53,9 +54,9 @@ public class OuvrageController {
         }
 
         return ResponseEntity.ok(ouvrageService.findAllByOuvrageIdList(ouvrageIdList)
-                                               .stream()
-                                               .map(ouvrageMapper::toOuvrageNameIdDto)
-                                               .collect(Collectors.toList()));
+            .stream()
+            .map(ouvrageMapper::toOuvrageNameIdDto)
+            .collect(Collectors.toList()));
     }
 
 }

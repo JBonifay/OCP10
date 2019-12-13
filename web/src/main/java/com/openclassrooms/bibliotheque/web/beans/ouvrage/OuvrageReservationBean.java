@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class OuvrageReservationBean {
 
-    private int    ouvrageId;
+    private int ouvrageId;
     private String name;
-    private Date   reservationDateDebut;
-    private Date   reservationDateFin;
+    private Date reservationDateDebut;
+    private Date reservationDateFin;
 
 }

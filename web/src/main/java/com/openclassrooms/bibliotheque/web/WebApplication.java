@@ -10,8 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 public class WebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WebApplication.class, args);
+    }
 
 }

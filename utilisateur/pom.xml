@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>com.openclassrooms</groupId>
-    <artifactId>bibliotheque</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-
   <artifactId>utilisateur</artifactId>
-  <packaging>jar</packaging>
-  <name>utilisateur</name>
-  <description>Gestion des utilisateurs</description>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      <groupId>org.springframework.cloud</groupId>
     </dependency>
 
     <dependency>
-      <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
+      <groupId>org.hibernate.validator</groupId>
     </dependency>
 
     <dependency>
@@ -32,30 +21,41 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <dependency>
       <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
 
     <dependency>
-      <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
     </dependency>
 
     <dependency>
-      <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
     </dependency>
 
   </dependencies>
+
+  <description>Gestion des utilisateurs</description>
+  <modelVersion>4.0.0</modelVersion>
+  <name>utilisateur</name>
+  <packaging>jar</packaging>
+
+  <parent>
+    <artifactId>bibliotheque</artifactId>
+    <groupId>com.openclassrooms</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
 
 </project>

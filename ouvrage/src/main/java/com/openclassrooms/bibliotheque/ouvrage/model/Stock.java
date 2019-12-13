@@ -23,9 +23,9 @@ public class Stock {
 
     @NotNull
     @Column(name = "ouvrage_id")
-    private int    ouvrageId;
+    private int ouvrageId;
 
     @Column(name = "quantity")
-    private int    quantity;
+    private int quantity;
 
 }

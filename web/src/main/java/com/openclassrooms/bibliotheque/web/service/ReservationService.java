@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
 
     private final ReservationProxy reservationProxy;
-    private final OuvrageProxy     ouvrageProxy;
+    private final OuvrageProxy ouvrageProxy;
 
     public List<OuvrageReservationBean> createOuvrageReservationBean(List<ReservationBean> reservationBeanList,
-                                                                     List<OuvrageIdNameBean> ouvrageIdNameBeanList) {
+        List<OuvrageIdNameBean> ouvrageIdNameBeanList) {
 
         List<OuvrageReservationBean> ouvrageReservationBeans = new ArrayList<>();
 

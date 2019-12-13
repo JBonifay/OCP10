@@ -21,7 +21,7 @@ public class Reservation {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
     private int reservationId;
 

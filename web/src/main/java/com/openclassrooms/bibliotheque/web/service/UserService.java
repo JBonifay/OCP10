@@ -1,13 +1,12 @@
 package com.openclassrooms.bibliotheque.web.service;
 
 import com.openclassrooms.bibliotheque.web.proxies.UtilisateurProxy;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -20,7 +19,7 @@ public class UserService implements UserDetailsService {
         Objects.requireNonNull(username);
 
         return utilisateurProxy.loadUserByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
 }

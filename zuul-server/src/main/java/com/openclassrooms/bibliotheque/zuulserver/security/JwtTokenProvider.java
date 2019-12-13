@@ -27,11 +27,8 @@ import org.springframework.stereotype.Component;
 public class JwtTokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
-
-    private long tokenValidityInMilliseconds = 3600000;
-
     private final JwtProperties jwtProperties;
-
+    private long tokenValidityInMilliseconds = 3600000;
     private String secretKey;
 
     @PostConstruct

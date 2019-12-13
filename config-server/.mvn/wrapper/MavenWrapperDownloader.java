@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-import java.net.*;
-import java.io.*;
-import java.nio.channels.*;
 import java.util.Properties;
 
 public class MavenWrapperDownloader {
 
-    private static final String WRAPPER_VERSION      = "0.5.5";
+    private static final String WRAPPER_VERSION = "0.5.5";
     /**
      * Default URL to download the maven-wrapper.jar from, if no 'downloadUrl' is provided.
      */
-    private static final String DEFAULT_DOWNLOAD_URL = "https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/" + WRAPPER_VERSION + "/maven-wrapper-" + WRAPPER_VERSION + ".jar";
+    private static final String DEFAULT_DOWNLOAD_URL =
+        "https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/" + WRAPPER_VERSION + "/maven-wrapper-" + WRAPPER_VERSION
+            + ".jar";
 
     /**
-     * Path to the maven-wrapper.properties file, which might contain a downloadUrl property to
-     * use instead of the default one.
+     * Path to the maven-wrapper.properties file, which might contain a downloadUrl property to use instead of the default one.
      */
     private static final String MAVEN_WRAPPER_PROPERTIES_PATH = ".mvn/wrapper/maven-wrapper.properties";
 
@@ -50,8 +48,8 @@ public class MavenWrapperDownloader {
 
         // If the maven-wrapper.properties exists, read it and check if it contains a custom
         // wrapperUrl parameter.
-        File   mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
-        String url                      = DEFAULT_DOWNLOAD_URL;
+        File mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
+        String url = DEFAULT_DOWNLOAD_URL;
         if (mavenWrapperPropertyFile.exists()) {
             FileInputStream mavenWrapperPropertyFileInputStream = null;
             try {
@@ -102,7 +100,7 @@ public class MavenWrapperDownloader {
                 }
             });
         }
-        URL                 website = new URL(urlString);
+        URL website = new URL(urlString);
         ReadableByteChannel rbc;
         rbc = Channels.newChannel(website.openStream());
         FileOutputStream fos = new FileOutputStream(destination);

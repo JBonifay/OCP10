@@ -24,13 +24,14 @@ public class ReservationPageController {
 
         int utilisateurId = 1;
 
-        ResponseEntity<List<ReservationBean>> reservationBeanResponseEntity = reservationService.getAllReservationListByUtilisateurId(
-            utilisateurId);
+        ResponseEntity<List<ReservationBean>> reservationBeanResponseEntity = reservationService
+            .getAllReservationListByUtilisateurId(
+                utilisateurId);
 
         List<Integer> ouvrageIdList = reservationBeanResponseEntity.getBody()
-                                                                   .stream()
-                                                                   .map(ReservationBean::getOuvrageId)
-                                                                   .collect(Collectors.toList());
+            .stream()
+            .map(ReservationBean::getOuvrageId)
+            .collect(Collectors.toList());
 
         ResponseEntity<List<OuvrageIdNameBean>> ouvrageIdNameBeanResponseEntity = reservationService.getAllOuvrageByOuvrageIdList(
             ouvrageIdList);

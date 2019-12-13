@@ -9,7 +9,8 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
 
   <!-- Material Design for Bootstrap CSS -->
-  <link crossorigin="anonymous" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+  <link crossorigin="anonymous"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
         integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" rel="stylesheet">
 
   <title>Bibliothèque</title>
@@ -27,12 +28,15 @@
       <div class="row justify-content-center">
         <th:block th:each="reservation : ${reservationList}">
           <div class="card m-3 border" style="width: 18rem;">
-            <img class="card-img-top img-fluid" src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg" alt="Image du livre">
+            <img alt="Image du livre" class="card-img-top img-fluid"
+                 src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg">
             <div class="card-body">
               <h5 class="card-title text-center font-weight-bold" th:text="${reservation.name}"></h5>
               <p class="card-text text-center" th:text="'Reservation active:'"></p>
-              <p class="card-text text-center" th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
-              <a th:href="@{'/ouvrage?id=' + ${reservation.ouvrageId}}" class="btn btn-outline-secondary d-flex justify-content-center">Description ..</a>
+              <p class="card-text text-center"
+                 th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
+              <a class="btn btn-outline-secondary d-flex justify-content-center"
+                 th:href="@{'/ouvrage?id=' + ${reservation.ouvrageId}}">Description ..</a>
             </div>
           </div>
         </th:block>
