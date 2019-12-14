@@ -8,13 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SimpleFilter extends ZuulFilter {
+public class PostFilter extends ZuulFilter {
 
-    private static Logger log = LoggerFactory.getLogger(SimpleFilter.class);
+    private static Logger log = LoggerFactory.getLogger(PostFilter.class);
 
     @Override
     public String filterType() {
-        return "pre";
+        return "post";
     }
 
     @Override
@@ -32,7 +32,6 @@ public class SimpleFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        System.out.println("LOOOGOGOGOGOGOGOOGOGOGOGOOGOGOG");
         log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 
         return null;

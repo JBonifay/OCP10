@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(contextId = "UtilisateurProxy", value = "zuul-server")
+@FeignClient(value = "microservice-utilisateur")
 public interface UtilisateurProxy {
 
     @GetMapping("/utilisateur/loaduser/{email}")
