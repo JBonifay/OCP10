@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.web.config;
 
+import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
 import com.openclassrooms.bibliotheque.web.service.UserService;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @RequiredArgsConstructor
 @Configuration
@@ -34,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and()
             .formLogin()
-            .successHandler(new LoginSuccessHandler())
+            .successHandler(new LoginSuccessHandler(userDetailsService))
             .and()
             .logout()
             .invalidateHttpSession(true)
@@ -49,13 +52,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    private class LoginSuccessHandler implements org.springframework.security.web.authentication.AuthenticationSuccessHandler {
+    private static class LoginSuccessHandler implements AuthenticationSuccessHandler {
+
+        private UserService userService;
+
+        public LoginSuccessHandler(UserService userDetailsService) {
+            this.userService = userDetailsService;
+        }
 
         @Override
         public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
 
-            authentication.getName();
+            String jwtToken = userService.generateToken((UtilisateurBean) authentication.getPrincipal());
 
         }
     }

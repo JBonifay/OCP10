@@ -11,12 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserBean implements UserDetails {
+public class UtilisateurBean implements UserDetails {
 
-    @Id
     private Integer userId;
     private String email;
     private String password;
+    private String token;
 
 
     @Override

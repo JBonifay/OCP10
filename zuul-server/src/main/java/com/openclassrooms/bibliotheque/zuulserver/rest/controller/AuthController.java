@@ -1,13 +1,9 @@
 package com.openclassrooms.bibliotheque.zuulserver.rest.controller;
 
 import com.openclassrooms.bibliotheque.zuulserver.bean.AuthenticationRequest;
-import com.openclassrooms.bibliotheque.zuulserver.security.JwtToken;
-import com.openclassrooms.bibliotheque.zuulserver.security.JwtTokenFilter;
 import com.openclassrooms.bibliotheque.zuulserver.security.JwtTokenProvider;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,16 +22,16 @@ public class AuthController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/signin")
-    public ResponseEntity signin(@Valid @RequestBody AuthenticationRequest data) {
+    public ResponseEntity<String> signin(@Valid @RequestBody AuthenticationRequest authentication) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
-            new UsernamePasswordAuthenticationToken(data.getUsername(), null);
+            new UsernamePasswordAuthenticationToken(authentication, null);
 
+//        authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         String jwt = jwtTokenProvider.createToken(authenticationToken);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtTokenFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-        return new ResponseEntity<>(new JwtToken(jwt), httpHeaders, HttpStatus.OK);
+
+        return ResponseEntity.ok(jwt);
     }
 
 }

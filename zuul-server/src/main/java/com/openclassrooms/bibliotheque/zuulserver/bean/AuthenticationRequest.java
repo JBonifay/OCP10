@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationRequest {
 
-    public static final String CREDENTIALS = "ROLE_USER";
-
-    private String username;
+    private Integer userId;
+    private String email;
+    private String password;
+    private String token;
 
 }
