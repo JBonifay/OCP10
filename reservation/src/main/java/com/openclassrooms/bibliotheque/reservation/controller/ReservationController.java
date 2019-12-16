@@ -46,4 +46,11 @@ public class ReservationController {
             .collect(Collectors.toList()));
 
     }
+    
+    @GetMapping(value = "/reservation/prolonger/{reservationId}")
+    public ResponseEntity<String> prolongateReservation(@PathVariable int reservationId) {
+        reservationService.prolongateReservation(reservationId);
+        return ResponseEntity.ok("created");
+    }
+    
 }

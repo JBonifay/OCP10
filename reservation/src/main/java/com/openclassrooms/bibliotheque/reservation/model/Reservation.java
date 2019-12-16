@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.reservation.model;
 
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +23,7 @@ public class Reservation {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
-    private int reservationId;
+    private int  reservationId;
 
     @NotNull
     @Column(name = "ouvrage_id")
