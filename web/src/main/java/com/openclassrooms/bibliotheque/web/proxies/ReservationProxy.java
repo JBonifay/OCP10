@@ -13,7 +13,9 @@ public interface ReservationProxy {
 
     @GetMapping("/reservation/utilisateur/{utilisateurId}")
     ResponseEntity<List<ReservationBean>> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
-
-
+    
+    @GetMapping("/reservation/prolonger/{reservationId}")
+    ResponseEntity prolongateReservation(@PathVariable int reservationId);
+    
 }
 

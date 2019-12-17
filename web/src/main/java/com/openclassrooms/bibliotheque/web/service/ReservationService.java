@@ -52,5 +52,9 @@ public class ReservationService {
     public ResponseEntity<List<ReservationBean>> getAllReservationListByUtilisateurId(int utilisateurId) {
         return reservationProxy.getAllReservationListByUtilisateurId(utilisateurId);
     }
-
+    
+    public ResponseEntity prolongateReservation(int reservationId) {
+        return reservationProxy.prolongateReservation(reservationId);
+    }
+    
 }
