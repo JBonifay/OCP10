@@ -2,11 +2,12 @@ CREATE DATABASE IF NOT EXISTS reservation;
 
 CREATE TABLE reservation.reservation
 (
-    reservation_id         INT AUTO_INCREMENT,
+    reservation_id         INT          AUTO_INCREMENT,
     ouvrage_id             VARCHAR(100) NOT NULL,
     utilisateur_id         VARCHAR(100) NOT NULL,
     reservation_date_debut DATE         NOT NULL,
     reservation_date_fin   DATE         NOT NULL,
+    deja_prolonge          BOOLEAN      default false,
 
     CONSTRAINT RESERVATION_PK
         PRIMARY KEY (reservation_id)

@@ -25,13 +25,18 @@ public class ReservationService {
     }
     
     @SneakyThrows
-    public void prolongateReservation(int reservationId) {
+    public boolean extendReservation(int reservationId) {
         Reservation reservation = findReservationById(reservationId);
+        if (reservation.isDejaProlonge()) {
+            return false;
+        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(reservation.getReservationDateFin());
         calendar.add(Calendar.WEEK_OF_MONTH, 4);
         reservation.setReservationDateFin(calendar.getTime());
+        reservation.setDejaProlonge(true);
         reservationRepository.save(reservation);
+        return true;
     }
     
 }

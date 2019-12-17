@@ -2,6 +2,7 @@ package com.openclassrooms.bibliotheque.reservation.controller;
 
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
+import com.openclassrooms.bibliotheque.reservation.exception.AlreadyExtendedException;
 import com.openclassrooms.bibliotheque.reservation.exception.ReservationIntrouvable;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
@@ -30,8 +31,11 @@ public class ReservationController {
     
     @GetMapping(value = "/reservation/prolonger/{reservationId}")
     public ResponseEntity<String> prolongateReservation(@PathVariable int reservationId) {
-        reservationService.prolongateReservation(reservationId);
-        return ResponseEntity.ok("created");
+        boolean extended = reservationService.extendReservation(reservationId);
+        if (!extended) {
+            throw new AlreadyExtendedException("La réservation à déjà été prolongée !");
+        }
+        return ResponseEntity.ok("Prolongement effectué..");
     }
     
 }
