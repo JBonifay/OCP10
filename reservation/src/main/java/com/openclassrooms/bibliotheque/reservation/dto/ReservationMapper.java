@@ -5,9 +5,9 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface ReservationMapper {
-
+    
     ReservationDto toReservationDto(Reservation reservation);
-
+    
     ReservationOuvrageInfoDto toReservationOuvrageInfoDto(Reservation reservation);
-
+    
 }

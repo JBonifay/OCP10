@@ -1,6 +1,5 @@
 package com.openclassrooms.bibliotheque.ouvrage.controller;
 
-
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageMapper;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageNameIdDto;
@@ -24,39 +23,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class OuvrageController {
-
+    
     private final OuvrageService ouvrageService;
-    private final OuvrageMapper ouvrageMapper;
-
+    private final OuvrageMapper  ouvrageMapper;
+    
     @GetMapping(value = "/ouvrage")
     public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(Pageable pageable) {
         return ResponseEntity.ok(ouvrageService.getAll(pageable).map(ouvrageMapper::toOuvrageStockDto));
     }
-
+    
     @RequestMapping(value = "/ouvrage/{ouvrageId}")
     public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId)
-        throws ProduitIntrouvableException {
-
+            throws ProduitIntrouvableException {
         Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
-
         if (ouvrage == null) {
             throw new ProduitIntrouvableException("Ouvrage introuvable.");
         }
-
         return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrage));
     }
-
+    
     @PostMapping("/ouvrage/allouvragebyouvrageidlist")
     public ResponseEntity<List<OuvrageNameIdDto>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
-
         if (ouvrageIdList.isEmpty()) {
             throw new ProduitIntrouvableException("Erreur dans la récupération des reservations");
         }
-
-        return ResponseEntity.ok(ouvrageService.findAllByOuvrageIdList(ouvrageIdList)
-            .stream()
-            .map(ouvrageMapper::toOuvrageNameIdDto)
-            .collect(Collectors.toList()));
+        return ResponseEntity
+                .ok(ouvrageService.findAllByOuvrageIdList(ouvrageIdList).stream().map(ouvrageMapper::toOuvrageNameIdDto)
+                        .collect(Collectors.toList()));
     }
-
+    
 }

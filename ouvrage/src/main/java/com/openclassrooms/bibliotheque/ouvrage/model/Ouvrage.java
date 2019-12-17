@@ -23,47 +23,39 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 @Table(name = "ouvrage")
 public class Ouvrage {
-
+    
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ouvrage_id")
-    private int ouvrageId;
-
+    private int    ouvrageId;
     @NotNull
     @Length(min = 3, max = 10)
     @Column(name = "name")
     private String name;
-
     @NotNull
     @Length(min = 3, max = 10)
     @Column(name = "author")
     private String author;
-
     @Past
     @NotNull
     @Column(name = "release_date")
-    private Date releaseDate;
-
+    private Date   releaseDate;
     @Length(min = 1, max = 1000)
     @Column(name = "summary")
     private String summary;
-
     @Length(min = 1, max = 45)
     @Column(name = "editor")
     private String editor;
-
     @Min(value = 1)
     @Column(name = "number_of_pages")
-    private int numberOfPages;
-
+    private int    numberOfPages;
     @Min(value = 1)
     @Column(name = "notation")
-    private int notation;
-
+    private int    notation;
     @NotNull
     @OneToOne
     @JoinColumn(name = "ouvrage_id")
-    private Stock stock;
-
+    private Stock  stock;
+    
 }

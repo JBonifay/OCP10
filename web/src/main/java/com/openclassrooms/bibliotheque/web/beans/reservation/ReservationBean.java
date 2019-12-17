@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationBean {
-
-    private int ouvrageId;
+    
+    private int  reservationId;
+    private int  ouvrageId;
     private Date reservationDateDebut;
     private Date reservationDateFin;
-
+    
 }

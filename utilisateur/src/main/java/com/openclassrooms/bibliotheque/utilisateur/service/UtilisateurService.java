@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UtilisateurService {
-
+    
     private final UtilisateurRepository utilisateurRepository;
-
+    
     public Utilisateur findUtilisateurByEmail(final String email) {
         return utilisateurRepository.findByEmail(email);
     }
-
+    
 }

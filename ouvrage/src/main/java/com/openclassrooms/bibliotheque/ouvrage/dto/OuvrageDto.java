@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OuvrageDto {
 
-    private int ouvrageId;
+    private int    ouvrageId;
     private String name;
     private String author;
-    private Date releaseDate;
+    private Date   releaseDate;
     private String summary;
     private String editor;
-    private int numberOfPages;
-    private int notation;
-    private int stockId;
-    private int quantity;
+    private int    numberOfPages;
+    private int    notation;
+    private int    stockId;
+    private int    quantity;
 
 }

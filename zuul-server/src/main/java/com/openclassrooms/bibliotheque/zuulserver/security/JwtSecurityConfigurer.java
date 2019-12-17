@@ -16,9 +16,8 @@ public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecu
     @Override
     public void configure(HttpSecurity http) throws Exception {
         JwtTokenFilter customFilter = new JwtTokenFilter(jwtTokenProvider);
-        http.exceptionHandling()
-            .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-            .and()
-            .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint()).and()
+                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

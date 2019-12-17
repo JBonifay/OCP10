@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationDto {
-
-    private int reservationId;
-    private int ouvrageId;
-    private int utilisateurId;
+    
+    private int  reservationId;
+    private int  ouvrageId;
+    private int  utilisateurId;
     private Date reservationDateDebut;
     private Date reservationDateFin;
-
+    
 }

@@ -18,27 +18,23 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "reservation")
 public class Reservation {
-
+    
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
     private int  reservationId;
-
     @NotNull
     @Column(name = "ouvrage_id")
-    private int ouvrageId;
-
+    private int  ouvrageId;
     @NotNull
     @Column(name = "utilisateur_id")
-    private int utilisateurId;
-
+    private int  utilisateurId;
     @NotNull
     @Column(name = "reservation_date_debut")
     private Date reservationDateDebut;
-
     @NotNull
     @Column(name = "reservation_date_fin")
     private Date reservationDateFin;
-
+    
 }

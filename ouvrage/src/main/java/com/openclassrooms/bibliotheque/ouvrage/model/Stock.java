@@ -15,17 +15,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "stock")
 public class Stock {
-
+    
     @Id
     @NotNull
     @Column(name = "stock_id")
     private int stockId;
-
     @NotNull
     @Column(name = "ouvrage_id")
     private int ouvrageId;
-
     @Column(name = "quantity")
     private int quantity;
-
+    
 }

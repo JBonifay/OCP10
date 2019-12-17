@@ -37,6 +37,8 @@
                  th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
               <a class="btn btn-outline-secondary d-flex justify-content-center"
                  th:href="@{'/ouvrage?id=' + ${reservation.ouvrageId}}">Description ..</a>
+              <a class="btn btn-outline-secondary d-flex justify-content-center"
+                 th:href="@{'/reservation/prolonger/' + ${reservation.reservationId}}">Prolonger ma réservation</a>
             </div>
           </div>
         </th:block>

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OuvrageNameIdDto {
 
-    private int ouvrageId;
+    private int    ouvrageId;
     private String name;
 
 }

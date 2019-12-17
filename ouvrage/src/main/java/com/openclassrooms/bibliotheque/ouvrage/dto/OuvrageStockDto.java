@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OuvrageStockDto {
-
-    private int ouvrageId;
+    
+    private int    ouvrageId;
     private String name;
     private String author;
     private String editor;
-    private Date releaseDate;
-    private int quantity;
-
+    private Date   releaseDate;
+    private int    quantity;
+    
 }

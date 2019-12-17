@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OuvrageStockBean {
-
-    private int ouvrageId;
+    
+    private int    ouvrageId;
     private String name;
     private String author;
-    private Date releaseDate;
-    private int quantity;
-
+    private Date   releaseDate;
+    private int    quantity;
+    
 }

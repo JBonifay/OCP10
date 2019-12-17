@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "microservice-ouvrage")
 public interface OuvrageProxy {
-
+    
     @GetMapping("/ouvrage")
     ResponseEntity<RestPageImpl<OuvrageStockBean>> getAllOuvrageListByPage(Pageable pageable);
-
+    
     @GetMapping("/ouvrage/{ouvrageId}")
     ResponseEntity<OuvrageDescriptionBean> getOuvrageDescriptionById(@PathVariable int ouvrageId);
-
+    
     @GetMapping("/ouvrage/reservation/{ouvrageId}")
     ResponseEntity<OuvrageIdNameBean> getOuvrageIdNameBean(@PathVariable int ouvrageId);
-
+    
     @PostMapping("/ouvrage/allouvragebyouvrageidlist")
     ResponseEntity<List<OuvrageIdNameBean>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> list);
-
+    
 }

@@ -13,8 +13,8 @@ import org.springframework.web.filter.GenericFilterBean;
 
 public class JwtTokenFilter extends GenericFilterBean {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-    private JwtTokenProvider jwtTokenProvider;
+    public static final String           AUTHORIZATION_HEADER = "Authorization";
+    private             JwtTokenProvider jwtTokenProvider;
 
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -22,7 +22,7 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String jwt = resolveToken(httpServletRequest);
         if (StringUtils.hasText(jwt) && this.jwtTokenProvider.validateToken(jwt)) {
@@ -39,4 +39,5 @@ public class JwtTokenFilter extends GenericFilterBean {
         }
         return null;
     }
+
 }

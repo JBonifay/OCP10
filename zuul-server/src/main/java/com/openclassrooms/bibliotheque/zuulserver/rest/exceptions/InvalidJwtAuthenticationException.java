@@ -9,4 +9,5 @@ public class InvalidJwtAuthenticationException extends RuntimeException {
     public InvalidJwtAuthenticationException(String value) {
         super(value);
     }
+
 }

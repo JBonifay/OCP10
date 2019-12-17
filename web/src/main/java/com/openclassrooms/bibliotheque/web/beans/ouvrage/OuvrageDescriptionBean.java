@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OuvrageDescriptionBean {
-
+    
     private String name;
     private String author;
-    private Date releaseDate;
+    private Date   releaseDate;
     private String summary;
     private String editor;
-    private int numberOfPages;
-    private int notation;
-    private int quantity;
-
+    private int    numberOfPages;
+    private int    notation;
+    private int    quantity;
+    
 }

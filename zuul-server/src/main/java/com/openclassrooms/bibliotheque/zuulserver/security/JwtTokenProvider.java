@@ -1,7 +1,5 @@
 package com.openclassrooms.bibliotheque.zuulserver.security;
 
-
-import com.openclassrooms.bibliotheque.zuulserver.bean.AuthenticationRequest;
 import com.openclassrooms.bibliotheque.zuulserver.rest.exceptions.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -26,11 +24,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtTokenProvider {
 
-    private static final String AUTHORITIES_KEY = "auth";
-    private static final String AUTHORITIES = "USER";
-    private final JwtProperties jwtProperties;
-    private long tokenValidityInMilliseconds = 3600000;
-    private String secretKey;
+    private static final String        AUTHORITIES_KEY             = "auth";
+    private static final String        AUTHORITIES                 = "USER";
+    private final        JwtProperties jwtProperties;
+    private              long          tokenValidityInMilliseconds = 3600000;
+    private              String        secretKey;
 
     @PostConstruct
     protected void init() {
@@ -38,42 +36,26 @@ public class JwtTokenProvider {
     }
 
     public String createToken(Authentication authentication) {
-
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
-
-        return Jwts.builder()
-            .setSubject(authentication.getName())
-            .claim(AUTHORITIES_KEY, AUTHORITIES)
-            .signWith(SignatureAlgorithm.HS512, secretKey)
-            .setExpiration(validity)
-            .compact();
+        return Jwts.builder().setSubject(authentication.getName()).claim(AUTHORITIES_KEY, AUTHORITIES)
+                .signWith(SignatureAlgorithm.HS512, secretKey).setExpiration(validity).compact();
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parser()
-            .setSigningKey(secretKey)
-            .parseClaimsJws(token)
-            .getBody();
-
-        Collection<? extends GrantedAuthority> authorities =
-            Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-
+        Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         User principal = new User(claims.getSubject(), "", authorities);
-
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-
             if (claims.getBody().getExpiration().before(new Date())) {
                 return false;
             }
-
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
