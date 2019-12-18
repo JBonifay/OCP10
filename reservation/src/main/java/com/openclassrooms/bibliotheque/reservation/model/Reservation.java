@@ -41,7 +41,11 @@ public class Reservation {
     @Column(name = "reservation_date_fin")
     private Date    reservationDateFin;
     
+    @Column(name = "active")
+    private boolean isActive;
+    
     @Column(name = "deja_prolonge")
     private boolean dejaProlonge;
+    
     
 }
