@@ -1,9 +1,9 @@
-package com.openclassrooms.bibliotheque.reservation.controller;
+package com.openclassrooms.bibliotheque.reservation.rest.controller;
 
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
-import com.openclassrooms.bibliotheque.reservation.exception.AlreadyExtendedException;
-import com.openclassrooms.bibliotheque.reservation.exception.ReservationIntrouvable;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.AlreadyExtendedException;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationIntrouvable;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import java.util.List;
@@ -30,10 +30,10 @@ public class ReservationController {
     }
     
     @GetMapping(value = "/reservation/prolonger/{reservationId}")
-    public ResponseEntity<String> prolongateReservation(@PathVariable int reservationId) {
+    public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
         boolean extended = reservationService.extendReservation(reservationId);
         if (!extended) {
-            throw new AlreadyExtendedException("La réservation à déjà été prolongée !");
+            throw new AlreadyExtendedException("La réservation à déjà été prolongée !");
         }
         return ResponseEntity.ok("Prolongement effectué..");
     }

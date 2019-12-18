@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.reservation.exception;
+package com.openclassrooms.bibliotheque.reservation.rest.exception;
 
 public class ReservationIntrouvable extends RuntimeException {
     

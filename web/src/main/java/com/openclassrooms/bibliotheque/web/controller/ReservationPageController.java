@@ -52,7 +52,6 @@ public class ReservationPageController {
     @GetMapping("/reservation/prolonger/{reservationId}")
     public RedirectView extendReservation(@PathVariable int reservationId) {
         ResponseEntity extendResponse = reservationService.prolongateReservation(reservationId);
-        log.info("Prolonger -> " + extendResponse.getStatusCode());
         return new RedirectView("/reservation");
     }
     
