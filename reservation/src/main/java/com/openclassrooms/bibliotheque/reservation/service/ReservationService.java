@@ -13,6 +13,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -71,9 +72,11 @@ public class ReservationService {
      * @Return the created reservation
      */
     public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
-        OuvrageBean ouvrageBean = ouvrageProxy.getOuvrageById(ouvrageId);
+        ResponseEntity<OuvrageBean> responseEntity = ouvrageProxy.getOuvrageById(ouvrageId);
     
-        if (ouvrageBean.getStock() < 1) {
+        OuvrageBean ouvrageBean = responseEntity.getBody();
+        
+        if (ouvrageBean.getQuantity() < 1) {
             throw new NoStockException("L'ouvrage demandé n'est plus en stock.");
         }
     
@@ -86,7 +89,7 @@ public class ReservationService {
         
         reservation = reservationRepository.save(reservation);
     
-        ouvrageProxy.removeOneStockItem(ouvrageBean.getOuvrageId());
+        ouvrageProxy.removeOneStockItem(ouvrageBean.getQuantity());
         
         return reservation;
     }

@@ -53,7 +53,7 @@ public class OuvrageController {
                         .collect(Collectors.toList()));
     }
     
-    @PutMapping("/ouvrage/enlever_du_stock{ouvrageId}")
+    @PutMapping("/ouvrage/enlever_du_stock_{ouvrageId}")
     public ResponseEntity removeOneOuvrageQuantityFromStock(@PathVariable int ouvrageId) {
         boolean removed = ouvrageService.removeOneFromStock(ouvrageId);
         if (removed) {
