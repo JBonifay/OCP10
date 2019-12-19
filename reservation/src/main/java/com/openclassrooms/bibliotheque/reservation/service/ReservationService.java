@@ -1,7 +1,11 @@
 package com.openclassrooms.bibliotheque.reservation.service;
 
+import com.openclassrooms.bibliotheque.reservation.beans.OuvrageBean;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
+import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
+import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.NoStockException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +20,8 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
     
     private final ReservationRepository reservationRepository;
+    private final OuvrageProxy          ouvrageProxy;
+    private final UtilisateurProxy      utilisateurProxy;
     
     /**
      * List all reservation fo the user
@@ -65,13 +71,24 @@ public class ReservationService {
      * @Return the created reservation
      */
     public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
+        OuvrageBean ouvrageBean = ouvrageProxy.getOuvrageById(ouvrageId);
+    
+        if (ouvrageBean.getStock() < 1) {
+            throw new NoStockException("L'ouvrage demandé n'est plus en stock.");
+        }
+    
         Reservation reservation = new Reservation();
         reservation.setUtilisateurId(utilisateurId);
         reservation.setOuvrageId(ouvrageId);
         reservation.setReservationDateDebut(new Date());
-        reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateFin()));
+        reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateDebut()));
+        reservation.setActive(true);
         
-        return reservationRepository.save(reservation);
+        reservation = reservationRepository.save(reservation);
+    
+        ouvrageProxy.removeOneStockItem(ouvrageBean.getOuvrageId());
+        
+        return reservation;
     }
     
     /**

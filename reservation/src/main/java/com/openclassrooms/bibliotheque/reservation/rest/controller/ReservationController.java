@@ -30,7 +30,7 @@ public class ReservationController {
      * @param utilisateurId the user id
      * @return a response entity containing a list of {@link ReservationOuvrageInfoDto} object
      */
-    @GetMapping(value = "/reservation/utilisateur/{utilisateurId}")
+    @GetMapping(value = "/reservation/reservations_pour_utilisateur_{utilisateurId}")
     private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationByUtilisateurId(@PathVariable int utilisateurId) {
         
         List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
@@ -47,7 +47,7 @@ public class ReservationController {
      * @param reservationId the reservation id
      * @return a response entity, Ok if extended
      */
-    @PutMapping(value = "/reservation/prolonger/{reservationId}")
+    @PutMapping(value = "/reservation/prolonger_reservation_{reservationId}")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
         boolean extended = reservationService.extendReservation(reservationId);
         if (!extended) {
@@ -62,13 +62,13 @@ public class ReservationController {
      * @param utilisateurId the user who reserve a book
      * @return ResponseEntity
      */
-    @PostMapping("/reservation/createnewreservation/foruser{utilisateurId}/forouvrage{ouvrageId}")
+    @PostMapping("/reservation/creer_nouvelle_reservation_pour_utilisateur_{utilisateurId}_ouvrage_{ouvrageId}")
     public ResponseEntity createReservation(@PathVariable int utilisateurId, @PathVariable int ouvrageId) {
         Reservation reservation = reservationService.createNewReservationForUser(ouvrageId, utilisateurId);
         return new ResponseEntity(reservation, HttpStatus.CREATED);
     }
     
-    @PutMapping("reservation/returnloan/{reservationId}")
+    @PutMapping("reservation/rendre_ouvrage_{reservationId}")
     public ResponseEntity returnLoan(@PathVariable int reservationId) {
         Reservation reservation = reservationService.returnReservation(reservationId);
         return ResponseEntity.ok("Reservation terminé");

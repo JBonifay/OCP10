@@ -1,6 +1,7 @@
-package com.openclassrooms.bibliotheque.utilisateur.controller;
+package com.openclassrooms.bibliotheque.utilisateur.rest.controller;
 
 import com.openclassrooms.bibliotheque.utilisateur.model.Utilisateur;
+import com.openclassrooms.bibliotheque.utilisateur.rest.exception.UserNotFoundException;
 import com.openclassrooms.bibliotheque.utilisateur.service.UtilisateurService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,11 @@ public class UtilisateurController {
     
     private final UtilisateurService utilisateurService;
     
-    @GetMapping("/utilisateur/loaduser/{email}")
+    @GetMapping("/utilisateur/trouver_utilisateur_{email}")
     public ResponseEntity<Utilisateur> getUtilisateurByEmail(@PathVariable String email) {
         Utilisateur utilisateur = utilisateurService.findUtilisateurByEmail(email);
         if (utilisateur == null) {
+            throw new UserNotFoundException("Utilisateur non trouvé");
         }
         return ResponseEntity.ok(utilisateur);
     }

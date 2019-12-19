@@ -1,6 +1,7 @@
 package com.openclassrooms.bibliotheque.ouvrage.service;
 
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
+import com.openclassrooms.bibliotheque.ouvrage.model.Stock;
 import com.openclassrooms.bibliotheque.ouvrage.repository.OuvrageRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,15 @@ public class OuvrageService {
     
     public List<Ouvrage> findAllByOuvrageIdList(List<Integer> ouvrageIdList) {
         return ouvrageIdList.stream().map(ouvrageRepository::findByOuvrageId).collect(Collectors.toList());
+    }
+    
+    public boolean removeOneFromStock(int ouvrageId) {
+        Stock ouvrageStock = ouvrageRepository.findByOuvrageId(ouvrageId).getStock();
+        if (ouvrageId == 0) {
+            ouvrageStock.setQuantity(ouvrageStock.getQuantity() - 1);
+            return true;
+        }
+        return false;
     }
     
 }

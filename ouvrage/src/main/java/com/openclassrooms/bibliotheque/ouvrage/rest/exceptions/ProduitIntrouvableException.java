@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.ouvrage.exceptions;
+package com.openclassrooms.bibliotheque.ouvrage.rest.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
