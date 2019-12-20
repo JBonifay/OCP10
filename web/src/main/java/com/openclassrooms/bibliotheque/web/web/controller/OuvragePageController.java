@@ -30,7 +30,6 @@ public class OuvragePageController {
         } else {
             // TODO: 404 Page
         }
-        ouvrages.addObject("currentUser", SecurityContextHolder.getContext().getAuthentication());
         return ouvrages;
     }
     
