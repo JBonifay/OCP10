@@ -36,7 +36,9 @@ public class OuvragePageController {
     @RequestMapping("/ouvrage")
     public ModelAndView getOuvragesPage(@RequestParam(value = "id") int ouvrageId) {
         ModelAndView description = new ModelAndView("description");
+        
         ResponseEntity<OuvrageDescriptionBean> ouvrageDescriptionBean = ouvrageProxy.getOuvrageDescriptionById(ouvrageId);
+        
         if (ouvrageDescriptionBean.getStatusCode() == HttpStatus.OK) {
             description.addObject("ouvrage", ouvrageDescriptionBean.getBody());
         } else {

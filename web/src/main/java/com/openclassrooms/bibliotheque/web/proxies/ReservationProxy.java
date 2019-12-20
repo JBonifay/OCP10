@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value = "microservice-reservation")
+@FeignClient(name = "reservation-proxy", url = "http://localhost:9103", path = "/microservice-reservation")
 public interface ReservationProxy {
     
     @GetMapping("/reservation/reservations_pour_utilisateur_{utilisateurId}")
