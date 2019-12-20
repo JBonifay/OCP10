@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class ReservationController {
     
@@ -31,8 +32,8 @@ public class ReservationController {
      * @param utilisateurId the user id
      * @return a response entity containing a list of {@link ReservationOuvrageInfoDto} object
      */
-    @GetMapping(value = "/reservations/{utilisateurId}")
-    private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationByUtilisateurId(@PathVariable int utilisateurId) {
+    @GetMapping("/reservations/{utilisateurId}")
+    private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
         
         List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
         if (reservationDtos.isEmpty()) {
@@ -48,7 +49,7 @@ public class ReservationController {
      * @param reservationId the reservation id
      * @return a response entity, Ok if extended
      */
-    @PutMapping(value = "/reservation/{reservationId}/prolonger")
+    @PutMapping("/reservation/{reservationId}/prolonger")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
         boolean extended = reservationService.extendReservation(reservationId);
         if (!extended) {
