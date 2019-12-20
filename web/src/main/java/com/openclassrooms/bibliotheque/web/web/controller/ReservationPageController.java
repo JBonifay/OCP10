@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.controller;
+package com.openclassrooms.bibliotheque.web.web.controller;
 
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageIdNameBean;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageReservationBean;

@@ -28,10 +28,10 @@ public class UserService implements AuthenticationProvider {
     public UtilisateurBean mockAuth() {
         UtilisateurBean utilisateurBean = new UtilisateurBean();
         utilisateurBean.setUserId(1);
-        utilisateurBean.setEmail("j@g.com");
-        utilisateurBean.setPassword("bla");
+        utilisateurBean.setEmail("bbeeble0@instagram.com");
+        utilisateurBean.setPassword("$2y$10$kAVjqCjOcq55vCc4IsaQTeYSV8Ml8lOcyYEeY3FCmVp4TXEhnnbeK");
         utilisateurBean.setToken(
-                "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvblJlcXVlc3QodXNlcklkPW51bGwsIGVtYWlsPW51bGwsIHBhc3N3b3JkPWFkbWluLCB0b2tlbj1udWxsKSIsImF1dGgiOiJVU0VSIiwiZXhwIjoxNTc2NzgwMDM1fQ.AtwhiadXWqSrmgWBqnfDc1raTBTys9EKD2DOmjozO9sniRMWcKsHOjSCJZLeFvcIvRdEDx3OZlexgAKYpSmx2w");
+                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb20ub3BlbmNsYXNzcm9vbXMiLCJpYXQiOjE1NzY4MzAzNjMsImV4cCI6MTYwODM2NjM2MywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiYmJlZWJsZTBAaW5zdGFncmFtLmNvbSIsIkdpdmVuTmFtZSI6IkJyaWRpZSIsIlN1cm5hbWUiOiJ0ZXJzdCIsIkVtYWlsIjoiYmJlZWJsZTBAaW5zdGFncmFtLmNvbSIsIlJvbGUiOiJVU0VSIn0.0fSa60EaMRPQCYY7Ps8McHIKooaItiuT2sZbcQ1Ivt0");
         return utilisateurBean;
     }
     
