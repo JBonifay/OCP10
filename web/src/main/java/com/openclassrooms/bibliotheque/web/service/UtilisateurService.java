@@ -4,6 +4,7 @@ import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
 import com.openclassrooms.bibliotheque.web.proxies.AuthProxy;
 import com.openclassrooms.bibliotheque.web.proxies.UtilisateurProxy;
 import java.util.ArrayList;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,18 +14,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class UserService implements AuthenticationProvider {
+@Component
+@RequiredArgsConstructor
+public class UtilisateurService implements AuthenticationProvider {
 
     @Autowired
-    private AuthProxy        authProxy;
+    private final AuthProxy             authProxy;
     @Autowired
-    private UtilisateurProxy utilisateurProxy;
+    private final UtilisateurProxy      utilisateurProxy;
     @Autowired
-    private PasswordEncoder  passwordEncoder;
-
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -37,7 +38,7 @@ public class UserService implements AuthenticationProvider {
 
         String token = generateToken(utilisateurBean);
 
-        UtilisateurBean auth = authenticateUser(utilisateurBean);
+        UtilisateurBean auth = loadUser(utilisateurBean);
 
         if (auth != null && passwordEncoder.matches(password, auth.getPassword())) {
             utilisateurBean.setToken(token);
@@ -47,9 +48,8 @@ public class UserService implements AuthenticationProvider {
         }
     }
 
-    private UtilisateurBean authenticateUser(UtilisateurBean utilisateurBean) {
-        return utilisateurProxy.loadUserByEmailAndPassword(utilisateurBean.getEmail())
-                .orElse(null);
+    private UtilisateurBean loadUser(UtilisateurBean utilisateurBean) {
+        return utilisateurProxy.loadUserByEmailAndPassword(utilisateurBean.getEmail()).orElse(null);
     }
 
     private String generateToken(UtilisateurBean authentication) {
@@ -61,9 +61,11 @@ public class UserService implements AuthenticationProvider {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }
