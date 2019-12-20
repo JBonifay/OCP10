@@ -18,7 +18,6 @@ public class JwtAuthInterceptor implements RequestInterceptor {
                                                                                      .getAuthentication()
                                                                                      .getPrincipal();
 
-            log.info("Token bearer " + utilisateurBean.getToken());
             requestTemplate.header("Authorization", utilisateurBean.getToken());
         }
     }

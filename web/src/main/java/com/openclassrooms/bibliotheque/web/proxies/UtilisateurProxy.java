@@ -8,13 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "utilisateur-proxy", url = "http://localhost:9103", path = "/microservice-utilisateur")
 public interface UtilisateurProxy {
-    
-    // Pas d'underscore
-    // Tiret -
-    // Rest compliant
-    // /utilisateur/{email}
-    
+
     @GetMapping("/utilisateur/{email}")
-    Optional<UtilisateurBean> loadUserByEmail(@PathVariable String email);
+    Optional<UtilisateurBean> loadUserByEmailAndPassword(@PathVariable String email);
     
 }

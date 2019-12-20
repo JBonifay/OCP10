@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class UtilisateurController {
-    
+
     private final UtilisateurService utilisateurService;
-    
+
     @GetMapping("/utilisateur/{email}")
     public ResponseEntity<Utilisateur> getUtilisateurByEmail(@PathVariable String email) {
         Utilisateur utilisateur = utilisateurService.findUtilisateurByEmail(email);
-        if (utilisateur == null) {
-            throw new UserNotFoundException("Utilisateur non trouvé");
+        if (utilisateur != null) {
+            return ResponseEntity.ok(utilisateur);
         }
-        return ResponseEntity.ok(utilisateur);
+        throw new UserNotFoundException("Utilisateur non trouvé");
+
     }
-    
+
+
 }
