@@ -1,6 +1,5 @@
-package com.openclassrooms.bibliotheque.zuulserver.config;
+package com.openclassrooms.bibliotheque.web.config;
 
-import com.openclassrooms.bibliotheque.zuulserver.rest.exceptions.InvalidJwtAuthenticationException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
@@ -11,7 +10,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
 
         switch (response.status()) {
             case 400:
-                return new InvalidJwtAuthenticationException("test");
+                return null;
             default:
                 return new Exception("Generic error");
         }

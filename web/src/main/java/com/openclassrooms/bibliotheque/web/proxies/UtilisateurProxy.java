@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UtilisateurProxy {
 
     @GetMapping("/utilisateur/{email}")
-    Optional<UtilisateurBean> loadUserByEmailAndPassword(@PathVariable String email);
+    Optional<UtilisateurBean> loadUserByEmail(@PathVariable String email);
     
 }

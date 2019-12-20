@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.config;
+package com.openclassrooms.bibliotheque.web.config;
 
 import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.Bean;

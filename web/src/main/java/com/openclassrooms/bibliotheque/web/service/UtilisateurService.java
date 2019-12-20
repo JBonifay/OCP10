@@ -12,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -49,7 +50,7 @@ public class UtilisateurService implements AuthenticationProvider {
     }
 
     private UtilisateurBean loadUser(UtilisateurBean utilisateurBean) {
-        return utilisateurProxy.loadUserByEmailAndPassword(utilisateurBean.getEmail()).orElse(null);
+        return utilisateurProxy.loadUserByEmail(utilisateurBean.getEmail()).orElse(null);
     }
 
     private String generateToken(UtilisateurBean authentication) {
