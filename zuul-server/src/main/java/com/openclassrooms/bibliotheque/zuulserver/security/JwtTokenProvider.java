@@ -24,10 +24,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtTokenProvider {
 
-    private static final String        AUTHORITIES_KEY             = "auth";
-    private static final String        AUTHORITIES                 = "USER";
+    private static final String        AUTHORITIES_KEY = "auth";
+    private static final String        AUTHORITIES     = "USER";
     private final        JwtProperties jwtProperties;
-    private              long          tokenValidityInMilliseconds = 3600000;
     private              String        secretKey;
 
     @PostConstruct
@@ -37,7 +36,7 @@ public class JwtTokenProvider {
 
     public String createToken(Authentication authentication) {
         long now = (new Date()).getTime();
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+        Date validity = new Date(now + jwtProperties.getValidityInMs());
         return Jwts.builder().setSubject(authentication.getName()).claim(AUTHORITIES_KEY, AUTHORITIES)
                 .signWith(SignatureAlgorithm.HS512, secretKey).setExpiration(validity).compact();
     }

@@ -19,11 +19,16 @@ public class AuthController {
     
     @PostMapping("/auth/signin")
     public ResponseEntity<String> signin(@Valid @RequestBody AuthenticationRequest authentication) {
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authentication, null);
+
         //        authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
         String jwt = jwtTokenProvider.createToken(authenticationToken);
-        return ResponseEntity.ok(jwt);
+
+        return ResponseEntity.ok("Bearer " + jwt);
     }
     
 }
