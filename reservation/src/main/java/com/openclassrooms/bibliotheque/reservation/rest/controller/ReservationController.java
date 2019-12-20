@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,12 +26,12 @@ public class ReservationController {
     private final ReservationMapper  reservationMapper;
     
     /**
-     * Get all reservatino from user
+     * Get all reservations from user
      *
      * @param utilisateurId the user id
      * @return a response entity containing a list of {@link ReservationOuvrageInfoDto} object
      */
-    @GetMapping(value = "/reservation/reservations_pour_utilisateur_{utilisateurId}")
+    @GetMapping(value = "/reservations/{utilisateurId}")
     private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationByUtilisateurId(@PathVariable int utilisateurId) {
         
         List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
@@ -47,7 +48,7 @@ public class ReservationController {
      * @param reservationId the reservation id
      * @return a response entity, Ok if extended
      */
-    @PutMapping(value = "/reservation/prolonger_reservation_{reservationId}")
+    @PutMapping(value = "/reservation/{reservationId}/prolonger")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
         boolean extended = reservationService.extendReservation(reservationId);
         if (!extended) {
@@ -62,14 +63,14 @@ public class ReservationController {
      * @param utilisateurId the user who reserve a book
      * @return ResponseEntity
      */
-    @PostMapping("/reservation/creer_nouvelle_reservation_pour_utilisateur_{utilisateurId}_ouvrage_{ouvrageId}")
-    public ResponseEntity createReservation(@PathVariable int utilisateurId, @PathVariable int ouvrageId) {
+    @PostMapping("/reservation/creer/")
+    public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
         Reservation reservation = reservationService.createNewReservationForUser(ouvrageId, utilisateurId);
         return new ResponseEntity(reservation, HttpStatus.CREATED);
     }
     
-    @PutMapping("reservation/rendre_ouvrage_{reservationId}")
-    public ResponseEntity returnLoan(@PathVariable int reservationId) {
+    @PutMapping("reservation/{reservationId}/retourner")
+    public ResponseEntity<String> returnLoan(@PathVariable int reservationId) {
         Reservation reservation = reservationService.returnReservation(reservationId);
         return ResponseEntity.ok("Reservation terminé");
     }

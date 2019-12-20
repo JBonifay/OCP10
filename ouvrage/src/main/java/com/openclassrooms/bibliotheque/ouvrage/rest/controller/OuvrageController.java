@@ -28,12 +28,12 @@ public class OuvrageController {
     private final OuvrageService ouvrageService;
     private final OuvrageMapper  ouvrageMapper;
     
-    @GetMapping(value = "/tout_les_ouvrages")
+    @GetMapping(value = "/ouvrages")
     public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(Pageable pageable) {
         return ResponseEntity.ok(ouvrageService.getAll(pageable).map(ouvrageMapper::toOuvrageStockDto));
     }
     
-    @GetMapping(value = "/ouvrage/ouvrage_description_{ouvrageId}")
+    @GetMapping(value = "/ouvrage/{ouvrageId}/description")
     public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId)
             throws ProduitIntrouvableException {
         Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
@@ -43,7 +43,7 @@ public class OuvrageController {
         return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrage));
     }
     
-    @PostMapping("/ouvrage/liste_de_tout_les_ouvrages")
+    @PostMapping("/ouvrages")
     public ResponseEntity<List<OuvrageNameIdDto>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
         if (ouvrageIdList.isEmpty()) {
             throw new ProduitIntrouvableException("Erreur dans la récupération des reservations");
@@ -53,7 +53,7 @@ public class OuvrageController {
                         .collect(Collectors.toList()));
     }
     
-    @PutMapping("/ouvrage/enlever_du_stock_{ouvrageId}")
+    @PutMapping("/ouvrage/{ouvrageId}/reserver")
     public ResponseEntity removeOneOuvrageQuantityFromStock(@PathVariable int ouvrageId) {
         boolean removed = ouvrageService.removeOneFromStock(ouvrageId);
         if (removed) {

@@ -15,7 +15,7 @@ public class UtilisateurController {
     
     private final UtilisateurService utilisateurService;
     
-    @GetMapping("/utilisateur/trouver_utilisateur_{email}")
+    @GetMapping("/utilisateur/{email}")
     public ResponseEntity<Utilisateur> getUtilisateurByEmail(@PathVariable String email) {
         Utilisateur utilisateur = utilisateurService.findUtilisateurByEmail(email);
         if (utilisateur == null) {

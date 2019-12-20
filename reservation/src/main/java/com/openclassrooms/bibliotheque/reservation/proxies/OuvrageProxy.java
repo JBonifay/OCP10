@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 @FeignClient(value = "microservice-ouvrage")
 public interface OuvrageProxy {
     
-    @GetMapping("/ouvrage/ouvrage_description_{ouvrageId}")
+    @GetMapping("/ouvrage/{ouvrageId}/description")
     ResponseEntity<OuvrageBean> getOuvrageById(@PathVariable int ouvrageId);
     
-    @PutMapping("/ouvrage/enlever_du_stock_{ouvrageId}")
+    @PutMapping("/ouvrage/{ouvrageId}/reserver")
     ResponseEntity removeOneStockItem(@PathVariable int ouvrageId);
     
 }

@@ -33,8 +33,8 @@ public class OuvragePageController {
         return ouvrages;
     }
     
-    @RequestMapping("/ouvrage")
-    public ModelAndView getOuvragesPage(@RequestParam(value = "id") int ouvrageId) {
+    @GetMapping("/ouvrage")
+    public ModelAndView getOuvrageDescriptionPage(@RequestParam(value = "id") int ouvrageId) {
         ModelAndView description = new ModelAndView("description");
         
         ResponseEntity<OuvrageDescriptionBean> ouvrageDescriptionBean = ouvrageProxy.getOuvrageDescriptionById(ouvrageId);

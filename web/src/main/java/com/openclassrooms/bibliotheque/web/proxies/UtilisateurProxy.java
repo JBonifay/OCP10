@@ -14,7 +14,7 @@ public interface UtilisateurProxy {
     // Rest compliant
     // /utilisateur/{email}
     
-    @GetMapping("/utilisateur/trouver_utilisateur_{email}")
+    @GetMapping("/utilisateur/{email}")
     Optional<UtilisateurBean> loadUserByEmail(@PathVariable String email);
     
 }

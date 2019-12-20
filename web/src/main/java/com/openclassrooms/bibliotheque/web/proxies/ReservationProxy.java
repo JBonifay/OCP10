@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "reservation-proxy", url = "http://localhost:9103", path = "/microservice-reservation")
 public interface ReservationProxy {
     
-    @GetMapping("/reservation/reservations_pour_utilisateur_{utilisateurId}")
+    @GetMapping("/reservations/{utilisateurId}")
     ResponseEntity<List<ReservationBean>> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
     
-    @GetMapping("/reservation/prolonger_reservation_{reservationId}")
+    @GetMapping("/reservation/{reservationId}/prolonger")
     ResponseEntity prolongateReservation(@PathVariable int reservationId);
     
 }
