@@ -1,11 +1,9 @@
 package com.openclassrooms.bibliotheque.reservation.service;
 
-import com.openclassrooms.bibliotheque.reservation.beans.OuvrageBean;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
-import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.NoStockException;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExistingException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +20,7 @@ public class ReservationService {
     
     private final ReservationRepository reservationRepository;
     private final OuvrageProxy          ouvrageProxy;
-    private final UtilisateurProxy      utilisateurProxy;
-    
+
     /**
      * List all reservation fo the user
      *
@@ -71,27 +68,31 @@ public class ReservationService {
      * @param utilisateurId the user who reserve
      * @Return the created reservation
      */
-    public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
-        ResponseEntity<OuvrageBean> responseEntity = ouvrageProxy.getOuvrageById(ouvrageId);
-    
-        OuvrageBean ouvrageBean = responseEntity.getBody();
-        
-        if (ouvrageBean.getQuantity() < 1) {
-            throw new NoStockException("L'ouvrage demandé n'est plus en stock.");
+    public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) throws ReservationAlreadyExistingException {
+        List<Reservation> reservationList = reservationRepository.findAllByUtilisateurId(utilisateurId);
+
+        Reservation nouvelleReservation = reservationList.stream().filter(reservation -> reservation.getOuvrageId() == ouvrageId)
+                .findAny().orElse(null);
+
+        if (nouvelleReservation != null) {
+            throw new ReservationAlreadyExistingException("La réservation éxiste deja");
         }
-    
+
         Reservation reservation = new Reservation();
         reservation.setUtilisateurId(utilisateurId);
         reservation.setOuvrageId(ouvrageId);
         reservation.setReservationDateDebut(new Date());
         reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateDebut()));
         reservation.setActive(true);
-        
-        reservation = reservationRepository.save(reservation);
-    
-        ouvrageProxy.removeOneStockItem(ouvrageBean.getQuantity());
-        
-        return reservation;
+
+        ResponseEntity responseEntity = ouvrageProxy.removeOneStockItem(ouvrageId);
+
+        if (responseEntity.getStatusCode().value() == 200) {
+            reservation = reservationRepository.save(reservation);
+            return reservation;
+        } else {
+            return null;
+        }
     }
     
     /**

@@ -4,6 +4,7 @@ import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.AlreadyExtendedException;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExistingException;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationIntrouvableException;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,8 +64,9 @@ public class ReservationController {
      * @param utilisateurId the user who reserve a book
      * @return ResponseEntity
      */
-    @PostMapping("/reservation/creer/")
-    public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
+    @PostMapping("/reservation/creer")
+    public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId)
+            throws ReservationAlreadyExistingException {
         Reservation reservation = reservationService.createNewReservationForUser(ouvrageId, utilisateurId);
         return new ResponseEntity(reservation, HttpStatus.CREATED);
     }

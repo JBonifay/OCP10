@@ -4,7 +4,7 @@ import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageMapper;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageNameIdDto;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageStockDto;
-import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.ProduitIntrouvableException;
+import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundException;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.service.OuvrageService;
 import java.util.List;
@@ -35,10 +35,10 @@ public class OuvrageController {
     
     @GetMapping(value = "/ouvrage/{ouvrageId}/description")
     public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId)
-            throws ProduitIntrouvableException {
+            throws OuvrageNotFoundException {
         Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
         if (ouvrage == null) {
-            throw new ProduitIntrouvableException("Ouvrage introuvable.");
+            throw new OuvrageNotFoundException("Ouvrage introuvable.");
         }
         return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrage));
     }
@@ -46,7 +46,7 @@ public class OuvrageController {
     @PostMapping("/ouvrages")
     public ResponseEntity<List<OuvrageNameIdDto>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
         if (ouvrageIdList.isEmpty()) {
-            throw new ProduitIntrouvableException("Erreur dans la récupération des reservations");
+            throw new OuvrageNotFoundException("Erreur dans la récupération des reservations");
         }
         return ResponseEntity
                 .ok(ouvrageService.findAllByOuvrageIdList(ouvrageIdList).stream().map(ouvrageMapper::toOuvrageNameIdDto)
