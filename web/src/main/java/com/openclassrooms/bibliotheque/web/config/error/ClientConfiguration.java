@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.config;
+package com.openclassrooms.bibliotheque.web.config.error;
 
 import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.Bean;

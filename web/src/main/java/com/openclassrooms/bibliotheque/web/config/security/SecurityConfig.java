@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.config;
+package com.openclassrooms.bibliotheque.web.config.security;
 
 import com.openclassrooms.bibliotheque.web.service.UtilisateurService;
 import lombok.RequiredArgsConstructor;

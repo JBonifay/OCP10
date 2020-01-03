@@ -4,6 +4,7 @@ import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageIdNameBean;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageReservationBean;
 import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
 import com.openclassrooms.bibliotheque.web.service.ReservationService;
+import feign.FeignException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +52,11 @@ public class ReservationPageController {
      */
     @GetMapping("/reservation/prolonger/{reservationId}")
     public RedirectView extendReservation(@PathVariable int reservationId) {
-        ResponseEntity extendResponse = reservationService.prolongateReservation(reservationId);
+        try {
+            reservationService.prolongateReservation(reservationId);
+        } catch (FeignException e) {
+            log.error(e.getMessage());
+        }
         return new RedirectView("/reservation");
     }
     

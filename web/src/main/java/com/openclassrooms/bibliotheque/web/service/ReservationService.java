@@ -47,8 +47,8 @@ public class ReservationService {
         return reservationProxy.getAllReservationListByUtilisateurId(utilisateurId);
     }
     
-    public ResponseEntity prolongateReservation(int reservationId) {
-        return reservationProxy.prolongateReservation(reservationId);
+    public void prolongateReservation(int reservationId) {
+        reservationProxy.prolongateReservation(reservationId);
     }
     
 }

@@ -3,7 +3,7 @@ package com.openclassrooms.bibliotheque.reservation.service;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.AlreadyExtendedException;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExtendedException;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExistingException;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyReturnedException;
 import java.util.Calendar;
@@ -54,7 +54,7 @@ public class ReservationService {
     public void extendReservation(int reservationId) {
         Reservation reservation = findReservationById(reservationId);
         if (reservation.isDejaProlonge()) {
-            throw new AlreadyExtendedException();
+            throw new ReservationAlreadyExtendedException();
         }
         reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateFin()));
         reservation.setDejaProlonge(true);

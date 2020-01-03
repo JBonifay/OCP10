@@ -1,18 +1,19 @@
 package com.openclassrooms.bibliotheque.reservation.rest.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class AlreadyExtendedException extends RuntimeException {
+public class ReservationAlreadyExtendedException extends RuntimeException {
 
     private static final String DEFAULT = "La réservation à déjà été prolongée !";
 
-    public AlreadyExtendedException() {
+    public ReservationAlreadyExtendedException() {
         super(DEFAULT);
     }
 
-    public AlreadyExtendedException(String s) {
+    public ReservationAlreadyExtendedException(String s) {
         super(s);
     }
     
