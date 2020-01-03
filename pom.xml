@@ -37,6 +37,8 @@
     <module>eureka-server</module>
     <module>zuul-server</module>
 
+    <module>batch</module>
+
     <module>ouvrage</module>
     <module>reservation</module>
     <module>utilisateur</module>
