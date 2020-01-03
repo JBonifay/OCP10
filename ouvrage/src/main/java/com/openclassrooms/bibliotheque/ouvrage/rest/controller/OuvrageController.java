@@ -7,6 +7,7 @@ import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundException;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.service.OuvrageService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +28,23 @@ public class OuvrageController {
     
     private final OuvrageService ouvrageService;
     private final OuvrageMapper  ouvrageMapper;
-    
+
+    /**
+     * Get a page of Ouvrage objects
+     * @param pageable the empty pageable object containing the page info
+     * @return a page filled with ouvrages objects
+     */
     @GetMapping(value = "/ouvrages")
     public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(Pageable pageable) {
         return ResponseEntity.ok(ouvrageService.getAll(pageable).map(ouvrageMapper::toOuvrageStockDto));
     }
-    
+
+    /**
+     * Get a description of the ouvrage
+     * @param ouvrageId the ouvrage id
+     * @return ouvrageDescrition Dto object {@link OuvrageDescriptionDto}
+     * @throws OuvrageNotFoundException if ouvrage not found
+     */
     @GetMapping(value = "/ouvrage/{ouvrageId}/description")
     public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId)
             throws OuvrageNotFoundException {
@@ -42,7 +54,12 @@ public class OuvrageController {
         }
         return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrage));
     }
-    
+
+    /**
+     * Get all ouvrage by a list of Ouvrage Id
+     * @param ouvrageIdList the List<> containing ouvrage Id
+     * @return A List of OuvrageNameIdDto {@link OuvrageNameIdDto}
+     */
     @PostMapping("/ouvrages")
     public ResponseEntity<List<OuvrageNameIdDto>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
         if (ouvrageIdList.isEmpty()) {
@@ -52,15 +69,16 @@ public class OuvrageController {
                 .ok(ouvrageService.findAllByOuvrageIdList(ouvrageIdList).stream().map(ouvrageMapper::toOuvrageNameIdDto)
                         .collect(Collectors.toList()));
     }
-    
+
+    /**
+     * Used when a reservation is created, remove one stock value for a ouvrage
+     * @param ouvrageId the ouvrage id
+     * @return a response entity with Ok for success or Bad request if error occurred
+     */
     @PutMapping("/ouvrage/{ouvrageId}/reserver")
-    public ResponseEntity removeOneOuvrageQuantityFromStock(@PathVariable int ouvrageId) {
-        boolean removed = ouvrageService.removeOneFromStock(ouvrageId);
-        if (removed) {
+    public ResponseEntity<String> removeOneOuvrageQuantityFromStock(@PathVariable int ouvrageId) {
+        ouvrageService.removeOneFromStock(ouvrageId);
             return ResponseEntity.ok("Stock baissé d’une unité");
-        } else {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
     }
     
 }
