@@ -63,9 +63,32 @@
             <!--                            th:text="${page}"></a></li>-->
             <!-- </th:block>-->
 
-            <th:block th:each="page: ${#numbers.sequence(1, pageable.getTotalPages())}">
-              <li class="page-item"><a class="page-link" th:href="@{'/listedesouvrages?page=' + ${page}}"
-                                       th:text="${page}"></a></li>
+            <th:block th:if="${pageInfo.previousOrFirst().getPageNumber()} >= 1">
+              <li class="page-item"><a class="page-link" th:href="@{'/listedesouvrages?page=' + ${pageInfo.getPageNumber() - 1}}"
+                                       th:text="'Précédent'"></a></li>
+            </th:block>
+
+            <th:block th:each="page: ${#numbers.sequence(pageInfo.getPageNumber() - 3, pageInfo.getPageNumber() - 1)}">
+              <th:block th:if="${page > 0}">
+                <li class="page-item"><a class="page-link" th:href="@{'/listedesouvrages?page=' + ${page}}"
+                                         th:text="${page}"></a></li>
+              </th:block>
+            </th:block>
+
+            <li class="page-item"><a class="page-link text-secondary"
+                                     th:href="@{'/listedesouvrages?page=' + ${pageInfo.getPageNumber()}}"
+                                     th:text="${pageInfo.getPageNumber()}"></a></li>
+
+            <th:block th:each="page: ${#numbers.sequence(pageInfo.getPageNumber() + 1 , pageInfo.getPageNumber() + 3)}">
+              <th:block th:if="${page <= 50}">
+                <li class="page-item"><a class="page-link" th:href="@{'/listedesouvrages?page=' + ${page}}"
+                                         th:text="${page}"></a></li>
+              </th:block>
+            </th:block>
+
+            <th:block th:if="${pageInfo.previousOrFirst().getPageNumber()} < ${pageable.getTotalPages() - 1}">
+              <li class="page-item"><a class="page-link" th:href="@{'/listedesouvrages?page=' + ${pageInfo.getPageNumber() + 1}}"
+                                       th:text="'Suivant'"></a></li>
             </th:block>
 
           </ul>
