@@ -15,6 +15,11 @@ public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;
 
+    /**
+     * Get user by email
+     * @param email the email of the user
+     * @return ResponseEntity Uilisateur if found or exception if not found
+     */
     @GetMapping("/utilisateur/{email}")
     public ResponseEntity<Utilisateur> getUtilisateurByEmail(@PathVariable String email) {
         Utilisateur utilisateur = utilisateurService.findUtilisateurByEmail(email);
