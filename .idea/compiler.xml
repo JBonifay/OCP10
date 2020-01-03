@@ -32,9 +32,16 @@
         <module name="ouvrage" />
         <module name="auth-service" />
       </profile>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="batch" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="auth-service" target="1.8" />
+      <module name="batch" target="1.8" />
       <module name="bibliotheque" target="1.8" />
       <module name="common" target="1.8" />
       <module name="config-server" target="1.8" />
@@ -50,6 +57,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="batch" options="-parameters" />
       <module name="bibliotheque" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="common" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="config-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />

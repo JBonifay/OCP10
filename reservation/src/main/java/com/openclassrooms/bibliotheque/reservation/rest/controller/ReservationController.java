@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class ReservationController {
-    
+
     private final ReservationService reservationService;
     private final ReservationMapper  reservationMapper;
-    
+
     /**
      * Get all reservations from user
      *
@@ -34,7 +34,7 @@ public class ReservationController {
      */
     @GetMapping("/reservations/{utilisateurId}")
     private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
-        
+
         List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
         if (reservationDtos.isEmpty()) {
             throw new ReservationIntrouvableException("Aucune réservation trouvée pour cet utilisateur");
@@ -42,7 +42,7 @@ public class ReservationController {
         return ResponseEntity
                 .ok(reservationDtos.stream().map(reservationMapper::toReservationOuvrageInfoDto).collect(Collectors.toList()));
     }
-    
+
     /**
      * Extend the date of a reservation fixed to 4 weeks more
      *
@@ -53,11 +53,11 @@ public class ReservationController {
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
         boolean extended = reservationService.extendReservation(reservationId);
         if (!extended) {
-            throw new AlreadyExtendedException("La réservation à déjà été prolongée !");
+            throw new AlreadyExtendedException();
         }
         return ResponseEntity.ok("Prolongement effectué..");
     }
-    
+
     /**
      * Create a new reservation for specified user
      *
@@ -68,13 +68,19 @@ public class ReservationController {
     public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId)
             throws ReservationAlreadyExistingException {
         Reservation reservation = reservationService.createNewReservationForUser(ouvrageId, utilisateurId);
-        return new ResponseEntity(reservation, HttpStatus.CREATED);
+        return new ResponseEntity<Reservation>(reservation, HttpStatus.CREATED);
     }
-    
+
+    /**
+     * Return a loan
+     *
+     * @param reservationId the reservation to return
+     * @return ResponseEntity ok if returned
+     */
     @PutMapping("reservation/{reservationId}/retourner")
     public ResponseEntity<String> returnLoan(@PathVariable int reservationId) {
         Reservation reservation = reservationService.returnReservation(reservationId);
         return ResponseEntity.ok("Reservation terminé");
     }
-    
+
 }

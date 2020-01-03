@@ -4,16 +4,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class AlreadyExtendedException extends RuntimeException {
+public class ReservationAlreadyReturnedException extends RuntimeException {
 
-    private static final String DEFAULT = "La réservation à déjà été prolongée !";
+    public static final String DEFAULT = "La reservation à déjà été retournée";
 
-    public AlreadyExtendedException() {
+    public ReservationAlreadyReturnedException() {
         super(DEFAULT);
     }
 
-    public AlreadyExtendedException(String s) {
+    public ReservationAlreadyReturnedException(String s) {
         super(s);
     }
-    
 }

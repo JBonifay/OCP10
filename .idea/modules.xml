@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/auth-service/auth-service.iml" filepath="$PROJECT_DIR$/auth-service/auth-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/batch/batch.iml" filepath="$PROJECT_DIR$/batch/batch.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/bibliotheque.iml" filepath="$PROJECT_DIR$/.idea/bibliotheque.iml" />
       <module fileurl="file://$PROJECT_DIR$/../bibliotheque-config/bibliotheque-config.iml" filepath="$PROJECT_DIR$/../bibliotheque-config/bibliotheque-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
