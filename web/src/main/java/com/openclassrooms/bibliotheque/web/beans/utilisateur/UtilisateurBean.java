@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 public class UtilisateurBean implements UserDetails {
     
-    private Integer userId;
+    private Integer utilisateurId;
     private String  email;
     private String  password;
     private String  token;

@@ -38,11 +38,12 @@ public class UtilisateurService implements AuthenticationProvider {
 
         String token = generateToken(utilisateurBean);
 
-        UtilisateurBean auth = loadUser(utilisateurBean);
+        UtilisateurBean authenticatedUser = loadUser(utilisateurBean);
 
-        if (auth != null && passwordEncoder.matches(password, auth.getPassword())) {
-            utilisateurBean.setToken(token);
-            return new UsernamePasswordAuthenticationToken(utilisateurBean, password, new ArrayList<>());
+
+        if (authenticatedUser != null && passwordEncoder.matches(password, authenticatedUser.getPassword())) {
+            authenticatedUser.setToken(token);
+            return new UsernamePasswordAuthenticationToken(authenticatedUser, password, new ArrayList<>());
         } else {
             throw new BadCredentialsException("Authentification échoué");
         }

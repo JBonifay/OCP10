@@ -19,12 +19,12 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 @Table(name = "utilisateur")
 public class Utilisateur {
-    
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "utilisateur_id")
-    private int    id;
+    private int    utilisateurId;
     @NotNull
     @Length(min = 3)
     @Column(name = "first_name")
@@ -42,5 +42,5 @@ public class Utilisateur {
     @Length(min = 3)
     @Column(name = "password")
     private String password;
-    
+
 }
