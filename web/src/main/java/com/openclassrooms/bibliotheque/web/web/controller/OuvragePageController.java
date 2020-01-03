@@ -27,8 +27,6 @@ public class OuvragePageController {
         if (ouvragePage.getStatusCode() == HttpStatus.OK) {
             ouvrages.addObject("ouvrages", ouvragePage.getBody().getContent());
             ouvrages.addObject("pageable", ouvragePage.getBody());
-        } else {
-            // TODO: 404 Page
         }
         return ouvrages;
     }
@@ -41,8 +39,6 @@ public class OuvragePageController {
         
         if (ouvrageDescriptionBean.getStatusCode() == HttpStatus.OK) {
             description.addObject("ouvrage", ouvrageDescriptionBean.getBody());
-        } else {
-            // TODO: 404 Page
         }
         return description;
     }

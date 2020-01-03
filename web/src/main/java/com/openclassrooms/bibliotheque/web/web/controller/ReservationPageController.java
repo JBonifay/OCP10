@@ -6,14 +6,12 @@ import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
 import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
 import com.openclassrooms.bibliotheque.web.proxies.UtilisateurProxy;
 import com.openclassrooms.bibliotheque.web.service.ReservationService;
-import feign.FeignException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,12 +40,14 @@ public class ReservationPageController {
         if (utilisateurBean != null) {
             ResponseEntity<List<ReservationBean>> reservationBeanResponseEntity = reservationService
                     .getAllReservationListByUtilisateurId(utilisateurBean.getUtilisateurId());
-            if (reservationBeanResponseEntity.getStatusCode().is2xxSuccessful() && reservationBeanResponseEntity.getBody() != null) {
+            if (reservationBeanResponseEntity.getStatusCode().is2xxSuccessful()
+                    && reservationBeanResponseEntity.getBody() != null) {
                 List<Integer> ouvrageIdList = reservationBeanResponseEntity.getBody().stream().map(ReservationBean::getOuvrageId)
                         .collect(Collectors.toList());
                 ResponseEntity<List<OuvrageIdNameBean>> ouvrageIdNameBeanResponseEntity = reservationService
                         .getAllOuvrageByOuvrageIdList(ouvrageIdList);
-                if (ouvrageIdNameBeanResponseEntity.getStatusCode().is2xxSuccessful() && ouvrageIdNameBeanResponseEntity.getBody() != null) {
+                if (ouvrageIdNameBeanResponseEntity.getStatusCode().is2xxSuccessful()
+                        && ouvrageIdNameBeanResponseEntity.getBody() != null) {
                     List<OuvrageReservationBean> ouvrageReservationBeans = reservationService
                             .createOuvrageReservationBean(reservationBeanResponseEntity.getBody(),
                                     ouvrageIdNameBeanResponseEntity.getBody());
@@ -66,11 +66,7 @@ public class ReservationPageController {
      */
     @GetMapping("/reservation/prolonger/{reservationId}")
     public RedirectView extendReservation(@PathVariable int reservationId) {
-        try {
-            reservationService.prolongateReservation(reservationId);
-        } catch (FeignException e) {
-            log.error(e.getMessage());
-        }
+        reservationService.prolongateReservation(reservationId);
         return new RedirectView("/reservation");
     }
 
