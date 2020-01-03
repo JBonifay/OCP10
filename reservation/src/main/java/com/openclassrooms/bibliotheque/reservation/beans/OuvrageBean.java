@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class OuvrageBean {
-    
+
+    private int ouvrageId;
     private String name;
     private String author;
     private Date   releaseDate;
@@ -16,5 +17,5 @@ public class OuvrageBean {
     private int    numberOfPages;
     private int    notation;
     private int    quantity;
-    
+
 }

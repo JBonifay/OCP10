@@ -67,6 +67,11 @@
       <groupId>org.springframework.data</groupId>
     </dependency>
 
+    <dependency>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
   </dependencies>
 
 </project>

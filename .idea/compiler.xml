@@ -23,13 +23,13 @@
           <entry name="$MAVEN_REPOSITORY$/org/springframework/spring-context/4.0.3.RELEASE/spring-context-4.0.3.RELEASE.jar" />
           <entry name="$MAVEN_REPOSITORY$/joda-time/joda-time/2.9/joda-time-2.9.jar" />
         </processorPath>
-        <module name="ouvrage" />
+        <module name="web" />
         <module name="eureka-server" />
         <module name="config-server" />
         <module name="zuul-server" />
         <module name="utilisateur" />
         <module name="reservation" />
-        <module name="web" />
+        <module name="ouvrage" />
         <module name="auth-service" />
       </profile>
     </annotationProcessing>
@@ -50,6 +50,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="bibliotheque" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="common" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="config-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="eureka-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
