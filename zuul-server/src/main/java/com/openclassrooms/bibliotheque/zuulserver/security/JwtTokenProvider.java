@@ -35,6 +35,7 @@ public class JwtTokenProvider {
     }
 
     public String createToken(Authentication authentication) {
+        // TODO: JHipster
         long now = (new Date()).getTime();
         Date validity = new Date(now + jwtProperties.getValidityInMs());
         return Jwts.builder().setSubject(authentication.getName()).claim(AUTHORITIES_KEY, AUTHORITIES)

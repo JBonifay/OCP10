@@ -3,6 +3,7 @@ package com.openclassrooms.bibliotheque.utilisateur.rest.controller;
 import com.openclassrooms.bibliotheque.utilisateur.model.Utilisateur;
 import com.openclassrooms.bibliotheque.utilisateur.rest.exception.UserNotFoundException;
 import com.openclassrooms.bibliotheque.utilisateur.service.UtilisateurService;
+import javax.swing.Spring;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +31,6 @@ public class UtilisateurController {
 
     }
 
+    // TODO Utilisateur dans Zuul
 
 }

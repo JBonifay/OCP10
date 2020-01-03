@@ -15,7 +15,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     JwtTokenProvider jwtTokenProvider;
-    
+
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -27,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/signin").permitAll()
-                .antMatchers("/microservice-utilisateur/utilisateur/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtSecurityConfigurer(jwtTokenProvider));

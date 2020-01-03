@@ -18,6 +18,8 @@ public class JwtTokenFilter extends GenericFilterBean {
     public static final String           AUTHORIZATION_HEADER = "Authorization";
     private final       JwtTokenProvider jwtTokenProvider;
 
+    // TODO: s'active lorsque username/pass valid
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
