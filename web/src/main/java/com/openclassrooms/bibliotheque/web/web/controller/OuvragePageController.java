@@ -26,7 +26,7 @@ public class OuvragePageController {
         ResponseEntity<RestPageImpl<OuvrageStockBean>> ouvragePage = ouvrageProxy.getAllOuvrageListByPage(pageable);
         if (ouvragePage.getStatusCode() == HttpStatus.OK) {
             ouvrages.addObject("ouvrages", ouvragePage.getBody().getContent());
-            ouvrages.addObject("pageNumber", ouvragePage.getBody().getTotalPages());
+            ouvrages.addObject("pageable", ouvragePage.getBody());
         } else {
             // TODO: 404 Page
         }
