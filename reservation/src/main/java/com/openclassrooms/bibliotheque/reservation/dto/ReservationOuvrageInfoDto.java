@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationOuvrageInfoDto {
-    
-    private int  reservationId;
-    private int  ouvrageId;
-    private Date reservationDateDebut;
-    private Date reservationDateFin;
-    
+
+    private int     reservationId;
+    private int     ouvrageId;
+    private Date    reservationDateDebut;
+    private Date    reservationDateFin;
+    private boolean dejaProlonge;
+
 }

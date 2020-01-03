@@ -23,6 +23,7 @@ public class ReservationService {
         List<OuvrageReservationBean> ouvrageReservationBeans = new ArrayList<>();
         ouvrageIdNameBeanList.forEach(ouvrageIdNameBean -> {
             ReservationBean reservationBean = new ReservationBean();
+
             for (ReservationBean r : reservationBeanList) {
                 if (r.getOuvrageId() == ouvrageIdNameBean.getOuvrageId()) {
                     reservationBean = r;
@@ -31,9 +32,12 @@ public class ReservationService {
             OuvrageReservationBean ouvrageReservationBean = new OuvrageReservationBean();
             ouvrageReservationBean.setReservationId(reservationBean.getReservationId());
             ouvrageReservationBean.setOuvrageId(ouvrageIdNameBean.getOuvrageId());
-            ouvrageReservationBean.setName(ouvrageIdNameBean.getOuvrageName());
+            ouvrageReservationBean.setName(ouvrageIdNameBean.getName());
+            ouvrageReservationBean.setAuthor(ouvrageIdNameBean.getAuthor());
+            ouvrageReservationBean.setNotation(ouvrageIdNameBean.getNotation());
             ouvrageReservationBean.setReservationDateDebut(reservationBean.getReservationDateDebut());
             ouvrageReservationBean.setReservationDateFin(reservationBean.getReservationDateFin());
+            ouvrageReservationBean.setAlreadyProlonger(reservationBean.isDejaProlonge());
             ouvrageReservationBeans.add(ouvrageReservationBean);
         });
         return ouvrageReservationBeans;

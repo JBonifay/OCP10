@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ClientConfiguration {
 
-    @Bean
-    public ErrorDecoder errorDecoder() {
-        return new CustomErrorDecoder();
-    }
+//    @Bean
+//    public ErrorDecoder errorDecoder() {
+//        return new CustomErrorDecoder();
+//    }
 }

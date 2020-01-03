@@ -9,11 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OuvrageReservationBean {
-    
-    private int    reservationId;
-    private int    ouvrageId;
-    private String name;
-    private Date   reservationDateDebut;
-    private Date   reservationDateFin;
-    
+
+    private int     reservationId;
+    private int     ouvrageId;
+    private String  name;
+    private String  author;
+    private Date    reservationDateDebut;
+    private Date    reservationDateFin;
+    private boolean isAlreadyProlonger;
+    private String  notation;
+
+
 }

@@ -11,5 +11,7 @@ public class OuvrageNameIdDto {
 
     private int    ouvrageId;
     private String name;
+    private String author;
+    private int    notation;
 
 }
