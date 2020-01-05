@@ -3,14 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/auth-service/auth-service.iml" filepath="$PROJECT_DIR$/auth-service/auth-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/batch/batch.iml" filepath="$PROJECT_DIR$/batch/batch.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/bibliotheque.iml" filepath="$PROJECT_DIR$/.idea/bibliotheque.iml" />
       <module fileurl="file://$PROJECT_DIR$/../bibliotheque-config/bibliotheque-config.iml" filepath="$PROJECT_DIR$/../bibliotheque-config/bibliotheque-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/ouvrage/ouvrage.iml" filepath="$PROJECT_DIR$/ouvrage/ouvrage.iml" />
       <module fileurl="file://$PROJECT_DIR$/reservation/reservation.iml" filepath="$PROJECT_DIR$/reservation/reservation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/utilisateur/utilisateur.iml" filepath="$PROJECT_DIR$/utilisateur/utilisateur.iml" />
       <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
       <module fileurl="file://$PROJECT_DIR$/zuul-server/zuul-server.iml" filepath="$PROJECT_DIR$/zuul-server/zuul-server.iml" />
     </modules>

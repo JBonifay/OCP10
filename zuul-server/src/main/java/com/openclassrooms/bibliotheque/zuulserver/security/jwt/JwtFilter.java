@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.security;
+package com.openclassrooms.bibliotheque.zuulserver.security.jwt;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -6,27 +6,31 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-@RequiredArgsConstructor
-public class JwtTokenFilter extends GenericFilterBean {
+/**
+ * Filters incoming requests and installs a Spring Security principal if a header corresponding to a valid user is found.
+ */
+public class JwtFilter extends GenericFilterBean {
 
-    public static final String           AUTHORIZATION_HEADER = "Authorization";
-    private final       JwtTokenProvider jwtTokenProvider;
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    // TODO: s'active lorsque username/pass valid
+    private JwtTokenProvider tokenProvider;
+
+    public JwtFilter(JwtTokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String jwt = resolveToken(httpServletRequest);
-        if (StringUtils.hasText(jwt) && this.jwtTokenProvider.validateToken(jwt)) {
-            Authentication authentication = this.jwtTokenProvider.getAuthentication(jwt);
+        if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
+            Authentication authentication = this.tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(servletRequest, servletResponse);
@@ -39,5 +43,4 @@ public class JwtTokenFilter extends GenericFilterBean {
         }
         return null;
     }
-
 }

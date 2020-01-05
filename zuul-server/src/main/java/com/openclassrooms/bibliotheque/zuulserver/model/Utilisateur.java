@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.utilisateur.model;
+package com.openclassrooms.bibliotheque.zuulserver.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
