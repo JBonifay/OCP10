@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class OnAuthenticationResult implements AuthenticationSuccessHandler, AuthenticationFailureHandler {
+public class CustomAuthenticationResultHandler implements AuthenticationSuccessHandler {
 
     private final JwtToken jwtToken;
 
@@ -26,7 +26,7 @@ public class OnAuthenticationResult implements AuthenticationSuccessHandler, Aut
             Authentication authentication) throws IOException, ServletException {
 
         Utilisateur authenticatedUtilisateur = (Utilisateur) authentication.getPrincipal();
-        authenticatedUtilisateur.setJwtToken(jwtToken.generateToken(authenticatedUtilisateur));
+        authenticatedUtilisateur.setJwtToken("Bearer " + jwtToken.generateToken(authenticatedUtilisateur));
 
         String json = new ObjectMapper().writeValueAsString(authenticatedUtilisateur);
 
@@ -34,13 +34,6 @@ public class OnAuthenticationResult implements AuthenticationSuccessHandler, Aut
         httpServletResponse.setContentType("application/json");
         httpServletResponse.getWriter().write(json);
         httpServletResponse.flushBuffer();
-    }
-
-
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException exception) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }
 
 }

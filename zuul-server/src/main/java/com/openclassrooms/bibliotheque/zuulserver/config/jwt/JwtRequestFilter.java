@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.zuulserver.config.jwt;
 
+import com.openclassrooms.bibliotheque.zuulserver.config.CustomAccessDeniedHandler;
 import com.openclassrooms.bibliotheque.zuulserver.service.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import java.io.IOException;
@@ -8,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
 
 
@@ -45,18 +47,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             } catch (IllegalArgumentException e) {
 
-                System.out.println("Unable to get JWT Token");
+                log.error("Unable to get JWT Token");
 
             } catch (ExpiredJwtException e) {
 
-                System.out.println("JWT Token has expired");
+                log.error("JWT Token has expired");
 
             }
 
         } else {
 
-            logger.warn("JWT Token does not begin with Bearer String");
-
+            log.warn("JWT Token does not begin with Bearer String");
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

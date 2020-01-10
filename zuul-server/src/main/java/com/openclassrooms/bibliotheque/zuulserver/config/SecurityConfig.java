@@ -1,6 +1,5 @@
 package com.openclassrooms.bibliotheque.zuulserver.config;
 
-import com.openclassrooms.bibliotheque.zuulserver.config.jwt.JwtAuthenticationEntryPoint;
 import com.openclassrooms.bibliotheque.zuulserver.config.jwt.JwtRequestFilter;
 import com.openclassrooms.bibliotheque.zuulserver.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +20,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailsService    customUserDetailsService;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtRequestFilter       jwtRequestFilter;
-    private final OnAuthenticationResult onAuthenticationResult;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final JwtRequestFilter         jwtRequestFilter;
+
+    private final CustomAuthenticationResultHandler authenticationResultHandler;
+    private final CustomAuthenticationEntryPoint    unauthorizedHandler;
+    private final CustomAccessDeniedHandler         accessDeniedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,15 +44,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().disable()
                 .formLogin()
                 .loginProcessingUrl("/authenticate")
-                .successHandler(onAuthenticationResult)
-                .failureHandler(onAuthenticationResult)
+                .successHandler(authenticationResultHandler)
                 .and()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         // @formatter:on
+
     }
 
 
