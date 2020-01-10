@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.config;
+package com.openclassrooms.bibliotheque.zuulserver.service;
 
 import com.openclassrooms.bibliotheque.zuulserver.repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
