@@ -25,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomAuthenticationResultHandler authenticationResultHandler;
     private final CustomAuthenticationEntryPoint    unauthorizedHandler;
-    private final CustomAccessDeniedHandler         accessDeniedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -48,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(unauthorizedHandler)
-                .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

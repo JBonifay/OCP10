@@ -1,6 +1,5 @@
 package com.openclassrooms.bibliotheque.zuulserver.config.jwt;
 
-import com.openclassrooms.bibliotheque.zuulserver.config.CustomAccessDeniedHandler;
 import com.openclassrooms.bibliotheque.zuulserver.service.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import java.io.IOException;
