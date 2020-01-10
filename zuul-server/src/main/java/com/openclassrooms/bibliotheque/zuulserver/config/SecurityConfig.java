@@ -23,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtRequestFilter         jwtRequestFilter;
 
-    private final CustomAuthenticationResultHandler authenticationResultHandler;
-    private final CustomAuthenticationEntryPoint    unauthorizedHandler;
+    private final JwtAuthenticationSuccessHandler authenticationResultHandler;
+    private final JwtAuthenticationEntryPoint     unauthorizedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

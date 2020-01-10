@@ -2,6 +2,7 @@ package com.openclassrooms.bibliotheque.zuulserver.config.jwt;
 
 import com.openclassrooms.bibliotheque.zuulserver.service.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -37,7 +38,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String jwtToken = null;
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-
             jwtToken = requestTokenHeader.substring(7);
 
             try {
@@ -45,17 +45,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
 
             } catch (IllegalArgumentException e) {
-
                 log.error("Unable to get JWT Token");
-
             } catch (ExpiredJwtException e) {
-
                 log.error("JWT Token has expired");
-
+            } catch (MalformedJwtException e) {
+                log.error("JWT Token malformed");
             }
-
         } else {
-
             log.warn("JWT Token does not begin with Bearer String");
         }
 
