@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.config.security;
+package com.openclassrooms.bibliotheque.web.config;
 
 import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
 import feign.RequestInterceptor;

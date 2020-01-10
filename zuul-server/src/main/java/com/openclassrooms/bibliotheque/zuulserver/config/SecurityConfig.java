@@ -1,5 +1,7 @@
 package com.openclassrooms.bibliotheque.zuulserver.config;
 
+import com.openclassrooms.bibliotheque.zuulserver.config.jwt.JwtAuthenticationEntryPoint;
+import com.openclassrooms.bibliotheque.zuulserver.config.jwt.JwtAuthenticationSuccessHandler;
 import com.openclassrooms.bibliotheque.zuulserver.config.jwt.JwtRequestFilter;
 import com.openclassrooms.bibliotheque.zuulserver.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;

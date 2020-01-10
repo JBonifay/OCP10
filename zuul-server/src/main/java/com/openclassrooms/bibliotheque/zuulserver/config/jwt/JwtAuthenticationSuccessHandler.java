@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.config;
+package com.openclassrooms.bibliotheque.zuulserver.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.bibliotheque.zuulserver.config.jwt.JwtToken;
