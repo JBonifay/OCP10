@@ -1,6 +1,7 @@
 package com.openclassrooms.bibliotheque.web.beans.utilisateur;
 
 import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,22 +12,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UtilisateurBean implements UserDetails {
-    
-    private Integer utilisateurId;
-    private String  email;
-    private String  password;
-    private String  token;
-    
-    @Override
+
+    private int          utilisateurId;
+    private String       firstName;
+    private String       lastName;
+    private String       email;
+    private String       password;
+    private boolean      enabled;
+    private String       username;
+    private List<String> authorities;
+    private boolean      accountNonExpired;
+    private boolean      accountNonLocked;
+    private boolean      credentialsNonExpired;
+    private String       jwtToken;
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
-    
+
     @Override
     public String getPassword() {
         return password;
     }
-    
+
     @Override
     public String getUsername() {
         return email;
@@ -34,22 +42,22 @@ public class UtilisateurBean implements UserDetails {
     
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return accountNonExpired;
     }
     
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return accountNonLocked;
     }
     
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return credentialsNonExpired;
     }
     
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
     
 }
