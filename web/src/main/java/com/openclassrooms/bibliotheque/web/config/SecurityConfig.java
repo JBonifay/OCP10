@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.web.config;
 
+import com.openclassrooms.bibliotheque.web.config.security.CustomAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

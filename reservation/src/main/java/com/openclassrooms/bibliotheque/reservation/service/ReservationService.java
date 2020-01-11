@@ -3,8 +3,8 @@ package com.openclassrooms.bibliotheque.reservation.service;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExtendedException;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExistingException;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExtendedException;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyReturnedException;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +15,6 @@ import lombok.SneakyThrows;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 
 @Service
