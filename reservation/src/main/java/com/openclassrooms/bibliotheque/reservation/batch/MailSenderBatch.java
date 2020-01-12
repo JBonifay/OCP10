@@ -10,6 +10,7 @@ import com.openclassrooms.bibliotheque.reservation.repository.ReservationReposit
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
+@EnableScheduling
 public class MailSenderBatch {
 
     private final JavaMailSender        emailSender;
@@ -42,8 +45,8 @@ public class MailSenderBatch {
      *
      * @throws Exception if task could not proceed
      */
-    @Scheduled(cron = "* * * * *")
-    public void execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+    @Scheduled(cron = "0 * * * * ?")
+    public void execute() throws Exception {
         log.info("Starting batch task");
 
         List<Reservation> reservationList = reservationRepository.findAllByReservationDateFinBeforeAndActiveIsTrue(new Date());
