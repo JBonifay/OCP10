@@ -23,13 +23,17 @@
           <entry name="$MAVEN_REPOSITORY$/org/springframework/spring-context/4.0.3.RELEASE/spring-context-4.0.3.RELEASE.jar" />
           <entry name="$MAVEN_REPOSITORY$/joda-time/joda-time/2.9/joda-time-2.9.jar" />
         </processorPath>
+        <module name="auth-service" />
+      </profile>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
         <module name="ouvrage" />
         <module name="eureka-server" />
-        <module name="config-server" />
         <module name="zuul-server" />
         <module name="web" />
         <module name="reservation" />
-        <module name="auth-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -53,14 +57,14 @@
       <module name="batch" options="-parameters" />
       <module name="bibliotheque" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="common" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="config-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="eureka-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="config-server" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
       <module name="microservice-auth" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="ouvrage" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="reservation" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="ouvrage" options="-parameters" />
+      <module name="reservation" options="-parameters" />
       <module name="utilisateur" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="web" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="zuul-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="web" options="-parameters" />
+      <module name="zuul-server" options="-parameters" />
     </option>
   </component>
 </project>
