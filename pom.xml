@@ -5,10 +5,10 @@
 
   <!-- ===== Spring boot parent ===== -->
   <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
-    <relativePath/>
-    <version>2.2.2.RELEASE</version> <!-- lookup parent from repository -->
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.2.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <!-- ===== Informations Maven ===== -->
@@ -44,14 +44,9 @@
   <!-- ===== Dependencies versions ===== -->
   <properties>
     <java.version>1.8</java.version>
-    <spring-boot-starter-parent.version>2.2.1.RELEASE</spring-boot-starter-parent.version>
-
-<!--    <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>-->
-<!--    <lombok.version>1.18.10</lombok.version>-->
-<!--    <mapstruct.version>1.3.1.Final</mapstruct.version>-->
-<!--    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>-->
-<!--    <mysql-connector-java.version>8.0.18</mysql-connector-java.version>-->
-<!--    <jjwt.version>0.9.1</jjwt.version>-->
+    <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+    <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+    <jjwt.version>0.9.1</jjwt.version>
   </properties>
 
   <!-- ===== Dependencies ===== -->
@@ -64,52 +59,66 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
       <dependency>
         <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-gcp-dependencies</artifactId>
-        <version>1.1.4.RELEASE</version>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${org.mapstruct.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
   <!-- ===== Build config ===== -->
-<!--  <build>-->
-<!--    <pluginManagement>-->
-<!--      <plugins>-->
-<!--        <plugin>-->
-<!--          <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--          <groupId>org.springframework.boot</groupId>-->
-<!--        </plugin>-->
-<!--        <plugin>-->
-<!--          <artifactId>maven-compiler-plugin</artifactId>-->
-<!--          <configuration>-->
-<!--            <annotationProcessorPaths>-->
-<!--              <path>-->
-<!--                <artifactId>lombok</artifactId>-->
-<!--                <groupId>org.projectlombok</groupId>-->
-<!--                <version>${lombok.version}</version>-->
-<!--              </path>-->
-<!--              <path>-->
-<!--                <artifactId>mapstruct-processor</artifactId>-->
-<!--                <groupId>org.mapstruct</groupId>-->
-<!--                <version>${mapstruct.version}</version>-->
-<!--              </path>-->
-<!--            </annotationProcessorPaths>-->
-<!--            <compilerArgs>-->
-<!--              <compilerArg>-->
-<!--                -Amapstruct.defaultComponentModel=spring-->
-<!--              </compilerArg>-->
-<!--            </compilerArgs>-->
-<!--            <source>1.8</source>-->
-<!--            <target>1.8</target>-->
-<!--          </configuration>-->
-<!--          <groupId>org.apache.maven.plugins</groupId>-->
-<!--          <version>${maven-compiler-plugin.version}</version>-->
-<!--        </plugin>-->
-<!--      </plugins>-->
-<!--    </pluginManagement>-->
-<!--  </build>-->
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <groupId>org.springframework.boot</groupId>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <annotationProcessorPaths>
+              <path>
+                <artifactId>lombok</artifactId>
+                <groupId>org.projectlombok</groupId>
+                <version>${lombok.version}</version>
+              </path>
+              <path>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${org.mapstruct.version}</version>
+              </path>
+            </annotationProcessorPaths>
+            <compilerArgs>
+              <compilerArg>
+                -Amapstruct.defaultComponentModel=spring
+              </compilerArg>
+            </compilerArgs>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+          <groupId>org.apache.maven.plugins</groupId>
+          <version>${maven-compiler-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>

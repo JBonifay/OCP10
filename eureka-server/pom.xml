@@ -16,16 +16,13 @@
 
   <dependencies>
 
-    <dependency>
-      <artifactId>spring-cloud-starter-config</artifactId>
-      <groupId>org.springframework.cloud</groupId>
-    </dependency>
-
+    <!--  Spring Cloud  -->
     <dependency>
       <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
       <groupId>org.springframework.cloud</groupId>
     </dependency>
 
+    <!--  Utils  -->
     <dependency>
       <artifactId>lombok</artifactId>
       <groupId>org.projectlombok</groupId>

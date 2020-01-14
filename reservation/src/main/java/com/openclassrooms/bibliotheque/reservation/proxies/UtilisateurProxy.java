@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "utilisateur-proxy", url = "http://localhost:9103")
+@FeignClient(name = "utilisateur-proxy", url = "${feign.url}", path = "")
 public interface UtilisateurProxy {
 
     @GetMapping("/utilisateur/{utilisateurId}")
