@@ -32,11 +32,6 @@
     </dependency>
 
     <dependency>
-      <artifactId>spring-cloud-starter-config</artifactId>
-      <groupId>org.springframework.cloud</groupId>
-    </dependency>
-
-    <dependency>
       <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
       <groupId>org.springframework.cloud</groupId>
     </dependency>
