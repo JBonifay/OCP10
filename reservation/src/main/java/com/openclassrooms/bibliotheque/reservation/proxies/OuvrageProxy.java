@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
-@FeignClient(name = "ouvrage-proxy", url = "${feign.url}", path = "/microservice-ouvrage")
+@FeignClient(name = "ouvrage-proxy", url = "${feign.zuul.url}", path = "/microservice-ouvrage")
 public interface OuvrageProxy {
     
     @GetMapping("/ouvrage/{ouvrageId}/description")
