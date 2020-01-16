@@ -38,6 +38,7 @@
 
     <module>ouvrage</module>
     <module>reservation</module>
+    <module>utilisateur</module>
     <module>web</module>
   </modules>
 

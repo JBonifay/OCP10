@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.model;
+package com.openclassrooms.utilisateur.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -47,9 +46,6 @@ public class Utilisateur implements UserDetails {
     @Length(min = 3)
     @Column(name = "password")
     private String password;
-
-    @Transient
-    private String jwtToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

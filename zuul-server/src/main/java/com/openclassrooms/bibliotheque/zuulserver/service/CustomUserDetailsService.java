@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.zuulserver.service;
 
-import com.openclassrooms.bibliotheque.zuulserver.repository.UtilisateurRepository;
+import com.openclassrooms.bibliotheque.zuulserver.proxies.UtilisateurProxy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UtilisateurRepository utilisateurRepository;
+    private final UtilisateurProxy utilisateurProxy;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return utilisateurRepository.findUtilisateurByEmailIgnoreCase(s).orElse(null);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return utilisateurProxy.findUtilisateurByEmailIgnoreCase(email);
     }
 }

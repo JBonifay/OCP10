@@ -25,6 +25,7 @@
         </processorPath>
         <module name="web" />
         <module name="eureka-server" />
+        <module name="utilisateur" />
         <module name="zuul-server" />
         <module name="reservation" />
         <module name="ouvrage" />

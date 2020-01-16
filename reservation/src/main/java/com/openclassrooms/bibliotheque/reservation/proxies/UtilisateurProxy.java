@@ -4,12 +4,12 @@ import com.openclassrooms.bibliotheque.reservation.beans.UtilisateurBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "utilisateur-proxy", url = "${feign.zuul.url}", path = "")
+@FeignClient(value = "microservice-utilisateur")
 public interface UtilisateurProxy {
 
-    @GetMapping("/utilisateur/{utilisateurId}")
-    ResponseEntity<UtilisateurBean> findUtilisateurById(@PathVariable String utilisateurId);
+    @GetMapping("/utilisateur")
+    ResponseEntity<UtilisateurBean> findUtilisateurById(@RequestParam String utilisateurId);
 
 }
