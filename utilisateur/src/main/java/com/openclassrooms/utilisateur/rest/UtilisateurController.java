@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class controller {
+public class UtilisateurController {
 
     private final UtilisateurRepository utilisateurRepository;
 

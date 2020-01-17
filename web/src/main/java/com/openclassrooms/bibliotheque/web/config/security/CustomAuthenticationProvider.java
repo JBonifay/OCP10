@@ -10,6 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Configuration
 @RequiredArgsConstructor
@@ -22,18 +23,21 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final String email = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
+        UtilisateurBean authenticatedUtilisateur = null;
+
         if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
 
-            UtilisateurBean authenticatedUtilisateur = utilisateurProxy.authenticateUser(email, password).orElse(null);
-
-            if (authenticatedUtilisateur != null) {
-                return new UsernamePasswordAuthenticationToken(authenticatedUtilisateur, password, new ArrayList<>());
+            try {
+                authenticatedUtilisateur = utilisateurProxy.authenticateUser(email, password);
+            } catch (Exception e) {
+                SecurityContextHolder.clearContext();
+                throw new BadCredentialsException("Les informations de connection ne semble pas correcte...");
             }
         }
-            throw new BadCredentialsException("External system authentication failed");
+        return new UsernamePasswordAuthenticationToken(authenticatedUtilisateur, password, new ArrayList<>());
     }
 
-        @Override
+    @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }

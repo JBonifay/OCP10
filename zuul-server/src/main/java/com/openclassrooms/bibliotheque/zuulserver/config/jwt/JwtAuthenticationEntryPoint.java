@@ -30,7 +30,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Jwt token is expired");
         } else {
             log.error("Token not present, login credentials are invalid");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Login details");
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid Login details");
         }
 
     }

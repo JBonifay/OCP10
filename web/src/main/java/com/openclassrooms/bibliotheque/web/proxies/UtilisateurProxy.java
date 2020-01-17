@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UtilisateurProxy {
 
     @PostMapping("/authenticate")
-    Optional<UtilisateurBean> authenticateUser(@RequestParam String username, @RequestParam String password);
+    UtilisateurBean authenticateUser(@RequestParam String username, @RequestParam String password);
 
 }
