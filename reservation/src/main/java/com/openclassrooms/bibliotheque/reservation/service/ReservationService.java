@@ -126,10 +126,4 @@ public class ReservationService {
         return calendar.getTime();
     }
 
-    @Scheduled(cron = "0 1 19 * * *")
-    private void mailDeRelance() {
-
-
-    }
-
 }

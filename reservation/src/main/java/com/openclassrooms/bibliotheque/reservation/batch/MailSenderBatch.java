@@ -10,14 +10,9 @@ import com.openclassrooms.bibliotheque.reservation.repository.ReservationReposit
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.StepContribution;
-import org.springframework.batch.core.scope.context.ChunkContext;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatException;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -42,11 +37,9 @@ public class MailSenderBatch {
 
     /**
      * Set batch task each days at 00
-     *
-     * @throws Exception if task could not proceed
      */
-    @Scheduled(cron = "0 * * * * ?")
-    public void execute() throws Exception {
+    @Scheduled(cron = " 0 0 * * * ?")
+    public void execute() {
         log.info("Starting batch task");
 
         List<Reservation> reservationList = reservationRepository.findAllByReservationDateFinBeforeAndActiveIsTrue(new Date());
@@ -85,12 +78,12 @@ public class MailSenderBatch {
             }
         }
 
-        this.sendRevival(emailsToSend);
+        this.prepareMails(emailsToSend);
 
         log.info("End of batch service");
     }
 
-    public void sendRevival(List<EmailInfoBean> emailList) {
+    public void prepareMails(List<EmailInfoBean> emailList) {
         for (EmailInfoBean e : emailList) {
 
             StringBuilder sb = new StringBuilder();
