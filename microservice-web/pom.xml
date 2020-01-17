@@ -10,7 +10,7 @@
   <description>Microservice web / Utilisateur UI</description>
   <modelVersion>4.0.0</modelVersion>
 
-  <name>Web</name>
+  <name>Microservice-Web</name>
   <packaging>jar</packaging>
   <artifactId>web</artifactId>
 

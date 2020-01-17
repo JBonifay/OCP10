@@ -11,7 +11,7 @@
 
   <artifactId>ouvrage</artifactId>
   <description>Gestion des ouvrage</description>
-  <name>ouvrage</name>
+  <name>Microservice-Ouvrage</name>
   <packaging>jar</packaging>
 
   <dependencies>

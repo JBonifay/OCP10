@@ -9,7 +9,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <name>eureka-server</name>
+  <name>EdgeService-Eureka</name>
   <version>0.0.1-SNAPSHOT</version>
   <artifactId>eureka-server</artifactId>
   <description>Microservice Eureka</description>

@@ -33,13 +33,13 @@
 
   <!-- ===== Modules ===== -->
   <modules>
-    <module>eureka-server</module>
-    <module>zuul-server</module>
+    <module>edgeservice-eureka</module>
+    <module>edgeservice-zuul</module>
 
-    <module>ouvrage</module>
-    <module>reservation</module>
-    <module>utilisateur</module>
-    <module>web</module>
+    <module>microservice-ouvrage</module>
+    <module>microservice-reservation</module>
+    <module>microservice-utilisateur</module>
+    <module>microservice-web</module>
   </modules>
 
   <!-- ===== Dependencies versions ===== -->

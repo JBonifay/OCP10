@@ -9,9 +9,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <description>Gestion des réservations</description>
-  <name>reservation</name>
   <artifactId>reservation</artifactId>
+  <description>Gestion des réservations</description>
+  <name>Microservice-Reservation</name>
   <packaging>jar</packaging>
 
   <dependencies>

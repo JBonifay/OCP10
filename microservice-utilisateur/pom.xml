@@ -11,7 +11,7 @@
 
 	<artifactId>utilisateur</artifactId>
 	<description>Microservice pour la gestion des utilisateurs</description>
-	<name>utilisateur</name>
+	<name>Microservice-Utilisateur</name>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
