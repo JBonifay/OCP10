@@ -34,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                 throw new BadCredentialsException("Les informations de connection ne semble pas correcte...");
             }
         }
-        return new UsernamePasswordAuthenticationToken(authenticatedUtilisateur, password, new ArrayList<>());
+        return new UsernamePasswordAuthenticationToken(authenticatedUtilisateur, authenticatedUtilisateur.getPassword(), new ArrayList<>());
     }
 
     @Override
