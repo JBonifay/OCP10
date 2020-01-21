@@ -32,7 +32,7 @@ public class ReservationController {
      * @return a response entity containing a list of {@link ReservationOuvrageInfoDto} object
      */
     @GetMapping("/reservations/{utilisateurId}")
-    private ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
+    public ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
 
         List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
         if (reservationDtos.isEmpty()) {

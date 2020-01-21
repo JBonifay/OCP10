@@ -6,12 +6,15 @@ import com.openclassrooms.bibliotheque.reservation.repository.ReservationReposit
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExistingException;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExtendedException;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyReturnedException;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationException;
+import feign.FeignException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -87,7 +90,13 @@ public class ReservationService {
         reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateDebut()));
         reservation.setActive(true);
 
-        ResponseEntity responseEntity = ouvrageProxy.removeOneStockItem(ouvrageId);
+        ResponseEntity<Void> responseEntity;
+
+        try {
+            responseEntity = ouvrageProxy.removeOneStockItem(ouvrageId);
+        } catch (Exception e) {
+            throw new ReservationException("Impossible de finaliser la réservation...");
+        }
 
         if (responseEntity.getStatusCode().value() == 200) {
             reservation = reservationRepository.save(reservation);

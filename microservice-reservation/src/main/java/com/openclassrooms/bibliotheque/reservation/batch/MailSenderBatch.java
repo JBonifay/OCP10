@@ -12,9 +12,6 @@ import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.repeat.RepeatException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -49,52 +46,44 @@ public class MailSenderBatch {
         ArrayList<EmailInfoBean> emailsToSend = new ArrayList<>();
 
         if (reservationList.size() > 0) {
-            for (Reservation reservation : reservationList) {
-                UtilisateurBean utilisateurBean;
-                OuvrageBean ouvrageBean;
+            reservationList.forEach(reservation -> {
+                try {
 
-                ResponseEntity<UtilisateurBean> utilisateurBeanResponseEntity =
-                        utilisateurProxy.findUtilisateurById(String.valueOf(reservation.getUtilisateurId()));
+                    UtilisateurBean utilisateurBean = utilisateurProxy
+                            .findUtilisateurById(String.valueOf(reservation.getUtilisateurId()));
 
-                ResponseEntity<OuvrageBean> ouvrageBeanResponseEntity =
-                        ouvrageProxy.getOuvrageById(reservation.getOuvrageId());
+                    OuvrageBean ouvrageBean = ouvrageProxy.getOuvrageById(reservation.getOuvrageId());
 
-                if (utilisateurBeanResponseEntity.getStatusCode() != HttpStatus.OK || ouvrageBeanResponseEntity.getStatusCode() != HttpStatus.OK) {
-                    throw new RepeatException("Could not get information");
+                    log.info("Add " + utilisateurBean.getEmail() + " " + ouvrageBean.getName() + " " + ouvrageBean.getEditor()
+                            + " to the tasks list");
+
+                    emailsToSend.add(new EmailInfoBean(utilisateurBean.getFirstName(), utilisateurBean.getLastName(),
+                            utilisateurBean.getEmail(), ouvrageBean.getName(), ouvrageBean.getEditor(),
+                            reservation.getReservationDateFin().toString()));
+
+                } catch (Exception e) {
+                    log.error(e.getMessage());
                 }
-
-                if (utilisateurBeanResponseEntity.getBody() == null || ouvrageBeanResponseEntity.getBody() == null) {
-                    throw new RepeatException("Information from User or Ouvrage are Null");
-                }
-
-                utilisateurBean = utilisateurBeanResponseEntity.getBody();
-                ouvrageBean = ouvrageBeanResponseEntity.getBody();
-
-                log.info("Add " + utilisateurBean.getEmail() + " " + ouvrageBean.getName() + " " + ouvrageBean.getEditor() + " to the tasks list");
-
-                emailsToSend.add(new EmailInfoBean(utilisateurBean.getFirstName(), utilisateurBean.getLastName(),
-                        utilisateurBean.getEmail(), ouvrageBean.getName(), ouvrageBean.getEditor(),
-                        reservation.getReservationDateFin().toString()));
-            }
+            });
         }
 
-        this.prepareMails(emailsToSend);
+        prepareMails(emailsToSend);
 
         log.info("End of batch service");
     }
 
-    public void prepareMails(List<EmailInfoBean> emailList) {
-        for (EmailInfoBean e : emailList) {
 
+    public void prepareMails(List<EmailInfoBean> emailList) {
+        emailList.forEach(e -> {
             StringBuilder sb = new StringBuilder();
             sb.append("Bonjour " + e.getFirstName() + " " + e.getLastName() + ",\n");
             sb.append("Vous avez dépassé la date de retour de votre prêt pour l'ouvrage:\n");
-            sb.append(e.getTitle() + " des éditions " + e.getEditor() +"\n\n");
+            sb.append(e.getTitle() + " des éditions " + e.getEditor() + "\n\n");
             sb.append("Merci de le rammener au plus vite !\n\n");
             sb.append("La bibliotheque municipale");
 
             this.sendSimpleMessage(e.getEmail(), sb.toString());
-        }
+        });
     }
 
     private void sendSimpleMessage(String to, String text) {

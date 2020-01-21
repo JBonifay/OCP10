@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UtilisateurProxy {
 
     @GetMapping("/utilisateur")
-    ResponseEntity<UtilisateurBean> findUtilisateurById(@RequestParam String utilisateurId);
+    UtilisateurBean findUtilisateurById(@RequestParam String utilisateurId);
 
 }

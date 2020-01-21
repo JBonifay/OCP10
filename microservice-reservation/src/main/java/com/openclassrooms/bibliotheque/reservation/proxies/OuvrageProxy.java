@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 public interface OuvrageProxy {
     
     @GetMapping("/ouvrage/{ouvrageId}/description")
-    ResponseEntity<OuvrageBean> getOuvrageById(@PathVariable int ouvrageId);
+    OuvrageBean getOuvrageById(@PathVariable int ouvrageId);
     
     @PutMapping("/ouvrage/{ouvrageId}/reserver")
-    ResponseEntity removeOneStockItem(@PathVariable int ouvrageId);
+    ResponseEntity<Void> removeOneStockItem(@PathVariable int ouvrageId);
     
 }
