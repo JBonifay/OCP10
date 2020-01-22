@@ -20,11 +20,6 @@
 
     <!-- ===== Spring Boot ===== -->
     <dependency>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-
-    <dependency>
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>

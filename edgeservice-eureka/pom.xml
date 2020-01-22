@@ -24,12 +24,6 @@
       <groupId>org.springframework.cloud</groupId>
     </dependency>
 
-    <!--  Utils  -->
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-    </dependency>
-
   </dependencies>
 
 </project>
