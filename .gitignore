@@ -110,4 +110,10 @@ fabric.properties
 .idea*
 !.idea*
 .idea/
-*.iml
+
+microservice-ouvrage/.mvn/.mvn2.iml
+microservice-ouvrage/microservice-ouvrage.iml
+microservice-reservation/.mvn/.mvn3.iml
+microservice-reservation/microservice-reservation.iml
+microservice-web/.mvn/.mvn1.iml
+microservice-web/microservice-web.iml
