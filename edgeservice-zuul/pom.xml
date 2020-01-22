@@ -3,24 +3,33 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- ===== Spring boot parent ===== -->
   <parent>
     <artifactId>bibliotheque</artifactId>
     <groupId>com.openclassrooms</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
+  <!-- ===== Informations Maven ===== -->
   <artifactId>zuul-server</artifactId>
   <description>Microservice Zuul server</description>
   <name>EdgeService-Zuul</name>
-  <packaging>jar</packaging>
 
+  <!-- ===== Dependencies ===== -->
   <dependencies>
 
+    <!-- ===== Spring Boot ===== -->
     <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
 
+    <dependency>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <!-- ===== Spring Cloud ===== -->
     <dependency>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
       <groupId>org.springframework.cloud</groupId>
@@ -36,24 +45,15 @@
       <groupId>org.springframework.cloud</groupId>
     </dependency>
 
+    <!-- ===== Utils ===== -->
     <dependency>
-      <artifactId>spring-boot-starter-security</artifactId>
-      <groupId>org.springframework.boot</groupId>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
     </dependency>
 
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>hibernate-validator</artifactId>
-      <groupId>org.hibernate.validator</groupId>
     </dependency>
 
   </dependencies>

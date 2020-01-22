@@ -1,44 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- ===== Spring boot parent ===== -->
   <parent>
     <artifactId>bibliotheque</artifactId>
     <groupId>com.openclassrooms</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <description>Microservice web / Utilisateur UI</description>
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>Microservice-Web</name>
-  <packaging>jar</packaging>
+  <!-- ===== Informations Maven ===== -->
   <artifactId>web</artifactId>
+  <name>Microservice-Web</name>
+  <description>Microservice web / Utilisateur UI</description>
 
+  <!-- ===== Dependencies ===== -->
   <dependencies>
 
-    <dependency>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-      <groupId>org.springframework.cloud</groupId>
-    </dependency>
-
+    <!-- ===== Spring Boot ===== -->
     <dependency>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
 
     <dependency>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-      <groupId>org.springframework.cloud</groupId>
-    </dependency>
-
-    <dependency>
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
     </dependency>
 
     <dependency>
@@ -52,13 +40,31 @@
     </dependency>
 
     <dependency>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <!-- ===== Spring Cloud ===== -->
+    <dependency>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      <groupId>org.springframework.cloud</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+      <groupId>org.springframework.cloud</groupId>
+    </dependency>
+
+    <!-- ===== Spring Data ===== -->
+    <dependency>
       <artifactId>spring-data-commons</artifactId>
       <groupId>org.springframework.data</groupId>
     </dependency>
 
+    <!-- ===== Utils ===== -->
     <dependency>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-      <groupId>org.springframework.boot</groupId>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
     </dependency>
 
   </dependencies>

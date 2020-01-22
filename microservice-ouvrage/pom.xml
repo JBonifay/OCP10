@@ -3,35 +3,22 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- ===== Spring boot parent ===== -->
   <parent>
     <artifactId>bibliotheque</artifactId>
     <groupId>com.openclassrooms</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
+  <!-- ===== Informations Maven ===== -->
   <artifactId>ouvrage</artifactId>
-  <description>Gestion des ouvrage</description>
   <name>Microservice-Ouvrage</name>
-  <packaging>jar</packaging>
+  <description>Gestion des ouvrage</description>
 
+  <!-- ===== Dependencies ===== -->
   <dependencies>
 
-    <dependency>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-      <groupId>org.springframework.cloud</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>hibernate-validator</artifactId>
-      <groupId>org.hibernate.validator</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>mysql-connector-java</artifactId>
-      <groupId>mysql</groupId>
-      <scope>runtime</scope>
-    </dependency>
-
+    <!-- ===== Spring Boot ===== -->
     <dependency>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <groupId>org.springframework.boot</groupId>
@@ -43,15 +30,39 @@
     </dependency>
 
     <dependency>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-      <groupId>org.springframework.cloud</groupId>
-    </dependency>
-
-    <dependency>
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
 
+    <dependency>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <!-- ===== Spring Cloud ===== -->
+    <dependency>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      <groupId>org.springframework.cloud</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+      <groupId>org.springframework.cloud</groupId>
+    </dependency>
+
+    <!-- ===== Database ===== -->
+    <dependency>
+      <artifactId>hibernate-validator</artifactId>
+      <groupId>org.hibernate.validator</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- ===== Utils ===== -->
     <dependency>
       <artifactId>lombok</artifactId>
       <groupId>org.projectlombok</groupId>
@@ -61,11 +72,6 @@
     <dependency>
       <artifactId>mapstruct</artifactId>
       <groupId>org.mapstruct</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
 
   </dependencies>
