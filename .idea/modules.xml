@@ -5,10 +5,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/bibliotheque.iml" filepath="$PROJECT_DIR$/.idea/bibliotheque.iml" />
       <module fileurl="file://$PROJECT_DIR$/edgeservice-eureka/edgeservice-eureka.iml" filepath="$PROJECT_DIR$/edgeservice-eureka/edgeservice-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/edgeservice-zuul/edgeservice-zuul.iml" filepath="$PROJECT_DIR$/edgeservice-zuul/edgeservice-zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/edgeservice-eureka/eureka-server.iml" filepath="$PROJECT_DIR$/edgeservice-eureka/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/microservice-ouvrage/microservice-ouvrage.iml" filepath="$PROJECT_DIR$/microservice-ouvrage/microservice-ouvrage.iml" />
       <module fileurl="file://$PROJECT_DIR$/microservice-reservation/microservice-reservation.iml" filepath="$PROJECT_DIR$/microservice-reservation/microservice-reservation.iml" />
       <module fileurl="file://$PROJECT_DIR$/microservice-utilisateur/microservice-utilisateur.iml" filepath="$PROJECT_DIR$/microservice-utilisateur/microservice-utilisateur.iml" />
       <module fileurl="file://$PROJECT_DIR$/microservice-web/microservice-web.iml" filepath="$PROJECT_DIR$/microservice-web/microservice-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservice-utilisateur/utilisateur.iml" filepath="$PROJECT_DIR$/microservice-utilisateur/utilisateur.iml" />
+      <module fileurl="file://$PROJECT_DIR$/edgeservice-zuul/zuul-server.iml" filepath="$PROJECT_DIR$/edgeservice-zuul/zuul-server.iml" />
     </modules>
   </component>
 </project>

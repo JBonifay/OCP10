@@ -23,12 +23,15 @@
           <entry name="$MAVEN_REPOSITORY$/org/springframework/spring-context/4.0.3.RELEASE/spring-context-4.0.3.RELEASE.jar" />
           <entry name="$MAVEN_REPOSITORY$/joda-time/joda-time/2.9/joda-time-2.9.jar" />
         </processorPath>
-        <module name="microservice-ouvrage" />
-        <module name="microservice-web" />
+        <module name="zuul-server" />
         <module name="edgeservice-zuul" />
         <module name="edgeservice-eureka" />
+        <module name="utilisateur" />
+        <module name="microservice-ouvrage" />
         <module name="microservice-utilisateur" />
+        <module name="microservice-web" />
         <module name="microservice-reservation" />
+        <module name="eureka-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -39,11 +42,14 @@
       <module name="config-server" target="1.8" />
       <module name="edgeservice-eureka" target="1.8" />
       <module name="edgeservice-zuul" target="1.8" />
+      <module name="eureka-server" target="1.8" />
       <module name="microservice-auth" target="1.8" />
       <module name="microservice-ouvrage" target="1.8" />
       <module name="microservice-reservation" target="1.8" />
       <module name="microservice-utilisateur" target="1.8" />
       <module name="microservice-web" target="1.8" />
+      <module name="utilisateur" target="1.8" />
+      <module name="zuul-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -55,11 +61,14 @@
       <module name="config-server" options="-parameters" />
       <module name="edgeservice-eureka" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="edgeservice-zuul" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="eureka-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="microservice-auth" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="microservice-ouvrage" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="microservice-reservation" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="microservice-utilisateur" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="microservice-web" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="utilisateur" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="zuul-server" options="-parameters -Amapstruct.defaultComponentModel=spring" />
     </option>
   </component>
 </project>
