@@ -19,20 +19,16 @@ public class UtilisateurController {
 
     @GetMapping("/utilisateur")
     public ResponseEntity<Utilisateur> getUtilisateurById(@RequestParam String utilisateurId) {
-        Utilisateur utilisateur = utilisateurRepository.findById(Integer.valueOf(utilisateurId)).orElse(null);
-        if (utilisateur == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return ResponseEntity.ok(utilisateur);
+        return utilisateurRepository.findById(Integer.valueOf(utilisateurId))
+                                    .map(ResponseEntity::ok)
+                                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
     @GetMapping("/utilisateur/{email}")
     public ResponseEntity<Utilisateur> getUtilisateurByEmail(@PathVariable String email) {
-        Utilisateur utilisateur = utilisateurRepository.findUtilisateurByEmailIgnoreCase(email).orElse(null);
-        if (utilisateur == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return ResponseEntity.ok(utilisateur);
+        return utilisateurRepository.findUtilisateurByEmailIgnoreCase(email)
+                                    .map(ResponseEntity::ok)
+                                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
 

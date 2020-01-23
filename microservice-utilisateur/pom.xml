@@ -11,7 +11,7 @@
 	</parent>
 
 	<!-- ===== Informations Maven ===== -->
-	<artifactId>utilisateur</artifactId>
+	<artifactId>microservice-utilisateur</artifactId>
 	<name>Microservice-Utilisateur</name>
 	<description>Microservice pour la gestion des utilisateurs</description>
 
