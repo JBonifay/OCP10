@@ -3,21 +3,13 @@ package com.openclassrooms.bibliotheque.reservation.service;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExistingException;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExtendedException;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyReturnedException;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationException;
-import feign.FeignException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,7 +34,6 @@ public class ReservationService {
      *
      * @param reservationId the reservation id
      * @return the reservation
-     * @throws NotFoundException
      */
     public Reservation findReservationById(int reservationId) throws NotFoundException {
         return Optional.of(reservationRepository.getOne(reservationId)).orElseThrow(NotFoundException::new);
@@ -52,18 +43,17 @@ public class ReservationService {
      * Extend the reservation to 4 weeks more
      *
      * @param reservationId the reservation to extend
-     * @return boolean if extend was done
+     * @return the reservation
      */
-    @SneakyThrows
-    public void extendReservation(int reservationId) {
+    public Reservation extendReservation(int reservationId) throws NotFoundException {
         Reservation reservation = findReservationById(reservationId);
         if (reservation.isDejaProlonge()) {
-            throw new ReservationAlreadyExtendedException();
+            return null;
         }
         reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateFin()));
         reservation.setDejaProlonge(true);
 
-        reservationRepository.save(reservation);
+        return reservationRepository.save(reservation);
     }
 
     /**
@@ -73,14 +63,14 @@ public class ReservationService {
      * @param utilisateurId the user who reserve
      * @Return the created reservation
      */
-    public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) throws ReservationAlreadyExistingException {
+    public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
         List<Reservation> reservationList = reservationRepository.findAllByUtilisateurId(utilisateurId);
 
         Reservation nouvelleReservation = reservationList.stream().filter(reservation -> reservation.getOuvrageId() == ouvrageId)
                 .findAny().orElse(null);
 
         if (nouvelleReservation != null) {
-            throw new ReservationAlreadyExistingException("La réservation éxiste deja");
+            return null;
         }
 
         Reservation reservation = new Reservation();
@@ -90,12 +80,12 @@ public class ReservationService {
         reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateDebut()));
         reservation.setActive(true);
 
-        ResponseEntity<Void> responseEntity;
+        ResponseEntity<String> responseEntity;
 
         try {
             responseEntity = ouvrageProxy.removeOneStockItem(ouvrageId);
         } catch (Exception e) {
-            throw new ReservationException("Impossible de finaliser la réservation...");
+            return null;
         }
 
         if (responseEntity.getStatusCode().value() == 200) {
@@ -118,14 +108,14 @@ public class ReservationService {
             reservation.setActive(false);
             return reservationRepository.save(reservation);
         } else {
-            throw new ReservationAlreadyReturnedException();
+            return null;
         }
     }
 
     /**
-     * Take a date in input and add 4 weeks to it
+     * Add 4 weeks to a Date
      *
-     * @param date the date used as reference
+     * @param date Date used as reference
      * @return the new date (4 weeks more than input)
      */
     private Date addFourWeeksToDate(Date date) {

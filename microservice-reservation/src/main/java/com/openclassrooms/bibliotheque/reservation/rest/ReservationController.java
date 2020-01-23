@@ -1,14 +1,13 @@
-package com.openclassrooms.bibliotheque.reservation.rest.controller;
+package com.openclassrooms.bibliotheque.reservation.rest;
 
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationAlreadyExistingException;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationIntrouvableException;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,10 +33,9 @@ public class ReservationController {
      */
     @GetMapping("/reservations/{utilisateurId}")
     public ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
-
         List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
         if (reservationDtos.isEmpty()) {
-            throw new ReservationIntrouvableException("Aucune réservation trouvée pour cet utilisateur");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune réservation trouvée pour cet utilisateur");
         }
         return ResponseEntity
                 .ok(reservationDtos.stream().map(reservationMapper::toReservationOuvrageInfoDto).collect(Collectors.toList()));
@@ -50,7 +49,14 @@ public class ReservationController {
      */
     @PutMapping("/reservation/{reservationId}/prolonger")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
-        reservationService.extendReservation(reservationId);
+        try {
+            Reservation reservation = reservationService.extendReservation(reservationId);
+            if (reservation == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Impossible de ralonger la réservation");
+            }
+        } catch (NotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "", e);
+        }
         return ResponseEntity.ok("Prolongement effectué..");
     }
 
@@ -61,10 +67,12 @@ public class ReservationController {
      * @return ResponseEntity
      */
     @PostMapping("/reservation/creer")
-    public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId)
-            throws ReservationAlreadyExistingException {
+    public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
         Reservation reservation = reservationService.createNewReservationForUser(ouvrageId, utilisateurId);
-        return new ResponseEntity<Reservation>(reservation, HttpStatus.CREATED);
+        if (reservation == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur lors de la création de la réservation");
+        }
+        return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
 
     /**
@@ -76,6 +84,9 @@ public class ReservationController {
     @PutMapping("reservation/{reservationId}/retourner")
     public ResponseEntity<String> returnLoan(@PathVariable int reservationId) {
         Reservation reservation = reservationService.returnReservation(reservationId);
+        if (reservation == null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "La réservation à déjà était retournée");
+        }
         return ResponseEntity.ok("Reservation terminé");
     }
 

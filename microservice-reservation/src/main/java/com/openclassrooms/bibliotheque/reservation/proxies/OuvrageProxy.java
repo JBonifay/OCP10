@@ -14,6 +14,6 @@ public interface OuvrageProxy {
     OuvrageBean getOuvrageById(@PathVariable int ouvrageId);
     
     @PutMapping("/ouvrage/{ouvrageId}/reserver")
-    ResponseEntity<Void> removeOneStockItem(@PathVariable int ouvrageId);
+    ResponseEntity<String> removeOneStockItem(@PathVariable int ouvrageId);
     
 }
