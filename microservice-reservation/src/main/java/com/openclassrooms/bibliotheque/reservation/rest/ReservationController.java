@@ -33,12 +33,14 @@ public class ReservationController {
      */
     @GetMapping("/reservations/{utilisateurId}")
     public ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
-        List<Reservation> reservationDtos = reservationService.findAllByUtilisateurId(utilisateurId);
-        if (reservationDtos.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune réservation trouvée pour cet utilisateur");
-        }
-        return ResponseEntity
-                .ok(reservationDtos.stream().map(reservationMapper::toReservationOuvrageInfoDto).collect(Collectors.toList()));
+        return Optional.of(reservationService.findAllByUtilisateurId(utilisateurId))
+                .filter(reservationList -> !reservationList.isEmpty())
+                .map(reservations ->
+                        ResponseEntity.ok(reservations.stream()
+                                                      .map(reservationMapper::toReservationOuvrageInfoDto)
+                                                      .collect(Collectors.toList())))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Aucune réservation trouvée pour cet utilisateur"));
     }
 
     /**
@@ -49,10 +51,9 @@ public class ReservationController {
      */
     @PutMapping("/reservation/{reservationId}/prolonger")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
-        Optional.ofNullable(reservationService.extendReservation(reservationId))
+        return Optional.ofNullable(reservationService.extendReservation(reservationId))
+                .map(i -> ResponseEntity.ok("Prolongement effectué.."))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Impossible de prolonger la réservation"));
-
-        return ResponseEntity.ok("Prolongement effectué..");
     }
 
     /**
@@ -63,11 +64,9 @@ public class ReservationController {
      */
     @PostMapping("/reservation/creer")
     public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
-        Reservation reservation = Optional.ofNullable(reservationService.createNewReservationForUser(ouvrageId, utilisateurId))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT,
-                        "Erreur lors de la création de la réservation"));
-
-        return new ResponseEntity<>(reservation, HttpStatus.CREATED);
+        return Optional.ofNullable(reservationService.createNewReservationForUser(ouvrageId, utilisateurId))
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Erreur lors de la création de la réservation"));
     }
 
     /**
@@ -78,10 +77,9 @@ public class ReservationController {
      */
     @PutMapping("reservation/{reservationId}/retourner")
     public ResponseEntity<Reservation> returnLoan(@PathVariable int reservationId) {
-        Reservation reservation = Optional.ofNullable(reservationService.returnReservation(reservationId))
+        return Optional.ofNullable(reservationService.returnReservation(reservationId))
+                .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "La réservation à déjà était retournée"));
-
-        return ResponseEntity.ok(reservation);
     }
 
 }
