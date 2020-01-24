@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface OuvrageProxy {
     
     @GetMapping("/ouvrages")
-    ResponseEntity<RestPageImpl<OuvrageStockBean>> getAllOuvrageListByPage(Pageable pageable);
+    RestPageImpl<OuvrageStockBean> getAllOuvrageListByPage(Pageable pageable);
     
     @GetMapping("/ouvrage/{ouvrageId}/description")
     ResponseEntity<OuvrageDescriptionBean> getOuvrageDescriptionById(@PathVariable int ouvrageId);
