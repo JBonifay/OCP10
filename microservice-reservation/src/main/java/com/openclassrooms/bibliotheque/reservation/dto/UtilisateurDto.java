@@ -1,11 +1,11 @@
-package com.openclassrooms.bibliotheque.reservation.beans;
+package com.openclassrooms.bibliotheque.reservation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UtilisateurBean {
+public class UtilisateurDto {
     
     private int    id;
     private String firstName;

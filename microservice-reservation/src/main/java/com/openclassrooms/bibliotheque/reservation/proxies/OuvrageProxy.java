@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.reservation.proxies;
 
-import com.openclassrooms.bibliotheque.reservation.beans.OuvrageBean;
+import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public interface OuvrageProxy {
     
     @GetMapping("/ouvrage/{ouvrageId}/description")
-    OuvrageBean getOuvrageById(@PathVariable int ouvrageId);
+    OuvrageDto getOuvrageById(@PathVariable int ouvrageId);
     
     @PutMapping("/ouvrage/{ouvrageId}/reserver")
     ResponseEntity<String> removeOneStockItem(@PathVariable int ouvrageId);

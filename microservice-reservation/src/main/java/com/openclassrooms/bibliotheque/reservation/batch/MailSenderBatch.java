@@ -1,8 +1,8 @@
 package com.openclassrooms.bibliotheque.reservation.batch;
 
 import com.openclassrooms.bibliotheque.reservation.batch.bean.EmailInfoBean;
-import com.openclassrooms.bibliotheque.reservation.beans.OuvrageBean;
-import com.openclassrooms.bibliotheque.reservation.beans.UtilisateurBean;
+import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
+import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
@@ -49,16 +49,16 @@ public class MailSenderBatch {
             reservationList.forEach(reservation -> {
                 try {
 
-                    UtilisateurBean utilisateurBean = utilisateurProxy
+                    UtilisateurDto utilisateurDto = utilisateurProxy
                             .findUtilisateurById(String.valueOf(reservation.getUtilisateurId()));
 
-                    OuvrageBean ouvrageBean = ouvrageProxy.getOuvrageById(reservation.getOuvrageId());
+                    OuvrageDto ouvrageDto = ouvrageProxy.getOuvrageById(reservation.getOuvrageId());
 
-                    log.info("Add " + utilisateurBean.getEmail() + " " + ouvrageBean.getName() + " " + ouvrageBean.getEditor()
+                    log.info("Add " + utilisateurDto.getEmail() + " " + ouvrageDto.getName() + " " + ouvrageDto.getEditor()
                             + " to the tasks list");
 
-                    emailsToSend.add(new EmailInfoBean(utilisateurBean.getFirstName(), utilisateurBean.getLastName(),
-                            utilisateurBean.getEmail(), ouvrageBean.getName(), ouvrageBean.getEditor(),
+                    emailsToSend.add(new EmailInfoBean(utilisateurDto.getFirstName(), utilisateurDto.getLastName(),
+                            utilisateurDto.getEmail(), ouvrageDto.getName(), ouvrageDto.getEditor(),
                             reservation.getReservationDateFin().toString()));
 
                 } catch (Exception e) {
