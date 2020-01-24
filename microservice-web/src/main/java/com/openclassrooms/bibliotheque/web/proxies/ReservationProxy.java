@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 public interface ReservationProxy {
     
     @GetMapping("/reservations/{utilisateurId}")
-    ResponseEntity<List<ReservationBean>> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
+    List<ReservationBean> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
     
     @PutMapping("/reservation/{reservationId}/prolonger")
-    ResponseEntity prolongateReservation(@PathVariable int reservationId);
+    void prolongateReservation(@PathVariable int reservationId);
     
 }
 

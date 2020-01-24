@@ -4,14 +4,13 @@ import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageIdNameBean;
 import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageReservationBean;
 import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
 import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
-import com.openclassrooms.bibliotheque.web.proxies.UtilisateurProxy;
+import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
+import com.openclassrooms.bibliotheque.web.proxies.ReservationProxy;
 import com.openclassrooms.bibliotheque.web.service.ReservationService;
-import feign.FeignException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +24,13 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ReservationPageController {
 
     private final ReservationService reservationService;
-    private final UtilisateurProxy   utilisateurProxy;
+    private final ReservationProxy   reservationProxy;
+    private final OuvrageProxy       ouvrageProxy;
 
     /**
      * Return reservation of current user
      *
-     * @return a webpage with reservations for current user
+     * @return a page with reservations for current user
      */
     @GetMapping("/reservation")
     public ModelAndView getReservationPage() {
@@ -38,24 +38,19 @@ public class ReservationPageController {
 
         UtilisateurBean utilisateurBean = (UtilisateurBean) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (utilisateurBean != null) {
-            ResponseEntity<List<ReservationBean>> reservationBeanResponseEntity = reservationService
-                    .getAllReservationListByUtilisateurId(utilisateurBean.getUtilisateurId());
-            if (reservationBeanResponseEntity.getStatusCode().is2xxSuccessful()
-                    && reservationBeanResponseEntity.getBody() != null) {
-                List<Integer> ouvrageIdList = reservationBeanResponseEntity.getBody().stream().map(ReservationBean::getOuvrageId)
-                        .collect(Collectors.toList());
-                ResponseEntity<List<OuvrageIdNameBean>> ouvrageIdNameBeanResponseEntity = reservationService
-                        .getAllOuvrageByOuvrageIdList(ouvrageIdList);
-                if (ouvrageIdNameBeanResponseEntity.getStatusCode().is2xxSuccessful()
-                        && ouvrageIdNameBeanResponseEntity.getBody() != null) {
-                    List<OuvrageReservationBean> ouvrageReservationBeans = reservationService
-                            .createOuvrageReservationBean(reservationBeanResponseEntity.getBody(),
-                                    ouvrageIdNameBeanResponseEntity.getBody());
-                    reservation.addObject("reservationList", ouvrageReservationBeans);
-                }
-            }
-        }
+        List<ReservationBean> reservationBeanList = reservationProxy
+                .getAllReservationListByUtilisateurId(utilisateurBean.getUtilisateurId());
+
+        List<Integer> ouvrageIdList = reservationBeanList.stream().map(ReservationBean::getOuvrageId)
+                .collect(Collectors.toList());
+
+        List<OuvrageIdNameBean> ouvrageReservationBean = ouvrageProxy.getAllOuvrageByOuvrageIdList(ouvrageIdList);
+
+        List<OuvrageReservationBean> ouvrageReservationBeans = reservationService
+                .createOuvrageReservationBean(reservationBeanList, ouvrageReservationBean);
+
+        reservation.addObject("reservationList", ouvrageReservationBeans);
+
         return reservation;
     }
 
@@ -67,13 +62,7 @@ public class ReservationPageController {
      */
     @GetMapping("/reservation/prolonger/{reservationId}")
     public RedirectView extendReservation(@PathVariable int reservationId) {
-        try {
-
-            reservationService.prolongateReservation(reservationId);
-
-        } catch (FeignException e) {
-            log.error(e.getMessage());
-        }
+        reservationProxy.prolongateReservation(reservationId);
         return new RedirectView("/reservation");
     }
 

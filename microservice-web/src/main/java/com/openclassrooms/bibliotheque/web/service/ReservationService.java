@@ -15,9 +15,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReservationService {
     
-    private final ReservationProxy reservationProxy;
-    private final OuvrageProxy     ouvrageProxy;
-    
     public List<OuvrageReservationBean> createOuvrageReservationBean(List<ReservationBean> reservationBeanList,
                                                                      List<OuvrageIdNameBean> ouvrageIdNameBeanList) {
         List<OuvrageReservationBean> ouvrageReservationBeans = new ArrayList<>();
@@ -41,18 +38,6 @@ public class ReservationService {
             ouvrageReservationBeans.add(ouvrageReservationBean);
         });
         return ouvrageReservationBeans;
-    }
-    
-    public ResponseEntity<List<OuvrageIdNameBean>> getAllOuvrageByOuvrageIdList(List<Integer> ouvrageIdList) {
-        return ouvrageProxy.getAllOuvrageByOuvrageIdList(ouvrageIdList);
-    }
-    
-    public ResponseEntity<List<ReservationBean>> getAllReservationListByUtilisateurId(int utilisateurId) {
-        return reservationProxy.getAllReservationListByUtilisateurId(utilisateurId);
-    }
-    
-    public void prolongateReservation(int reservationId) {
-        reservationProxy.prolongateReservation(reservationId);
     }
     
 }

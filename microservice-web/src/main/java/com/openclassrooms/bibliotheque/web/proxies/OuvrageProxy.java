@@ -22,6 +22,6 @@ public interface OuvrageProxy {
     ResponseEntity<OuvrageDescriptionBean> getOuvrageDescriptionById(@PathVariable int ouvrageId);
     
     @PostMapping("/ouvrages")
-    ResponseEntity<List<OuvrageIdNameBean>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> list);
+    List<OuvrageIdNameBean> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> list);
     
 }
