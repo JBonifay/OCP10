@@ -1,7 +1,10 @@
 package com.openclassrooms.bibliotheque.web.config.feign;
 
+import com.openclassrooms.bibliotheque.web.web.exceptions.BadRequestException;
 import com.openclassrooms.bibliotheque.web.web.exceptions.EntityNotFoundException;
-import feign.FeignException;
+import com.openclassrooms.bibliotheque.web.web.exceptions.ForbiddenRequestException;
+import com.openclassrooms.bibliotheque.web.web.exceptions.GlobalException;
+import com.openclassrooms.bibliotheque.web.web.exceptions.InternalServerException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +19,16 @@ public class FeignCustomErrorDecoder implements ErrorDecoder {
 
         switch (response.status()) {
             case 400:
-                log.error("Status code " + response.status() + ", methodKey = " + methodKey);
-
-            case 404: {
-                log.error("Error took place when using Feign client to send HTTP Request. Status code " + response.status()
-                        + ", methodKey = " + methodKey);
+            case 409:
+                return new BadRequestException(response.reason());
+            case 403:
+                return new ForbiddenRequestException(response.reason());
+            case 404:
                 return new EntityNotFoundException(response.reason());
-            }
-
+            case 500:
+                return new InternalServerException(response.reason());
             default:
-                return new FeignException.NotFound(response.reason(), response.request(), null);
+                return new GlobalException(response.reason());
         }
 
     }
