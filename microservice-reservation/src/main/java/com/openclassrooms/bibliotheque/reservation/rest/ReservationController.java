@@ -50,7 +50,7 @@ public class ReservationController {
     @PutMapping("/reservation/{reservationId}/prolonger")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
         Optional.ofNullable(reservationService.extendReservation(reservationId))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Impossible de prolonger la réservation"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Impossible de prolonger la réservation"));
 
         return ResponseEntity.ok("Prolongement effectué..");
     }
@@ -64,7 +64,7 @@ public class ReservationController {
     @PostMapping("/reservation/creer")
     public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
         Reservation reservation = Optional.ofNullable(reservationService.createNewReservationForUser(ouvrageId, utilisateurId))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT,
                         "Erreur lors de la création de la réservation"));
 
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
