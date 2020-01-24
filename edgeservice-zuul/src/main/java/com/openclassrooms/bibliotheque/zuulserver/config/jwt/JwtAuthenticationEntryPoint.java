@@ -1,17 +1,14 @@
 package com.openclassrooms.bibliotheque.zuulserver.config.jwt;
 
-import io.jsonwebtoken.MalformedJwtException;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 
 @Component
 @RequiredArgsConstructor
@@ -30,7 +27,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Jwt token is invalid ");
         } else {
             log.error("Token not present, login credentials are invalid");
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid Login details");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Login details");
         }
 
     }
