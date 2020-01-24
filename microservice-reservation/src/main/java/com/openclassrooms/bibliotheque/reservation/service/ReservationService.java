@@ -8,12 +8,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
@@ -30,30 +31,19 @@ public class ReservationService {
     }
 
     /**
-     * Find a reservation by its ID
-     *
-     * @param reservationId the reservation id
-     * @return the reservation
-     */
-    public Reservation findReservationById(int reservationId) throws NotFoundException {
-        return Optional.of(reservationRepository.getOne(reservationId)).orElseThrow(NotFoundException::new);
-    }
-
-    /**
      * Extend the reservation to 4 weeks more
      *
      * @param reservationId the reservation to extend
      * @return the reservation
      */
-    public Reservation extendReservation(int reservationId) throws NotFoundException {
-        Reservation reservation = findReservationById(reservationId);
-        if (reservation.isDejaProlonge()) {
-            return null;
-        }
-        reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateFin()));
-        reservation.setDejaProlonge(true);
-
-        return reservationRepository.save(reservation);
+    public Reservation extendReservation(int reservationId) {
+        return Optional.of(reservationRepository.getOne(reservationId))
+                .filter(reservation -> !reservation.isDejaProlonge())
+                .map(r -> {
+                    r.setReservationDateFin(addFourWeeksToDate(r.getReservationDateFin()));
+                    r.setDejaProlonge(true);
+                    return reservationRepository.save(r);
+                }).orElse(null);
     }
 
     /**
@@ -61,7 +51,7 @@ public class ReservationService {
      *
      * @param ouvrageId     the ouvrage to reserve
      * @param utilisateurId the user who reserve
-     * @Return the created reservation
+     * @Return Null if reservation already exist or the new created reservation
      */
     public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
         List<Reservation> reservationList = reservationRepository.findAllByUtilisateurId(utilisateurId);
@@ -103,13 +93,14 @@ public class ReservationService {
      * @return the reservation
      */
     public Reservation returnReservation(int reservationId) {
-        Reservation reservation = reservationRepository.getOne(reservationId);
-        if (reservation.isActive()) {
-            reservation.setActive(false);
-            return reservationRepository.save(reservation);
-        } else {
-            return null;
-        }
+        return reservationRepository.findById(reservationId).map(r -> {
+            if (r.isActive()) {
+                r.setActive(false);
+                return reservationRepository.save(r);
+            } else {
+                return null;
+            }
+        }).orElse(null);
     }
 
     /**
