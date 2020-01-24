@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.beans.ouvrage;
+package com.openclassrooms.bibliotheque.web.dto.ouvrage;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OuvrageDescriptionBean {
+public class OuvrageDescriptionDto {
     
     private String name;
     private String author;

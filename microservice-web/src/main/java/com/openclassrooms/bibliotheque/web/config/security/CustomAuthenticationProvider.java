@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.web.config.security;
 
-import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
+import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
 import com.openclassrooms.bibliotheque.web.proxies.UtilisateurProxy;
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final String email = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
-        UtilisateurBean authenticatedUtilisateur = null;
+        UtilisateurDto authenticatedUtilisateur = null;
 
         if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
 

@@ -1,7 +1,6 @@
 package com.openclassrooms.bibliotheque.web.proxies;
 
-import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
-import java.util.Optional;
+import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UtilisateurProxy {
 
     @PostMapping("/authenticate")
-    UtilisateurBean authenticateUser(@RequestParam String username, @RequestParam String password);
+    UtilisateurDto authenticateUser(@RequestParam String username, @RequestParam String password);
 
 }

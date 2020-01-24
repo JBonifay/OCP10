@@ -1,19 +1,23 @@
-package com.openclassrooms.bibliotheque.web.beans.reservation;
+package com.openclassrooms.bibliotheque.web.dto.ouvrage;
 
-import java.sql.Date;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationBean {
+@Data
+public class OuvrageReservationDto {
 
     private int     reservationId;
     private int     ouvrageId;
+    private String  name;
+    private String  author;
     private Date    reservationDateDebut;
     private Date    reservationDateFin;
-    private boolean dejaProlonge;
+    private boolean isAlreadyProlonger;
+    private String  notation;
+
 
 }

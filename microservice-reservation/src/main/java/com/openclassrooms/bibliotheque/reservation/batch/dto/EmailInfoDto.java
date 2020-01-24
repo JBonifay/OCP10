@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.reservation.batch.bean;
+package com.openclassrooms.bibliotheque.reservation.batch.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NonNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailInfoBean {
+public class EmailInfoDto {
 
     @NonNull String firstName;
     @NonNull String lastName;

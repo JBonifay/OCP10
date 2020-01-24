@@ -1,8 +1,8 @@
 package com.openclassrooms.bibliotheque.web.proxies;
 
-import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageDescriptionBean;
-import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageIdNameBean;
-import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageStockBean;
+import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageDescriptionDto;
+import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageIdNameDto;
+import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageStockDto;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface OuvrageProxy {
     
     @GetMapping("/ouvrages")
-    RestPageImpl<OuvrageStockBean> getAllOuvrageListByPage(Pageable pageable);
+    RestPageImpl<OuvrageStockDto> getAllOuvrageListByPage(Pageable pageable);
     
     @GetMapping("/ouvrage/{ouvrageId}/description")
-    ResponseEntity<OuvrageDescriptionBean> getOuvrageDescriptionById(@PathVariable int ouvrageId);
+    OuvrageDescriptionDto getOuvrageDescriptionById(@PathVariable int ouvrageId);
     
     @PostMapping("/ouvrages")
-    List<OuvrageIdNameBean> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> list);
+    List<OuvrageIdNameDto> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> list);
     
 }

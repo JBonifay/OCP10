@@ -1,9 +1,9 @@
 package com.openclassrooms.bibliotheque.web.web.controller;
 
-import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageIdNameBean;
-import com.openclassrooms.bibliotheque.web.beans.ouvrage.OuvrageReservationBean;
-import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
-import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
+import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageIdNameDto;
+import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageReservationDto;
+import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
+import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.web.proxies.ReservationProxy;
 import com.openclassrooms.bibliotheque.web.service.ReservationService;
@@ -36,20 +36,20 @@ public class ReservationPageController {
     public ModelAndView getReservationPage() {
         ModelAndView reservation = new ModelAndView("reservation");
 
-        UtilisateurBean utilisateurBean = (UtilisateurBean) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<ReservationBean> reservationBeanList = reservationProxy
-                .getAllReservationListByUtilisateurId(utilisateurBean.getUtilisateurId());
+        List<ReservationDto> reservationDtoList = reservationProxy
+                .getAllReservationListByUtilisateurId(utilisateurDto.getUtilisateurId());
 
-        List<Integer> ouvrageIdList = reservationBeanList.stream().map(ReservationBean::getOuvrageId)
+        List<Integer> ouvrageIdList = reservationDtoList.stream().map(ReservationDto::getOuvrageId)
                 .collect(Collectors.toList());
 
-        List<OuvrageIdNameBean> ouvrageReservationBean = ouvrageProxy.getAllOuvrageByOuvrageIdList(ouvrageIdList);
+        List<OuvrageIdNameDto> ouvrageIdNameDtoList = ouvrageProxy.getAllOuvrageByOuvrageIdList(ouvrageIdList);
 
-        List<OuvrageReservationBean> ouvrageReservationBeans = reservationService
-                .createOuvrageReservationBean(reservationBeanList, ouvrageReservationBean);
+        List<OuvrageReservationDto> ouvrageReservationDtoList = reservationService
+                .createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList);
 
-        reservation.addObject("reservationList", ouvrageReservationBeans);
+        reservation.addObject("reservationList", ouvrageReservationDtoList);
 
         return reservation;
     }

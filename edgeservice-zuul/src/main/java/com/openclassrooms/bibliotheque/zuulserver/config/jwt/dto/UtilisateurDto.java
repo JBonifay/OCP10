@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.zuulserver.config.jwt.bean;
+package com.openclassrooms.bibliotheque.zuulserver.config.jwt.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
-public class UtilisateurBean implements UserDetails {
+public class UtilisateurDto implements UserDetails {
 
     private int    utilisateurId;
     private String firstName;

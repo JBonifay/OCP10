@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.web.config.security;
 
-import com.openclassrooms.bibliotheque.web.beans.utilisateur.UtilisateurBean;
+import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +14,10 @@ public class JwtAuthInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            UtilisateurBean utilisateurBean = (UtilisateurBean) SecurityContextHolder.getContext().getAuthentication()
+            UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication()
                     .getPrincipal();
 
-            requestTemplate.header("Authorization", utilisateurBean.getJwtToken());
+            requestTemplate.header("Authorization", utilisateurDto.getJwtToken());
         }
     }
 }

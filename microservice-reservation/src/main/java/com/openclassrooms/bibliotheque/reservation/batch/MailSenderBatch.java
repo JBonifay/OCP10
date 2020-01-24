@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.reservation.batch;
 
-import com.openclassrooms.bibliotheque.reservation.batch.bean.EmailInfoBean;
+import com.openclassrooms.bibliotheque.reservation.batch.dto.EmailInfoDto;
 import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
 import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
@@ -43,7 +43,7 @@ public class MailSenderBatch {
 
         log.info("Found " + reservationList.size() + " entities");
 
-        ArrayList<EmailInfoBean> emailsToSend = new ArrayList<>();
+        ArrayList<EmailInfoDto> emailsToSend = new ArrayList<>();
 
         if (reservationList.size() > 0) {
             reservationList.forEach(reservation -> {
@@ -57,7 +57,7 @@ public class MailSenderBatch {
                     log.info("Add " + utilisateurDto.getEmail() + " " + ouvrageDto.getName() + " " + ouvrageDto.getEditor()
                             + " to the tasks list");
 
-                    emailsToSend.add(new EmailInfoBean(utilisateurDto.getFirstName(), utilisateurDto.getLastName(),
+                    emailsToSend.add(new EmailInfoDto(utilisateurDto.getFirstName(), utilisateurDto.getLastName(),
                             utilisateurDto.getEmail(), ouvrageDto.getName(), ouvrageDto.getEditor(),
                             reservation.getReservationDateFin().toString()));
 
@@ -73,7 +73,7 @@ public class MailSenderBatch {
     }
 
 
-    public void prepareMails(List<EmailInfoBean> emailList) {
+    public void prepareMails(List<EmailInfoDto> emailList) {
         emailList.forEach(e -> {
             StringBuilder sb = new StringBuilder();
             sb.append("Bonjour " + e.getFirstName() + " " + e.getLastName() + ",\n");

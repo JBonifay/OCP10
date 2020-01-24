@@ -1,9 +1,8 @@
 package com.openclassrooms.bibliotheque.web.proxies;
 
-import com.openclassrooms.bibliotheque.web.beans.reservation.ReservationBean;
+import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public interface ReservationProxy {
     
     @GetMapping("/reservations/{utilisateurId}")
-    List<ReservationBean> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
+    List<ReservationDto> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
     
     @PutMapping("/reservation/{reservationId}/prolonger")
     void prolongateReservation(@PathVariable int reservationId);

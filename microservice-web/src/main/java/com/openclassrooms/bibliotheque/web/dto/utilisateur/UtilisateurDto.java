@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.beans.utilisateur;
+package com.openclassrooms.bibliotheque.web.dto.utilisateur;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UtilisateurBean implements UserDetails {
+public class UtilisateurDto implements UserDetails {
 
     private int          utilisateurId;
     private String       firstName;
