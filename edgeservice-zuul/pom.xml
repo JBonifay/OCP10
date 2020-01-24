@@ -11,7 +11,7 @@
   </parent>
 
   <!-- ===== Informations Maven ===== -->
-  <artifactId>zuul-server</artifactId>
+  <artifactId>edgeservice-zuul</artifactId>
   <description>Microservice Zuul server</description>
   <name>EdgeService-Zuul</name>
 

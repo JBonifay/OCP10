@@ -11,7 +11,7 @@
   </parent>
 
   <!-- ===== Informations Maven ===== -->
-  <artifactId>eureka-server</artifactId>
+  <artifactId>edgeservice-eureka</artifactId>
   <name>EdgeService-Eureka</name>
   <description>Microservice Eureka</description>
 

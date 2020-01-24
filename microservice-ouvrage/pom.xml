@@ -11,7 +11,7 @@
   </parent>
 
   <!-- ===== Informations Maven ===== -->
-  <artifactId>ouvrage</artifactId>
+  <artifactId>microservice-ouvrage</artifactId>
   <name>Microservice-Ouvrage</name>
   <description>Gestion des ouvrage</description>
 

@@ -11,7 +11,7 @@
   </parent>
 
   <!-- ===== Informations Maven ===== -->
-  <artifactId>reservation</artifactId>
+  <artifactId>microservice-reservation</artifactId>
   <name>Microservice-Reservation</name>
   <description>Gestion des réservations</description>
 

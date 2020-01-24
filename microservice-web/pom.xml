@@ -11,7 +11,7 @@
   </parent>
 
   <!-- ===== Informations Maven ===== -->
-  <artifactId>web</artifactId>
+  <artifactId>microservice-web</artifactId>
   <name>Microservice-Web</name>
   <description>Microservice web / Utilisateur UI</description>
 
