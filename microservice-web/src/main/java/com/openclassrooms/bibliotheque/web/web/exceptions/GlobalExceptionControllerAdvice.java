@@ -1,11 +1,14 @@
 package com.openclassrooms.bibliotheque.web.web.exceptions;
 
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionControllerAdvice {
 
     @ExceptionHandler(BadRequestException.class)
@@ -33,5 +36,10 @@ public class GlobalExceptionControllerAdvice {
         return new ModelAndView("error");
     }
 
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ModelAndView handleMissingParams(MissingServletRequestParameterException ex) {
+        log.error("Missing parameter in request: " + ex.getMessage() + " ... ");
+        return new ModelAndView("error");
+    }
 
 }
