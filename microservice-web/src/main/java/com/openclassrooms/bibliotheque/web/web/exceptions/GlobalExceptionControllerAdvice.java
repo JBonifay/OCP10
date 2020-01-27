@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestControllerAdvice
-public class GlobalExceptionController {
+public class GlobalExceptionControllerAdvice {
 
     @ExceptionHandler(BadRequestException.class)
     public ModelAndView handleBadRequestException(BadRequestException e, HttpServletResponse response) {
