@@ -23,7 +23,7 @@ Afin de générer la base de donnée avec ses données:
 ##### Docker 
 ```docker
 Simplement se placer avec le terminal dans le dossier suivant:
-/docker
+docker/
 
 Et lancer la commande
 docker-compose up -d
@@ -33,12 +33,15 @@ Docker compose va créer la bdd MySql et jouer les scripts d’insertion de donn
 #### Lancer l'application
 Se placer à la racine du projet et lancer les microservices dans l'ordre suivant:
 ```text
-mvn spring-boot:run edgeservice-eureka/
-mvn spring-boot:run edgeservice-zuul/
-mvn spring-boot:run microservice-ouvrage/
-mvn spring-boot:run microservice-reservation/
-mvn spring-boot:run microservice-utilisateur/
-mvn spring-boot:run microservice-web/
+mvn clean package
+
+Utiliser la commande 'mvn spring-boot:run' dans les projets :
+edgeservice-eureka/
+edgeservice-zuul/
+microservice-ouvrage/
+microservice-reservation/
+microservice-utilisateur/
+microservice-web/
 ```
 
 L'interface web est maintenant accessible sur **localhost:8080**
@@ -63,6 +66,10 @@ L'interface web est maintenant accessible sur **localhost:8080**
     
     bibliothequemunicipale250@gmail.com
     rootbibliotheque
+
+### Postman
+Toute les requetes utilisées sont disponible sur postman à l'adresse suivante:
+https://documenter.getpostman.com/view/7613584/SWTEbFr6?version=latest
 
 ## FAQ
           
