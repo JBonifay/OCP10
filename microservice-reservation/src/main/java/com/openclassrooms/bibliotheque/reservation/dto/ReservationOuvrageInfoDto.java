@@ -15,5 +15,6 @@ public class ReservationOuvrageInfoDto {
     private Date    reservationDateDebut;
     private Date    reservationDateFin;
     private boolean dejaProlonge;
+    private boolean active;
 
 }

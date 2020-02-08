@@ -15,5 +15,6 @@ public class ReservationDto {
     private Date    reservationDateDebut;
     private Date    reservationDateFin;
     private boolean dejaProlonge;
+    private boolean active;
 
 }

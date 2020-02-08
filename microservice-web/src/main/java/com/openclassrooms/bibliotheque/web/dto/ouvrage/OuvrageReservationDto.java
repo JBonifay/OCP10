@@ -17,6 +17,7 @@ public class OuvrageReservationDto {
     private Date    reservationDateDebut;
     private Date    reservationDateFin;
     private boolean isAlreadyProlonger;
+    private boolean active;
     private String  notation;
 
 

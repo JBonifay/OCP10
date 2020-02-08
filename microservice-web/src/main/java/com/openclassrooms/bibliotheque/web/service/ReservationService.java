@@ -32,6 +32,7 @@ public class ReservationService {
             ouvrageReservationDto.setReservationDateDebut(reservationDto.getReservationDateDebut());
             ouvrageReservationDto.setReservationDateFin(reservationDto.getReservationDateFin());
             ouvrageReservationDto.setAlreadyProlonger(reservationDto.isDejaProlonge());
+            ouvrageReservationDto.setActive(reservationDto.isActive());
             ouvrageReservationDtos.add(ouvrageReservationDto);
         });
         return ouvrageReservationDtos;
