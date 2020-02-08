@@ -7,9 +7,11 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="Entities" />
-          <factory-entry name="entityManagerFactory" />
+          <factory-entry name="entityManagerFactory" value="4c53a0a7-be6f-4f4a-b4a4-2aebab5c2ce8" />
         </datasource-mapping>
-        <naming-strategy-map />
+        <naming-strategy-map>
+          <unit-entry name="entityManagerFactory" />
+        </naming-strategy-map>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">

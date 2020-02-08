@@ -3,7 +3,7 @@ package com.openclassrooms.bibliotheque.ouvrage.rest.controller;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageMapper;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageNameIdDto;
-import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageRechercheBody;
+import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageRechercheWrapper;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundException;
@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,9 +33,9 @@ public class OuvrageController {
      * @return a page filled with ouvrages objects filtered
      */
     @PostMapping(value = "/ouvrages/recherche")
-    public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(@RequestBody OuvrageRechercheBody ouvrageRechercheBody) {
+    public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(@RequestBody OuvrageRechercheWrapper ouvrageRechercheWrapper) {
             return ResponseEntity.ok(ouvrageService
-                .getAll(PageRequest.of(ouvrageRechercheBody.getPageNumber(), ouvrageRechercheBody.getPageSize()))
+                .getFilteredResult(ouvrageRechercheWrapper)
                 .map(ouvrageMapper::toOuvrageStockDto));
     }
 

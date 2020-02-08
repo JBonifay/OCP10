@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.ouvrage.service;
 
+import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageRechercheWrapper;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.repository.OuvrageRepository;
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundException;
@@ -9,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,23 @@ public class OuvrageService {
 
     private final OuvrageRepository ouvrageRepository;
 
-    public Page<Ouvrage> getAll(Pageable pageable) {
-        return ouvrageRepository.findAll(pageable);
+    public Page<Ouvrage> getFilteredResult(OuvrageRechercheWrapper ouvrageRechercheWrapper) {
+        Pageable pageRequest = PageRequest.of(ouvrageRechercheWrapper.getPageNumber(), ouvrageRechercheWrapper.getPageSize());
+        Page<Ouvrage> ouvragePage;
+
+
+        ouvragePage = ouvrageRepository.getFilteredResult(
+                "%" + ouvrageRechercheWrapper.getName() + "%",
+                "%" +ouvrageRechercheWrapper.getAuthor() + "%",
+                ouvrageRechercheWrapper.getReleaseDate(),
+                "%" + ouvrageRechercheWrapper.getEditor() + "%",
+                ouvrageRechercheWrapper.getNumberOfPages(),
+                ouvrageRechercheWrapper.getNotation(),
+                ouvrageRechercheWrapper.getQuantity(),
+                pageRequest
+        );
+
+        return ouvragePage;
     }
 
     public Ouvrage findOuvrageById(int ouvrageId) {

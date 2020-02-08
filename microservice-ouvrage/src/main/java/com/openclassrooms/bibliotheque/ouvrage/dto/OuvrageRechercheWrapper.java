@@ -6,7 +6,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class OuvrageRechercheBody {
+public class OuvrageRechercheWrapper {
 
     private Integer pageNumber;
     private Integer pageSize;
