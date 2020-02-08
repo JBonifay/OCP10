@@ -1,6 +1,6 @@
-package com.openclassrooms.bibliotheque.ouvrage.dto;
+package com.openclassrooms.bibliotheque.web.dto.filtrage;
 
-import java.awt.print.Pageable;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,7 +8,14 @@ import lombok.Data;
 @Data
 public class OuvrageRechercheBody {
 
-    private Pageable      pageable;
-    private OuvrageFiltre ouvrageFiltre;
+    private int    pageNumber;
+    private int    pageSize;
+    private String name;
+    private String author;
+    private Date   releaseDate;
+    private String editor;
+    private int    numberOfPages;
+    private int    notation;
+    private int    quantity;
 
 }

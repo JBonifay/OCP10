@@ -1,11 +1,12 @@
 package com.openclassrooms.bibliotheque.web.web.controller;
 
+import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvrageFiltre;
+import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvrageRechercheBody;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.web.proxies.RestPageImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -21,15 +22,21 @@ public class OuvragePageController {
     private final OuvrageProxy ouvrageProxy;
 
     @GetMapping({"/listedesouvrages", "/"})
-    public ModelAndView getOuvragesPage(Pageable pageable) throws NotFoundException {
+    public ModelAndView getOuvragesPage(Pageable pageable, OuvrageFiltre ouvrageFiltre) {
         ModelAndView ouvrages = new ModelAndView("listedesouvrages");
-        RestPageImpl<OuvrageStockDto> ouvragePage = ouvrageProxy.getAllOuvrageListByPage(pageable);
+
+        OuvrageRechercheBody o = new OuvrageRechercheBody(pageable.getPageNumber(),
+                pageable.getPageSize(), "", "", null, "", 0,
+                0, 0);
+
+        RestPageImpl<OuvrageStockDto> ouvragePage = ouvrageProxy.getAllOuvrageListByPage(o);
 
         if (ouvragePage.getPageable().getPageNumber() > ouvragePage.getTotalPages()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La page demandé");
         }
         ouvrages.addObject("ouvrages", ouvragePage.getContent());
         ouvrages.addObject("pageable", ouvragePage);
+        ouvrages.addObject("filter", ouvrageFiltre);
 
         return ouvrages;
     }

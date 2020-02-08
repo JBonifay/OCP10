@@ -33,7 +33,7 @@ public class OuvrageController {
      *
      * @return a page filled with ouvrages objects filtered
      */
-    @GetMapping(value = "/ouvrages")
+    @PostMapping(value = "/ouvrages/recherche")
     public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(@RequestBody OuvrageRechercheBody ouvrageRechercheBody) {
             return ResponseEntity.ok(ouvrageService
                 .getAll(PageRequest.of(ouvrageRechercheBody.getPageNumber(), ouvrageRechercheBody.getPageSize()))
