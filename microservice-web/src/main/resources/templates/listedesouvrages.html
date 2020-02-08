@@ -26,6 +26,38 @@
 
     <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
 
+      <!--   Filtrage   -->
+      <form class="form-inline" method="POST" th:action="@{/listedesouvrages}" th:object="${ouvrageFiltre}">
+        <div class="form-group">
+          <label for="name" class="bmd-label-floating">Nom de l'ouvrage</label>
+          <input type="text" class="form-control" id="name" th:field="*{name}">
+        </div>
+        <div class="form-group">
+          <label for="author" class="bmd-label-floating">Auteur</label>
+          <input type="text" class="form-control" id="author" th:field="*{author}">
+        </div>
+        <div class="form-group">
+          <label for="editor" class="bmd-label-floating">Editeur</label>
+          <input type="text" class="form-control" id="editor" th:field="*{editor}">
+        </div>
+        <div class="form-group">
+          <label for="notation" class="bmd-label-floating">Notation</label>
+          <input type="number" class="form-control" id="notation" th:field="*{notation}">
+        </div>
+        <div class="form-group">
+          <label for="numberOfPages" class="bmd-label-floating">Nombre de pages</label>
+          <input type="number" class="form-control" id="numberOfPages" th:field="*{numberOfPages}">
+        </div>
+        <div class="form-group">
+          <label for="quantity" class="bmd-label-floating">Quantitée</label>
+          <input type="number" class="form-control" id="quantity" th:field="*{quantity}">
+        </div>
+        <span class="form-group bmd-form-group">
+          <button type="submit" class="btn btn-primary">Recherche</button>
+        </span>
+      </form>
+
+
       <div>
         <h2 class="text-center">Liste des ouvrages</h2>
         <br>
@@ -41,8 +73,9 @@
             </thead>
             <tbody>
             <tr th:each="ouvrage : ${ouvrages}">
-              <td class="text-center align-middle"><a class="btn btn-primary" role="button" th:href="@{'/ouvrage?id=' + ${ouvrage.ouvrageId}}"
-                                         th:text="${ouvrage.name}"></a></td>
+              <td class="text-center align-middle"><a class="btn btn-primary" role="button"
+                                                      th:href="@{'/ouvrage?id=' + ${ouvrage.ouvrageId}}"
+                                                      th:text="${ouvrage.name}"></a></td>
               <td class="text-center align-middle" th:text="${ouvrage.author}"></td>
               <td class="text-center align-middle" th:text="${#dates.format(ouvrage.releaseDate, 'dd-MM-yyyy')}"></td>
               <td class="text-center align-middle" th:text="${ouvrage.quantity}"></td>
@@ -56,7 +89,7 @@
 
       <div class="col d-flex justify-content-center">
         <nav th:with="pageInfo=${pageable.getPageable()}">
-          <ul class="pagination pagination-sm">
+          <ul class="pagination pagination-sm" th:if="${pageable.getTotalPages()} > 0">
 
             <th:block th:if="${pageInfo.previousOrFirst().getPageNumber()} >= 1">
               <li class="page-item"><a class="page-link" th:href="@{'/listedesouvrages?page=' + ${pageInfo.getPageNumber() - 1}}"

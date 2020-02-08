@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,24 +24,26 @@ public class OuvragePageController {
 
     @GetMapping({"/listedesouvrages", "/"})
     public ModelAndView getOuvragesPage(Pageable pageable, OuvrageFiltre ouvrageFiltre) {
+        return getModelAndView(pageable, ouvrageFiltre);
+    }
+
+    @PostMapping("/listedesouvrages")
+    public ModelAndView applyFilter(Pageable pageable, OuvrageFiltre ouvrageFiltre) {
+        return getModelAndView(pageable, ouvrageFiltre);
+    }
+
+    private ModelAndView getModelAndView(Pageable pageable, OuvrageFiltre ouvrageFiltre) {
         ModelAndView ouvrages = new ModelAndView("listedesouvrages");
 
         RestPageImpl<OuvrageStockDto> ouvragePage = ouvrageProxy.getAllOuvrageListByPage(
-                new OuvragePageWrapper(pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        ouvrageFiltre.getName(),
-                        ouvrageFiltre.getAuthor(),
-                        ouvrageFiltre.getEditor(),
-                        ouvrageFiltre.getNumberOfPages(),
-                        ouvrageFiltre.getNotation(),
-                        ouvrageFiltre.getQuantity()));
+                new OuvragePageWrapper(pageable.getPageNumber(), pageable.getPageSize(), ouvrageFiltre.getName(),
+                        ouvrageFiltre.getAuthor(), ouvrageFiltre.getEditor(), ouvrageFiltre.getNumberOfPages(),
+                        ouvrageFiltre.getNotation(), ouvrageFiltre.getQuantity()));
 
-        if (ouvragePage.getPageable().getPageNumber() > ouvragePage.getTotalPages()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La page demandé");
-        }
+
         ouvrages.addObject("ouvrages", ouvragePage.getContent());
         ouvrages.addObject("pageable", ouvragePage);
-        ouvrages.addObject("filter", ouvrageFiltre);
+        ouvrages.addObject("ouvrageFiltre", ouvrageFiltre);
 
         return ouvrages;
     }
