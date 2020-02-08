@@ -1,6 +1,5 @@
 package com.openclassrooms.bibliotheque.web.dto.filtrage;
 
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,7 +11,6 @@ public class OuvragePageWrapper {
     private int    pageSize;
     private String name;
     private String author;
-    private Date   releaseDate;
     private String editor;
     private int    numberOfPages;
     private int    notation;

@@ -30,7 +30,6 @@ public class OuvragePageController {
                         pageable.getPageSize(),
                         ouvrageFiltre.getName(),
                         ouvrageFiltre.getAuthor(),
-                        ouvrageFiltre.getReleaseDate(),
                         ouvrageFiltre.getEditor(),
                         ouvrageFiltre.getNumberOfPages(),
                         ouvrageFiltre.getNotation(),
