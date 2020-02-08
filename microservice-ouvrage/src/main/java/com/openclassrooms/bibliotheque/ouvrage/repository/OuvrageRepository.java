@@ -18,18 +18,17 @@ public interface OuvrageRepository extends JpaRepository<Ouvrage, String> {
 
     Ouvrage findByOuvrageId(int ouvrageId);
 
-    @Query("select o from Ouvrage o "
-            + "where "
-            + "o.name like :name and "
-            + "o.author like :auhor and "
-            + "o.releaseDate between :releaseDate and current_date and "
-            + "o.editor like :editor and "
-            + "o.numberOfPages >= :numberOfPages and "
-            + "o.notation >= :notation and "
-            + "o.stock.quantity >= :stock_quantity")
+    @Query("select o "
+            + "from Ouvrage o "
+            + "where o.name like :name "
+            + "and o.author like :author "
+            + "and o.editor like :editor "
+            + "and o.numberOfPages >= :numberOfPages "
+            + "and o.notation >= :notation "
+            + "and o.stock.quantity >= :stock_quantity")
     Page<Ouvrage> getFilteredResult(
             @NotNull String name, @NotNull String author,
-            @Past @NotNull Date releaseDate, String editor, int numberOfPages,
+            String editor, int numberOfPages,
             int notation, int stock_quantity, Pageable pageable);
 
 }

@@ -28,7 +28,6 @@ public class OuvrageService {
         ouvragePage = ouvrageRepository.getFilteredResult(
                 "%" + ouvrageRechercheWrapper.getName() + "%",
                 "%" +ouvrageRechercheWrapper.getAuthor() + "%",
-                ouvrageRechercheWrapper.getReleaseDate(),
                 "%" + ouvrageRechercheWrapper.getEditor() + "%",
                 ouvrageRechercheWrapper.getNumberOfPages(),
                 ouvrageRechercheWrapper.getNotation(),
