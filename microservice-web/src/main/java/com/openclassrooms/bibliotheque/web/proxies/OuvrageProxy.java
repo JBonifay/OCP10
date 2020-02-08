@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.web.proxies;
 
-import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvrageRechercheBody;
+import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvragePageWrapper;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageIdNameDto;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageStockDto;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface OuvrageProxy {
     
     @PostMapping("/ouvrages/recherche")
-    RestPageImpl<OuvrageStockDto> getAllOuvrageListByPage(@RequestBody OuvrageRechercheBody ouvrageRechercheBody);
+    RestPageImpl<OuvrageStockDto> getAllOuvrageListByPage(@RequestBody OuvragePageWrapper ouvragePageWrapper);
     
     @GetMapping("/ouvrage/{ouvrageId}/description")
     OuvrageDescriptionDto getOuvrageDescriptionById(@PathVariable int ouvrageId);

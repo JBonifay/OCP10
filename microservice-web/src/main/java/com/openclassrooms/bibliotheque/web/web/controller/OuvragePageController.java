@@ -1,7 +1,7 @@
 package com.openclassrooms.bibliotheque.web.web.controller;
 
 import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvrageFiltre;
-import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvrageRechercheBody;
+import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvragePageWrapper;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
@@ -25,11 +25,16 @@ public class OuvragePageController {
     public ModelAndView getOuvragesPage(Pageable pageable, OuvrageFiltre ouvrageFiltre) {
         ModelAndView ouvrages = new ModelAndView("listedesouvrages");
 
-        OuvrageRechercheBody o = new OuvrageRechercheBody(pageable.getPageNumber(),
-                pageable.getPageSize(), "", "", null, "", 0,
-                0, 0);
-
-        RestPageImpl<OuvrageStockDto> ouvragePage = ouvrageProxy.getAllOuvrageListByPage(o);
+        RestPageImpl<OuvrageStockDto> ouvragePage = ouvrageProxy.getAllOuvrageListByPage(
+                new OuvragePageWrapper(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        ouvrageFiltre.getName(),
+                        ouvrageFiltre.getAuthor(),
+                        ouvrageFiltre.getReleaseDate(),
+                        ouvrageFiltre.getEditor(),
+                        ouvrageFiltre.getNumberOfPages(),
+                        ouvrageFiltre.getNotation(),
+                        ouvrageFiltre.getQuantity()));
 
         if (ouvragePage.getPageable().getPageNumber() > ouvragePage.getTotalPages()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La page demandé");
