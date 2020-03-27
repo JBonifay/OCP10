@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OuvrageDescriptionDto {
 
+    private int    ouvrageId;
     private String name;
     private String author;
     private Date   releaseDate;

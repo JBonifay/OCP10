@@ -39,7 +39,7 @@
               <p class="card-text text-center"
                  th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
               <a class="btn btn-outline-secondary d-flex justify-content-center"
-                 th:href="@{'/ouvrage?id=' + ${reservation.ouvrageId}}">Description ..</a>
+                 th:href="@{'/ouvrage/description?id=' + ${reservation.ouvrageId}}">Description ..</a>
               <th:block th:switch="${reservation.isAlreadyProlonger()}">
                 <span th:case="false">
                 <a class="btn btn-outline-secondary d-flex justify-content-center"

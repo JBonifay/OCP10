@@ -1,16 +1,21 @@
 package com.openclassrooms.bibliotheque.web.web.controller;
 
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageDescriptionDto;
+import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.web.proxies.ReservationProxy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
-@RequiredArgsConstructor
 @Controller
+@Slf4j
+@RequiredArgsConstructor
 public class DescriptionController {
 
     private final OuvrageProxy ouvrageProxy;
@@ -26,9 +31,16 @@ public class DescriptionController {
     }
 
     @GetMapping("/reservation/creer")
-    public ModelAndView createReservationForUser(@RequestParam(value = "ouvrage_id") int ouvrageId, @RequestParam(value = "user_id") int userId) {
+    public RedirectView createReservationForUser(@RequestParam(value = "ouvrage_id") int ouvrageId) {
+        UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return null;
+        try {
+            reservationProxy.createNewReservation(utilisateurDto.getUtilisateurId(), ouvrageId);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        return new RedirectView("/reservation?error=BLALALALLALALALA");
     }
 
 }

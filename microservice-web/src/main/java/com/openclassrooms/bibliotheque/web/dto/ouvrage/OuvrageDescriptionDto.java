@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OuvrageDescriptionDto {
-    
+
+    private int    ouvrageId;
     private String name;
     private String author;
     private Date   releaseDate;
@@ -18,5 +19,5 @@ public class OuvrageDescriptionDto {
     private int    numberOfPages;
     private int    notation;
     private int    quantity;
-    
+
 }

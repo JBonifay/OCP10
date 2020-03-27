@@ -19,6 +19,13 @@
   <!-- ===== Dependencies versions ===== -->
   <dependencies>
 
+    <!-- ===== DevTools ===== -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+
     <!-- ===== Spring Boot ===== -->
     <dependency>
       <artifactId>spring-boot-starter-data-jpa</artifactId>

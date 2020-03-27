@@ -73,7 +73,7 @@
             <tbody>
             <tr th:each="ouvrage : ${ouvrages}">
               <td class="text-center align-middle"><a class="btn btn-primary" role="button"
-                                                      th:href="@{'/ouvrage?id=' + ${ouvrage.ouvrageId}}"
+                                                      th:href="@{'/ouvrage/description?id=' + ${ouvrage.ouvrageId}}"
                                                       th:text="${ouvrage.name}"></a></td>
               <td class="text-center align-middle" th:text="${ouvrage.author}"></td>
               <td class="text-center align-middle" th:text="${#dates.format(ouvrage.releaseDate, 'dd-MM-yyyy')}"></td>

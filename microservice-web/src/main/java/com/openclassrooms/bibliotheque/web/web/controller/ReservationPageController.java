@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -33,7 +35,7 @@ public class ReservationPageController {
      * @return a page with reservations for current user
      */
     @GetMapping("/reservation")
-    public ModelAndView getReservationPage() {
+    public ModelAndView getReservationPage(@Nullable @RequestParam String error) {
         ModelAndView reservation = new ModelAndView("reservation");
 
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
