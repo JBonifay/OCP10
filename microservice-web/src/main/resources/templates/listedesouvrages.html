@@ -22,12 +22,9 @@
 <div class="container-fluid">
   <div class="row">
 
-    <nav class="" th:replace="fragments/sidenav.html :: nav"></nav>
-
-    <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
-
+    <div class="col-xl-2 col-md-12">
       <!--   Filtrage   -->
-      <form class="form-inline" method="POST" th:action="@{/listedesouvrages}" th:object="${ouvrageFiltre}">
+      <form class="" method="POST" th:action="@{/listedesouvrages}" th:object="${ouvrageFiltre}">
         <div class="form-group">
           <label for="name" class="bmd-label-floating">Nom de l'ouvrage</label>
           <input type="text" class="form-control" id="name" th:field="*{name}">
@@ -52,11 +49,13 @@
           <label for="quantity" class="bmd-label-floating">Quantitée</label>
           <input type="number" class="form-control" id="quantity" th:field="*{quantity}">
         </div>
-        <span class="form-group bmd-form-group">
-          <button type="submit" class="btn btn-primary">Recherche</button>
+        <span class="form-group bmd-form-group d-flex justify-content-center">
+          <button type="submit" class="btn btn-raised btn-primary">Recherche</button>
         </span>
       </form>
+    </div>
 
+    <div class="col-xl col-md-12">
 
       <div>
         <h2 class="text-center">Liste des ouvrages</h2>
@@ -123,7 +122,8 @@
         </nav>
       </div>
 
-    </main>
+    </div>
+
   </div>
 </div>
 

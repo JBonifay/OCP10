@@ -19,48 +19,38 @@
 
 <nav class="" th:replace="fragments/navbar.html :: nav"></nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <nav class="" th:replace="fragments/sidenav.html :: nav"></nav>
+<div class="container">
 
-
-    <main class="col-9" role="main">
-
-      <div class="row mt-5">
-
-        <div class="col border">
-          <img alt="..." class="img-fluid" src="http://www.pngmart.com/files/1/Book-PNG-File.png" width="200">
-        </div>
-
-        <div class="col border">
-          <h5 class="text-justify font-weight-bold" th:text="${ouvrage.name}"></h5>
-          <h5 class="text-justify mt-3" th:text="${ouvrage.author}"></h5>
-          <h5 class="text-justify" th:text="'Edition ' + ${ouvrage.editor}"></h5>
-          <h5 class="text-justify" th:text="'Sorti le ' + ${#dates.format(ouvrage.releaseDate, 'dd-MM-yyyy')}"></h5>
-          <h5 class="text-justify" th:text="'Nombre de pages: ' + ${ouvrage.numberOfPages}"></h5>
-        </div>
-
-        <div class="col border">
-          <p th:text="'Notation sur 5:'"></p>
-          <th:block th:each="star: ${#numbers.sequence(1, ouvrage.notation)}">
-            <img class="" height="80" th:src="@{/images/star.png}" width="80">
-          </th:block>
-          <p class="mt-5" th:text="'Encore en stock: '"><h6 class="font-weight-bold" th:text="${ouvrage.quantity}"></h6>
-
-          <button type="button" class="btn btn-raised btn-primary">Reserver cet ouvrage</button>
-
-        </div>
-
-        <div class="mt-5">
-          <h5 class="text-justify font-weight-bold" th:text="'Description:'"></h5>
-          <p class="text-left mt-2" th:text="${ouvrage.summary}"></p>
-        </div>
-
-      </div>
-
-
-    </main>
+  <div class="row mt-5">
+    <div class="col-sm">
+      <img alt="..." class="img-fluid mx-auto d-block" src="http://www.pngmart.com/files/1/Book-PNG-File.png" width="200">
+    </div>
   </div>
+
+  <div class="row mt-5">
+    <div class="col-sm align-self-center">
+      <h5 class="text-center font-weight-bold" th:text="${ouvrage.name}"></h5>
+      <h5 class="text-center mt-3" th:text="${ouvrage.author}"></h5>
+      <h5 class="text-center" th:text="'Edition ' + ${ouvrage.editor}"></h5>
+      <h5 class="text-center" th:text="'Sorti le ' + ${#dates.format(ouvrage.releaseDate, 'dd-MM-yyyy')}"></h5>
+      <h5 class="text-center" th:text="'Nombre de pages: ' + ${ouvrage.numberOfPages}"></h5>
+    </div>
+    <div class="col-sm align-self-center text-center">
+      <p th:text="'Notation sur 5:'"></p>
+      <th:block th:each="star: ${#numbers.sequence(1, ouvrage.notation)}">
+        <img class="" height="80" th:src="@{/images/star.png}" width="80" alt="" src="">
+      </th:block>
+      <p class="mt-5" th:text="'Encore en stock: '"><h6 class="font-weight-bold" th:text="${ouvrage.quantity}"></h6>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-6 mx-auto">
+      <h5 class="text-left font-weight-bold" th:text="'Description:'"></h5>
+      <p class="text-left mt-2" th:text="${ouvrage.summary}"></p>
+    </div>
+  </div>
+
 </div>
 
 <!-- Optional JavaScript -->
