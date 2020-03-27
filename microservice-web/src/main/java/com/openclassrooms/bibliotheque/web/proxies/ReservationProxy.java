@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 @FeignClient(name = "reservation-proxy", url = "${feign.zuul.url}", path = "/microservice-reservation")
 public interface ReservationProxy {
     
-    @GetMapping("/reservations/{utilisateurId}")
+    @GetMapping("/reservation/list/{utilisateurId}")
     List<ReservationDto> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
     
-    @PutMapping("/reservation/{reservationId}/prolonger")
+    @PutMapping("/reservation/prolonger/{reservationId}")
     void prolongateReservation(@PathVariable int reservationId);
     
 }

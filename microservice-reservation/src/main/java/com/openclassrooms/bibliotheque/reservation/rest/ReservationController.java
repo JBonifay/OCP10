@@ -31,7 +31,7 @@ public class ReservationController {
      * @param utilisateurId the user id
      * @return a response entity containing a list of {@link ReservationOuvrageInfoDto} object
      */
-    @GetMapping("/reservations/{utilisateurId}")
+    @GetMapping("/reservation/list/{utilisateurId}")
     public ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
         return Optional.of(reservationService.findAllByUtilisateurId(utilisateurId))
                 .filter(reservationList -> !reservationList.isEmpty())
@@ -49,7 +49,7 @@ public class ReservationController {
      * @param reservationId the reservation id
      * @return a response entity, Ok if extended
      */
-    @PutMapping("/reservation/{reservationId}/prolonger")
+    @PutMapping("/reservation/prolonger/{reservationId}")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
         return Optional.ofNullable(reservationService.extendReservation(reservationId))
                 .map(i -> ResponseEntity.ok("Prolongement effectué.."))
@@ -75,7 +75,7 @@ public class ReservationController {
      * @param reservationId the reservation to return
      * @return ResponseEntity ok if returned
      */
-    @PutMapping("reservation/{reservationId}/retourner")
+    @PutMapping("reservation/retourner/{reservationId}")
     public ResponseEntity<Reservation> returnLoan(@PathVariable int reservationId) {
         return Optional.ofNullable(reservationService.returnReservation(reservationId))
                 .map(ResponseEntity::ok)

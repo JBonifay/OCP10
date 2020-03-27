@@ -48,12 +48,4 @@ public class OuvragePageController {
         return ouvrages;
     }
 
-    @GetMapping("/ouvrage")
-    public ModelAndView getOuvrageDescriptionPage(@RequestParam(value = "id") int ouvrageId) {
-        ModelAndView description = new ModelAndView("description");
-        OuvrageDescriptionDto ouvrageDescriptionDto = ouvrageProxy.getOuvrageDescriptionById(ouvrageId);
-        description.addObject("ouvrage", ouvrageDescriptionDto);
-        return description;
-    }
-
 }

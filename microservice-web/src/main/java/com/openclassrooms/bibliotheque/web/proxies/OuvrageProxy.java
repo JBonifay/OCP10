@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "ouvrage-proxy", url = "${feign.zuul.url}", path = "/microservice-ouvrage")
 public interface OuvrageProxy {
     
-    @PostMapping("/ouvrages/recherche")
+    @PostMapping("/ouvrage/recherche")
     RestPageImpl<OuvrageStockDto> getAllOuvrageListByPage(@RequestBody OuvragePageWrapper ouvragePageWrapper);
     
-    @GetMapping("/ouvrage/{ouvrageId}/description")
+    @GetMapping("/ouvrage/description/{ouvrageId}")
     OuvrageDescriptionDto getOuvrageDescriptionById(@PathVariable int ouvrageId);
     
-    @PostMapping("/ouvrages")
+    @PostMapping("/ouvrage/list")
     List<OuvrageIdNameDto> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> list);
     
 }

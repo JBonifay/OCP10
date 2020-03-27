@@ -32,7 +32,7 @@ public class OuvrageController {
      *
      * @return a page filled with ouvrages objects filtered
      */
-    @PostMapping(value = "/ouvrages/recherche")
+    @PostMapping(value = "/ouvrage/recherche")
     public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(@RequestBody OuvrageRechercheWrapper ouvrageRechercheWrapper) {
             return ResponseEntity.ok(ouvrageService
                 .getFilteredResult(ouvrageRechercheWrapper)
@@ -46,7 +46,7 @@ public class OuvrageController {
      * @return ouvrageDescrition Dto object {@link OuvrageDescriptionDto}
      * @throws OuvrageNotFoundException if ouvrage not found
      */
-    @GetMapping(value = "/ouvrage/{ouvrageId}/description")
+    @GetMapping(value = "/ouvrage/description/{ouvrageId}")
     public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId)
             throws OuvrageNotFoundException {
         Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
@@ -62,7 +62,7 @@ public class OuvrageController {
      * @param ouvrageIdList the List<> containing ouvrage Id
      * @return A List of OuvrageNameIdDto {@link OuvrageNameIdDto}
      */
-    @PostMapping("/ouvrages")
+    @PostMapping("/ouvrage/list")
     public ResponseEntity<List<OuvrageNameIdDto>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
         if (ouvrageIdList.isEmpty()) {
             throw new OuvrageNotFoundException("Erreur dans la récupération des reservations");
@@ -78,7 +78,7 @@ public class OuvrageController {
      * @param ouvrageId the ouvrage id
      * @return a response entity with Ok for success or Bad request if error occurred
      */
-    @PutMapping("/ouvrage/{ouvrageId}/reserver")
+    @PutMapping("/ouvrage/reserver/{ouvrageId}")
     public ResponseEntity<String> removeOneOuvrageQuantityFromStock(@PathVariable int ouvrageId) {
         ouvrageService.removeOneFromStock(ouvrageId);
         return ResponseEntity.ok("Stock baissé d’une unité");
