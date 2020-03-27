@@ -7,13 +7,14 @@
   <parent>
     <artifactId>bibliotheque</artifactId>
     <groupId>com.openclassrooms</groupId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
   </parent>
 
   <!-- ===== Informations Maven ===== -->
   <artifactId>edgeservice-eureka</artifactId>
   <name>EdgeService-Eureka</name>
   <description>Microservice Eureka</description>
+  <version>${revision}</version>
 
   <!-- ===== Dependencies versions ===== -->
   <dependencies>

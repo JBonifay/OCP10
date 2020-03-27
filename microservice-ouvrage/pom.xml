@@ -7,13 +7,14 @@
   <parent>
     <artifactId>bibliotheque</artifactId>
     <groupId>com.openclassrooms</groupId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
   </parent>
 
   <!-- ===== Informations Maven ===== -->
   <artifactId>microservice-ouvrage</artifactId>
   <name>Microservice-Ouvrage</name>
   <description>Gestion des ouvrage</description>
+  <version>${revision}</version>
 
   <!-- ===== Dependencies ===== -->
   <dependencies>

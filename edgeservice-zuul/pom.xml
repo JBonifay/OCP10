@@ -7,13 +7,14 @@
   <parent>
     <artifactId>bibliotheque</artifactId>
     <groupId>com.openclassrooms</groupId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
   </parent>
 
   <!-- ===== Informations Maven ===== -->
   <artifactId>edgeservice-zuul</artifactId>
   <description>Microservice Zuul server</description>
   <name>EdgeService-Zuul</name>
+  <version>${revision}</version>
 
   <!-- ===== Dependencies ===== -->
   <dependencies>
