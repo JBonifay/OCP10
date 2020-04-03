@@ -38,7 +38,11 @@ public class ReservationService {
      */
     public Reservation extendReservation(int reservationId) {
         return Optional.of(reservationRepository.getOne(reservationId))
+                // Check if isDejaProlonge
                 .filter(reservation -> !reservation.isDejaProlonge())
+                // Check date
+                .filter(reservation -> !reservation.getReservationDateFin().before(new Date()))
+                // Process
                 .map(r -> {
                     r.setReservationDateFin(addFourWeeksToDate(r.getReservationDateFin()));
                     r.setDejaProlonge(true);
