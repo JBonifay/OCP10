@@ -35,7 +35,7 @@ public class ReservationPageController {
      * @return a page with reservations for current user
      */
     @GetMapping("/reservation")
-    public ModelAndView getReservationPage(@Nullable @RequestParam String error) {
+    public ModelAndView getReservationPage() {
         ModelAndView reservation = new ModelAndView("reservation");
 
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

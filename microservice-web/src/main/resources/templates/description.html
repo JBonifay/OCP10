@@ -19,31 +19,44 @@
 
 <nav class="" th:replace="fragments/navbar.html :: nav"></nav>
 
+
+<th:block th:if="${status != null}">
+  <div th:switch="${status}">
+    <div th:case="success">
+      <div class="alert alert-sucess text-center">
+        L'ouvrage à bien été réservé.
+      </div>
+    </div>
+    <div th:case="error">
+      <div class="alert alert-danger text-center">
+        L'ouvrage fait deja partit de vos réservations ...
+      </div>
+    </div>
+  </div>
+</th:block>
+
 <div class="container">
 
-  <th:block th:if="false">
-    <!-- Modal -->
-    <div class="modal-backdrop fade show"></div>
-    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" style="display: block">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade modal-backdrop fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
-  </th:block>
+  </div>
 
 
   <div class="row mt-5">
