@@ -64,6 +64,12 @@
       <groupId>mysql</groupId>
     </dependency>
 
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <version>6.3.2</version>
+    </dependency>
+
     <!-- ===== Utils ===== -->
     <dependency>
       <artifactId>lombok</artifactId>
