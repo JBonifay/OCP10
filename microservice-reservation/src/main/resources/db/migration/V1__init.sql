@@ -7,7 +7,7 @@ create table reservation
     reservation_date_debut date                 not null,
     reservation_date_fin   date                 not null,
     active                 tinyint(1)           not null,
-    deja_prolonge          tinyint(1) default 0 null
+    deja_prolonge          tinyint(1) default 0 not null 
 );
 
 

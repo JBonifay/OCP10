@@ -1,4 +1,4 @@
-create table if not exists liste_attente_reservation
+create table if not exists liste_attente
 (
     id                    int not null auto_increment primary key,
     id_client             int not null,
