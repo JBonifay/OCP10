@@ -18,7 +18,6 @@ services:
       - ./ouvrage.sql:/docker-entrypoint-initdb.d/ouvrage.sql
       - ./stock.sql:/docker-entrypoint-initdb.d/stock.sql
       - ./utilisateur.sql:/docker-entrypoint-initdb.d/utilisateur.sql
-      - ./reservation.sql:/docker-entrypoint-initdb.d/reservation.sql
 # Names our volume
 volumes:
   my-db:
