@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class OuvrageController {
+public class OuvrageResource {
 
     private final OuvrageService ouvrageService;
     private final OuvrageMapper  ouvrageMapper;

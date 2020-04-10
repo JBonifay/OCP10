@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequiredArgsConstructor
-public class ReservationController {
+public class ReservationResource {
 
     private final ReservationService reservationService;
     private final ReservationMapper  reservationMapper;

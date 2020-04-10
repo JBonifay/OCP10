@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequiredArgsConstructor
 @Controller
-public class OuvragePageController {
+public class OuvrageController {
 
     private final OuvrageProxy ouvrageProxy;
 

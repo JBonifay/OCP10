@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequiredArgsConstructor
-public class UtilisateurController {
+public class UtilisateurResource {
 
     private final UtilisateurRepository utilisateurRepository;
 

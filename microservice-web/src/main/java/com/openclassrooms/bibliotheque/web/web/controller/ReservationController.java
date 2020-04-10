@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class ReservationPageController {
+public class ReservationController {
 
     private final ReservationService reservationService;
     private final ReservationProxy   reservationProxy;
