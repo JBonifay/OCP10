@@ -1,12 +1,7 @@
 package com.openclassrooms.bibliotheque.ouvrage.repository;
 
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
-import com.openclassrooms.bibliotheque.ouvrage.model.Stock;
-import java.util.Date;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

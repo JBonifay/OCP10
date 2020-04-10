@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -58,15 +58,9 @@ public class ReservationService {
      * @param utilisateurId the user who reserve
      * @Return Null if reservation already exist or the new created reservation
      */
+    @Transactional
     public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
-        List<Reservation> reservationList = reservationRepository.findAllByUtilisateurId(utilisateurId);
-
-        Reservation nouvelleReservation = reservationList.stream().filter(reservation -> reservation.getOuvrageId() == ouvrageId)
-                .findAny().orElse(null);
-
-        if (nouvelleReservation != null) {
-            throw new ReservationException("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
-        }
+        checkIfAlreadyInUserReservationList(ouvrageId, utilisateurId);
 
         Reservation reservation = new Reservation();
         reservation.setUtilisateurId(utilisateurId);
@@ -75,20 +69,26 @@ public class ReservationService {
         reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateDebut()));
         reservation.setActive(true);
 
-        ResponseEntity<String> responseEntity;
-
         try {
-            responseEntity = ouvrageProxy.removeOneStockItem(ouvrageId);
+            ouvrageProxy.removeOneStockItem(ouvrageId);
         } catch (Exception e) {
             throw new ReservationException("L'ouvrage n'est plus en stock !");
         }
+        reservation = reservationRepository.save(reservation);
+        return reservation;
+    }
 
-        if (responseEntity.getStatusCode().value() == 200) {
-            reservation = reservationRepository.save(reservation);
-            return reservation;
-        } else {
-            throw new ReservationException("Erreur dans la création de la réservation.");
-        }
+    /**
+     * Used to check if user have the ouvrage in his reservation list
+     *
+     * @param ouvrageId     the ouvrage id
+     * @param utilisateurId the utilisateur id
+     */
+    private void checkIfAlreadyInUserReservationList(int ouvrageId, int utilisateurId) {
+        reservationRepository.findAllByUtilisateurId(utilisateurId).stream()
+                .filter(reservation -> reservation.getOuvrageId() == ouvrageId).forEach(reservation -> {
+            throw new ReservationException("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
+        });
     }
 
     /**

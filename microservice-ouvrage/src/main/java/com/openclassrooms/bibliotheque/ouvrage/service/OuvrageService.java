@@ -43,15 +43,15 @@ public class OuvrageService {
     }
 
     public List<Ouvrage> findAllByOuvrageIdList(List<Integer> ouvrageIdList) {
-        return ouvrageIdList.stream().map(integer -> Optional.ofNullable(ouvrageRepository.findByOuvrageId(integer)).orElseThrow(OuvrageNotFoundException::new)).collect(Collectors.toList());
+        return ouvrageIdList.stream().map(integer -> Optional.ofNullable(ouvrageRepository.findByOuvrageId(integer))
+                .orElseThrow(OuvrageNotFoundException::new))
+                .collect(Collectors.toList());
     }
 
     public void removeOneFromStock(int ouvrageId) {
-        Ouvrage ouvrage = ouvrageRepository.findByOuvrageId(ouvrageId);
-
-        if (ouvrage == null) {
+        Ouvrage ouvrage = Optional.of(ouvrageRepository.findByOuvrageId(ouvrageId)).orElseThrow(() -> {
             throw new OuvrageNotFoundException();
-        }
+        });
 
         if (ouvrage.getStock().getQuantity() > 0) {
             ouvrage.getStock().setQuantity(ouvrage.getStock().getQuantity() - 1);
