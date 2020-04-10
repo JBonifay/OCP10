@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS ouvrage;
+CREATE DATABASE IF NOT EXISTS reservation;
 
 create table reservation
 (
