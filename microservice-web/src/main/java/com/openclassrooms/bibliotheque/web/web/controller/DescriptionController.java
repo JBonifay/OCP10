@@ -26,6 +26,12 @@ public class DescriptionController {
     private final OuvrageProxy     ouvrageProxy;
     private final ReservationProxy reservationProxy;
 
+    /**
+     * Used to get the description page of the ouvrage selected
+     * @param ouvrageId the ouvrage ID selected
+     * @param errorMessage received if it's a redirected view, contain an error message
+     * @return the view
+     */
     @GetMapping("/ouvrage/description")
     public ModelAndView getOuvrageDescriptionPage(@RequestParam(value = "id") int ouvrageId, @ModelAttribute("errorMessage") String errorMessage) {
         ModelAndView description = new ModelAndView("description");
@@ -36,6 +42,12 @@ public class DescriptionController {
         return description;
     }
 
+    /**
+     * Create a new reservation of the ouvrage for the current user
+     * @param ouvrageId the ouvrage ID to reserve
+     * @param redirectAttributes used to transmit alert message to UI
+     * @return a redirect view, same page if error with errorMessage, reservation page if success
+     */
     @GetMapping("/reservation/creer")
     public RedirectView createReservationForUser(@RequestParam(value = "ouvrage_id") int ouvrageId, RedirectAttributes redirectAttributes) {
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
