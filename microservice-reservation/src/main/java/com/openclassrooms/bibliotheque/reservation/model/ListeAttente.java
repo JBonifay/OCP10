@@ -9,12 +9,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
+@Getter
 @Table(name = "liste_attente")
 public class ListeAttente {
 
@@ -25,8 +24,8 @@ public class ListeAttente {
     private int listeAttenteId;
 
     @NotNull
-    @Column(name = "id_client")
-    private int clientId;
+    @Column(name = "id_utilisateur")
+    private int utilisateurId;
 
     @NotNull
     @Column(name = "id_ouvrage")

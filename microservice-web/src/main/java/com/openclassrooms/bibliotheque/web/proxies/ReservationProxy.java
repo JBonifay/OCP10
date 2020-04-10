@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.web.proxies;
 
+import com.openclassrooms.bibliotheque.web.dto.ouvrage.ListeAttenteDto;
 import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,11 +15,15 @@ public interface ReservationProxy {
     
     @GetMapping("/reservation/list/{utilisateurId}")
     List<ReservationDto> getAllReservationListByUtilisateurId(@PathVariable int utilisateurId);
-    
+
+    @GetMapping("/reservation/listeattente/{utilisateurId}")
+    List<ListeAttenteDto> getAllReservationEnAttenteListByUtilisateurId(@PathVariable int utilisateurId);
+
     @PutMapping("/reservation/prolonger/{reservationId}")
     void prolongateReservation(@PathVariable int reservationId);
 
     @PostMapping("/reservation/creer")
     void createNewReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId);
+
 }
 

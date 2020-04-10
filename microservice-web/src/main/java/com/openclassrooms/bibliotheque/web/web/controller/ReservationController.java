@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.web.web.controller;
 
+import com.openclassrooms.bibliotheque.web.dto.ouvrage.ListeAttenteDto;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageIdNameDto;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageReservationDto;
 import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
@@ -11,12 +12,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -40,20 +39,27 @@ public class ReservationController {
 
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<ReservationDto> reservationDtoList = reservationProxy
-                .getAllReservationListByUtilisateurId(utilisateurDto.getUtilisateurId());
+        List<OuvrageReservationDto> ouvrageReservationDtoList = getReservationEncours(utilisateurDto.getUtilisateurId());
+        List<ListeAttenteDto> ouvrageListeAttenteList = getOuvrageListeAttente(utilisateurDto.getUtilisateurId());
 
-        List<Integer> ouvrageIdList = reservationDtoList.stream().map(ReservationDto::getOuvrageId)
-                .collect(Collectors.toList());
+        reservation.addObject("reservationList", ouvrageReservationDtoList);
+        reservation.addObject("listeAttente", ouvrageListeAttenteList);
+
+        return reservation;
+    }
+
+    private List<OuvrageReservationDto> getReservationEncours(int utilisateurId) {
+        List<ReservationDto> reservationDtoList = reservationProxy.getAllReservationListByUtilisateurId(utilisateurId);
+
+        List<Integer> ouvrageIdList = reservationDtoList.stream().map(ReservationDto::getOuvrageId).collect(Collectors.toList());
 
         List<OuvrageIdNameDto> ouvrageIdNameDtoList = ouvrageProxy.getAllOuvrageByOuvrageIdList(ouvrageIdList);
 
-        List<OuvrageReservationDto> ouvrageReservationDtoList = reservationService
-                .createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList);
+        return reservationService.createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList);
+    }
 
-        reservation.addObject("reservationList", ouvrageReservationDtoList);
-
-        return reservation;
+    private List<ListeAttenteDto> getOuvrageListeAttente(int utilisateurId) {
+        return reservationProxy.getAllReservationEnAttenteListByUtilisateurId(utilisateurId);
     }
 
     /**

@@ -1,8 +1,11 @@
 package com.openclassrooms.bibliotheque.reservation.rest.controller;
 
+import com.openclassrooms.bibliotheque.reservation.dto.ListeAttenteDto;
+import com.openclassrooms.bibliotheque.reservation.dto.ListeAttenteMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
+import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,8 @@ public class ReservationResource {
 
     private final ReservationService reservationService;
     private final ReservationMapper  reservationMapper;
+    private final ListeAttenteMapper listeAttenteMapper;
+    private final OuvrageProxy       ouvrageProxy;
 
     /**
      * Get all reservations from user
@@ -33,14 +38,22 @@ public class ReservationResource {
      */
     @GetMapping("/reservation/list/{utilisateurId}")
     public ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
-        return Optional.of(reservationService.findAllByUtilisateurId(utilisateurId))
-                .filter(reservationList -> !reservationList.isEmpty())
-                .map(reservations ->
-                        ResponseEntity.ok(reservations.stream()
-                                                      .map(reservationMapper::toReservationOuvrageInfoDto)
-                                                      .collect(Collectors.toList())))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+        return Optional.of(reservationService.findAllReservationByUtilisateurId(utilisateurId))
+                .filter(reservationList -> !reservationList.isEmpty()).map(reservations -> ResponseEntity
+                        .ok(reservations.stream().map(reservationMapper::toReservationOuvrageInfoDto)
+                                .collect(Collectors.toList()))).orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                 "Aucune réservation trouvée pour cet utilisateur"));
+    }
+
+    @GetMapping("/reservation/listeattente/{utilisateurId}")
+    public ResponseEntity<List<ListeAttenteDto>> getListeAttenteByUtilisateurId(@PathVariable int utilisateurId) {
+        return ResponseEntity
+                .ok(reservationService.findAllListeAttenteByUtilisateurId(utilisateurId).stream().map(listeAttente -> {
+                    ListeAttenteDto listeAttenteDto = listeAttenteMapper.toReservationOuvrageInfoDto(listeAttente);
+                    listeAttenteDto.setOuvrageName(ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId()).getName());
+                    return listeAttenteDto;
+                }).collect(Collectors.toList()));
     }
 
     /**

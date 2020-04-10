@@ -1,7 +1,9 @@
 package com.openclassrooms.bibliotheque.reservation.service;
 
+import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
+import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationException;
 import java.util.Calendar;
@@ -18,17 +20,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class ReservationService {
 
-    private final ReservationRepository reservationRepository;
-    private final OuvrageProxy          ouvrageProxy;
+    private final ReservationRepository  reservationRepository;
+    private final ListeAttenteRepository listeAttenteRepository;
+    private final OuvrageProxy           ouvrageProxy;
 
     /**
      * List all reservation fo the user
      *
-     * @param userId the user userId
+     * @param utilisateurId the user userId
      * @return a list of reservation
      */
-    public List<Reservation> findAllByUtilisateurId(int userId) {
-        return reservationRepository.findAllByUtilisateurId(userId);
+    public List<Reservation> findAllReservationByUtilisateurId(int utilisateurId) {
+        return reservationRepository.findAllByUtilisateurId(utilisateurId);
+    }
+
+    public List<ListeAttente> findAllListeAttenteByUtilisateurId(int utilisateurId) {
+        return listeAttenteRepository.findAllByUtilisateurId(utilisateurId);
     }
 
     /**
@@ -38,8 +45,7 @@ public class ReservationService {
      * @return the reservation
      */
     public Reservation extendReservation(int reservationId) {
-        return Optional.of(reservationRepository.getOne(reservationId))
-                // Check if isDejaProlonge
+        return Optional.of(reservationRepository.getOne(reservationId))// Check if isDejaProlonge
                 .filter(reservation -> !reservation.isDejaProlonge())
                 // Check date
                 .filter(reservation -> !reservation.getReservationDateFin().before(new Date()))
