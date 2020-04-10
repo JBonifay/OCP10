@@ -7,6 +7,7 @@ import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundEx
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.StockErrorException;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -49,9 +50,8 @@ public class OuvrageService {
     }
 
     public void removeOneFromStock(int ouvrageId) {
-        Ouvrage ouvrage = Optional.of(ouvrageRepository.findByOuvrageId(ouvrageId)).orElseThrow(() -> {
-            throw new OuvrageNotFoundException();
-        });
+        Ouvrage ouvrage = Optional.of(ouvrageRepository.findByOuvrageId(ouvrageId))
+                .orElseThrow(OuvrageNotFoundException::new);
 
         if (ouvrage.getStock().getQuantity() > 0) {
             ouvrage.getStock().setQuantity(ouvrage.getStock().getQuantity() - 1);

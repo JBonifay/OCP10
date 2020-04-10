@@ -61,6 +61,7 @@ public class ReservationService {
     @Transactional
     public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
         checkIfAlreadyInUserReservationList(ouvrageId, utilisateurId);
+        checkOuvrageStockAndRemoveOneItem(ouvrageId);
 
         Reservation reservation = new Reservation();
         reservation.setUtilisateurId(utilisateurId);
@@ -69,13 +70,15 @@ public class ReservationService {
         reservation.setReservationDateFin(addFourWeeksToDate(reservation.getReservationDateDebut()));
         reservation.setActive(true);
 
+        return reservationRepository.save(reservation);
+    }
+
+    private void checkOuvrageStockAndRemoveOneItem(int ouvrageId) {
         try {
             ouvrageProxy.removeOneStockItem(ouvrageId);
         } catch (Exception e) {
             throw new ReservationException("L'ouvrage n'est plus en stock !");
         }
-        reservation = reservationRepository.save(reservation);
-        return reservation;
     }
 
     /**
