@@ -22,8 +22,8 @@
 <div class="container-fluid">
   <div class="row">
 
+    <!--   Champs de recherche   -->
     <div class="col-xl-2 col-md-12">
-      <!--   Filtrage   -->
       <form class="" method="POST" th:action="@{/listedesouvrages}" th:object="${ouvrageFiltre}">
         <div class="form-group">
           <label for="name" class="bmd-label-floating">Nom de l'ouvrage</label>
@@ -55,8 +55,8 @@
       </form>
     </div>
 
+    <!--  Table: Liste des ouvrages  -->
     <div class="col-xl col-md-12">
-
       <div>
         <h2 class="text-center">Liste des ouvrages</h2>
         <br>
@@ -68,6 +68,8 @@
               <th class="text-center align-middle" scope="col">Autheur</th>
               <th class="text-center align-middle" scope="col">Date de sortie</th>
               <th class="text-center align-middle" scope="col">Nombre en stock</th>
+              <th class="text-center align-middle" scope="col">Personnes en attente</th>
+              <th class="text-center align-middle" scope="col">Date de retour prévue</th>
             </tr>
             </thead>
             <tbody>
@@ -78,6 +80,8 @@
               <td class="text-center align-middle" th:text="${ouvrage.author}"></td>
               <td class="text-center align-middle" th:text="${#dates.format(ouvrage.releaseDate, 'dd-MM-yyyy')}"></td>
               <td class="text-center align-middle" th:text="${ouvrage.quantity}"></td>
+              <th class="text-center align-middle" th:text="''"></th>
+              <th class="text-center align-middle" th:text="''"></th>
             </tr>
             </tbody>
           </table>
