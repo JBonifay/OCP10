@@ -21,55 +21,72 @@
 
 <div class="container">
 
-  <div class="row mt-5">
-    <th:block th:each="reservation : ${reservationList}">
-      <th:block th:if="${reservation.active}">
-        <div class="col-sm-12 col-md-6 col-lg-4">
-          <div class="card m-3 border">
-            <img alt="Image du livre" class="card-img-top"
-                 src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg">
-            <div class="card-body">
-              <h5 class="card-title text-center font-weight-bold" th:text="${reservation.getName()}"></h5>
-              <p class="card-text text-center" th:text="${reservation.getAuthor()}"></p>
-              <div class="col d-flex justify-content-center mb-3">
-                <th:block th:each="star: ${#numbers.sequence(1, reservation.getNotation())}">
-                  <img class="mx-1" height="40" th:src="@{/images/star.png}" width="40">
-                </th:block>
-              </div>
-              <p class="card-text text-center"
-                 th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
-              <a class="btn btn-outline-secondary d-flex justify-content-center"
-                 th:href="@{'/ouvrage/description?id=' + ${reservation.ouvrageId}}">Description ..</a>
-              <th:block th:switch="${reservation.isAlreadyProlonger()}">
+  <!--  Bandeau selection  -->
+  <ul class="nav nav-tabs nav-fill justify-content-center" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#en_cours" role="tab">En cours</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#en_attente" role="tab">En attente</a>
+    </li>
+  </ul>
+
+  <!--  Bandeau contenu  -->
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="en_cours" role="tabpanel">
+      <!-- Reservations: En cours -->
+      <th:block th:each="reservation : ${reservationList}">
+        <th:block th:if="${reservation.active}">
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card m-3 border">
+              <img alt="Image du livre" class="card-img-top"
+                   src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg">
+              <div class="card-body">
+                <h5 class="card-title text-center font-weight-bold" th:text="${reservation.getName()}"></h5>
+                <p class="card-text text-center" th:text="${reservation.getAuthor()}"></p>
+                <div class="col d-flex justify-content-center mb-3">
+                  <th:block th:each="star: ${#numbers.sequence(1, reservation.getNotation())}">
+                    <img class="mx-1" height="40" th:src="@{/images/star.png}" width="40">
+                  </th:block>
+                </div>
+                <p class="card-text text-center"
+                   th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
+                <a class="btn btn-outline-secondary d-flex justify-content-center"
+                   th:href="@{'/ouvrage/description?id=' + ${reservation.ouvrageId}}">Description ..</a>
+                <th:block th:switch="${reservation.isAlreadyProlonger()}">
                 <span th:case="false">
                 <a class="btn btn-outline-secondary d-flex justify-content-center"
                    th:href="@{'/reservation/prolonger/' + ${reservation.reservationId}}">Prolonger ma réservation</a>
                 </span>
-                <span th:case="true">
+                  <span th:case="true">
                   <a class="btn btn-outline-warning d-flex justify-content-center disabled">Réservation déjà prolongée...</a>
                 </span>
-              </th:block>
+                </th:block>
+              </div>
             </div>
           </div>
-        </div>
+        </th:block>
       </th:block>
-    </th:block>
+    </div>
+    <div class="tab-pane fade" id="en_attente" role="tabpanel">
+      <!-- Reservations: En cours -->
+
+    </div>
   </div>
 
-</div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-        src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-        src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
-<script>$(document).ready(function () {
-  $('body').bootstrapMaterialDesign();
-});</script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script crossorigin="anonymous"
+          integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+          src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
+  <script crossorigin="anonymous"
+          integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+          src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+  <script>$(document).ready(function () {
+    $('body').bootstrapMaterialDesign();
+  });</script>
 </body>
 </html>
