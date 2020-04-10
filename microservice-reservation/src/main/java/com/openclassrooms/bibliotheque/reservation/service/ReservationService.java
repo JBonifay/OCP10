@@ -3,6 +3,7 @@ package com.openclassrooms.bibliotheque.reservation.service;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
+import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -64,7 +65,7 @@ public class ReservationService {
                 .findAny().orElse(null);
 
         if (nouvelleReservation != null) {
-            return null;
+            throw new ReservationException("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
         }
 
         Reservation reservation = new Reservation();
@@ -79,14 +80,14 @@ public class ReservationService {
         try {
             responseEntity = ouvrageProxy.removeOneStockItem(ouvrageId);
         } catch (Exception e) {
-            return null;
+            throw new ReservationException("L'ouvrage n'est plus en stock !");
         }
 
         if (responseEntity.getStatusCode().value() == 200) {
             reservation = reservationRepository.save(reservation);
             return reservation;
         } else {
-            return null;
+            throw new ReservationException("Erreur dans la création de la réservation.");
         }
     }
 

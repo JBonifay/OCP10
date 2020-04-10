@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.reservation.rest;
+package com.openclassrooms.bibliotheque.reservation.rest.controller;
 
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
@@ -64,9 +64,7 @@ public class ReservationController {
      */
     @PostMapping("/reservation/creer")
     public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
-        return Optional.ofNullable(reservationService.createNewReservationForUser(ouvrageId, utilisateurId))
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Erreur lors de la création de la réservation"));
+        return ResponseEntity.ok(reservationService.createNewReservationForUser(ouvrageId, utilisateurId));
     }
 
     /**

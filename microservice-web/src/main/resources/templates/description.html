@@ -20,19 +20,8 @@
 <nav class="" th:replace="fragments/navbar.html :: nav"></nav>
 
 
-<th:block th:if="${status != null}">
-  <div th:switch="${status}">
-    <div th:case="success">
-      <div class="alert alert-sucess text-center">
-        L'ouvrage à bien été réservé.
-      </div>
-    </div>
-    <div th:case="error">
-      <div class="alert alert-danger text-center">
-        L'ouvrage fait deja partit de vos réservations ...
-      </div>
-    </div>
-  </div>
+<th:block th:if="${!errorMessage.isEmpty()}">
+  <div class="alert alert-danger text-center"th:text="${errorMessage}"></div>
 </th:block>
 
 <div class="container">

@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.web.web.exceptions;
 
+import feign.FeignException;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -11,23 +12,23 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 public class GlobalExceptionControllerAdvice {
 
-    @ExceptionHandler(BadRequestException.class)
-    public ModelAndView handleBadRequestException(BadRequestException e, HttpServletResponse response) {
+    @ExceptionHandler(FeignException.BadRequest.class)
+    public ModelAndView handleBadRequestException(FeignException.BadRequest e, HttpServletResponse response) {
         return new ModelAndView("error/400");
     }
 
-    @ExceptionHandler(ForbiddenRequestException.class)
-    public ModelAndView handleForbiddenRequestException(ForbiddenRequestException e, HttpServletResponse response) {
+    @ExceptionHandler(FeignException.Forbidden.class)
+    public ModelAndView handleForbiddenRequestException(FeignException.Forbidden e, HttpServletResponse response) {
         return new ModelAndView("error/403");
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ModelAndView handleEntityNotFoundException(EntityNotFoundException e, HttpServletResponse response) {
+    @ExceptionHandler(FeignException.NotFound.class)
+    public ModelAndView handleEntityNotFoundException(FeignException.NotFound e, HttpServletResponse response) {
         return new ModelAndView("error/404");
     }
 
-    @ExceptionHandler(InternalServerException.class)
-    public ModelAndView handleInternalErrorException(InternalServerException e, HttpServletResponse response) {
+    @ExceptionHandler(FeignException.InternalServerError.class)
+    public ModelAndView handleInternalErrorException(FeignException.InternalServerError e, HttpServletResponse response) {
         return new ModelAndView("error");
     }
 
