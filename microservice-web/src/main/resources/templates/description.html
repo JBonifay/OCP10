@@ -21,32 +21,10 @@
 
 
 <th:block th:if="${!errorMessage.isEmpty()}">
-  <div class="alert alert-danger text-center"th:text="${errorMessage}"></div>
+  <div class="alert alert-danger text-center" th:text="${errorMessage}"></div>
 </th:block>
 
 <div class="container">
-
-  <!-- Modal -->
-  <div class="modal fade modal-backdrop fade" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <div class="row mt-5">
     <div class="col-sm">
@@ -70,7 +48,10 @@
       <p class="mt-5" th:text="'Encore en stock: '"><h6 class="font-weight-bold" th:text="${ouvrage.quantity}"></h6>
 
       <a class="nav-link" th:href="'/reservation/creer?ouvrage_id=' + ${ouvrage.ouvrageId}">
-        <button class="btn btn-raised btn-primary" type="button">Réserver cet ouvrage</button>
+        <div th:switch="${ouvrage.getQuantity()}">
+          <span th:case="'0'"><button class="btn btn-raised btn-primary" type="button">Liste d'attente</button></span>
+          <span th:case="*"><button class="btn btn-raised btn-primary" type="button">Réserver cet ouvrage</button></span>
+        </div>
       </a>
 
     </div>
