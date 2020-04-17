@@ -16,5 +16,7 @@ public class OuvrageStockDto {
     private String editor;
     private Date   releaseDate;
     private int    quantity;
-    
+    private int    nbrUserWaitingReturn;
+    private Date   nextReturnDate;
+
 }

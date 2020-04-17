@@ -6,13 +6,10 @@ import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
 import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationException;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -140,13 +137,21 @@ public class ReservationService {
      * @return the next return date of the ouvrage
      */
     public Date getNextReturnDate(int ouvrageId) {
-        List<Date> dates = reservationRepository.findAllByOuvrageId(ouvrageId)
+     return reservationRepository.findAllByOuvrageId(ouvrageId)
                 .stream()
                 .filter(Reservation::isActive)
                 .map(Reservation::getReservationDateFin)
-                .collect(Collectors.toList());
+                .min(Date::compareTo)
+                .orElse(null);
+    }
 
-        return Collections.min(dates);
+    public Number getNumberOfUserForOuvrageId(int ouvrageId) {
+        int size = listeAttenteRepository.findAllByOuvrageId(ouvrageId).size();
+        if (size > 0) {
+            return size;
+        } else {
+            return null;
+        }
     }
 
     public void annulerReservationListeAttente(int listeAttenteId) {

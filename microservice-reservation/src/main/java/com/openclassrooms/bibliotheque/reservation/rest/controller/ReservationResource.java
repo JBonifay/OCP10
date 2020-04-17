@@ -8,6 +8,7 @@ import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,6 +62,16 @@ public class ReservationResource {
     public ResponseEntity<String> annulerListeAttente(@RequestParam int listeAttenteId) {
         reservationService.annulerReservationListeAttente(listeAttenteId);
         return ResponseEntity.ok("Reservation annulée");
+    }
+
+    @GetMapping("/reservation/listeattente/info/nextreturndate")
+    public ResponseEntity<Date> getNextReturnDateForOuvrageId(@RequestParam int ouvrageId) {
+        return ResponseEntity.ok(reservationService.getNextReturnDate(ouvrageId));
+    }
+
+    @GetMapping("/reservation/listeattente/info/userwaiting")
+    public ResponseEntity<Number> getNumberOfUserWaitingForOuvrageId(@RequestParam int ouvrageId) {
+        return ResponseEntity.ok(reservationService.getNumberOfUserForOuvrageId(ouvrageId));
     }
 
     /**

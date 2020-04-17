@@ -10,4 +10,6 @@ public interface ListeAttenteRepository extends JpaRepository<ListeAttente, Inte
 
     List<ListeAttente> findAllByUtilisateurId(int utilisateurId);
 
+    List<ListeAttente> findAllByOuvrageId(int ouvrageId);
+
 }

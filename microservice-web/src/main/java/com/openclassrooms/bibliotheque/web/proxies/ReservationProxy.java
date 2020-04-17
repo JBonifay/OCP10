@@ -2,6 +2,7 @@ package com.openclassrooms.bibliotheque.web.proxies;
 
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.ListeAttenteDto;
 import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
+import java.util.Date;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,5 +28,11 @@ public interface ReservationProxy {
 
     @GetMapping("/reservation/listeattente/annuler")
     void annulerListeAttente(@RequestParam int listeAttenteId);
+
+    @GetMapping("/reservation/listeattente/info/userwaiting")
+    Number getNbrOfUserWaitingForOuvrageId(@RequestParam int ouvrageId);
+
+    @GetMapping("/reservation/listeattente/info/nextreturndate")
+    Date getNextReturnDateForOuvrageId(@RequestParam int ouvrageId);
 }
 

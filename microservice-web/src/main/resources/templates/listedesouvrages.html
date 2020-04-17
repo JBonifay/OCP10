@@ -80,8 +80,8 @@
               <td class="text-center align-middle" th:text="${ouvrage.author}"></td>
               <td class="text-center align-middle" th:text="${#dates.format(ouvrage.releaseDate, 'dd-MM-yyyy')}"></td>
               <td class="text-center align-middle" th:text="${ouvrage.quantity}"></td>
-              <th class="text-center align-middle" th:text="''"></th>
-              <th class="text-center align-middle" th:text="''"></th>
+              <th class="text-center align-middle" th:text="${ouvrage.getNbrUserWaitingReturn()}"></th>
+              <th class="text-center align-middle" th:text="${ouvrage.getNextReturnDate()}"></th>
             </tr>
             </tbody>
           </table>
