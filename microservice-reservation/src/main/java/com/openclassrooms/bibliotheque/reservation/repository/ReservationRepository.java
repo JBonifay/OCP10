@@ -11,4 +11,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     List<Reservation> findAllByReservationDateFinBeforeAndActiveIsTrue(Date now);
 
+    List<Reservation> findAllByOuvrageId(int ouvrageId);
+
 }

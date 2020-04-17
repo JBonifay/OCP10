@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -39,27 +40,22 @@ public class ReservationController {
 
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<OuvrageReservationDto> ouvrageReservationDtoList = getReservationEncours(utilisateurDto.getUtilisateurId());
-        List<ListeAttenteDto> ouvrageListeAttenteList = getOuvrageListeAttente(utilisateurDto.getUtilisateurId());
-
-        reservation.addObject("reservationList", ouvrageReservationDtoList);
-        reservation.addObject("listeAttente", ouvrageListeAttenteList);
-
-        return reservation;
-    }
-
-    private List<OuvrageReservationDto> getReservationEncours(int utilisateurId) {
-        List<ReservationDto> reservationDtoList = reservationProxy.getAllReservationListByUtilisateurId(utilisateurId);
+        List<ReservationDto> reservationDtoList = reservationProxy
+                .getAllReservationListByUtilisateurId(utilisateurDto.getUtilisateurId());
 
         List<Integer> ouvrageIdList = reservationDtoList.stream().map(ReservationDto::getOuvrageId).collect(Collectors.toList());
 
         List<OuvrageIdNameDto> ouvrageIdNameDtoList = ouvrageProxy.getAllOuvrageByOuvrageIdList(ouvrageIdList);
 
-        return reservationService.createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList);
-    }
+        List<OuvrageReservationDto> ouvrageReservationDtoList = reservationService
+                .createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList);
+        List<ListeAttenteDto> ouvrageListeAttenteList = reservationProxy
+                .getAllReservationEnAttenteListByUtilisateurId(utilisateurDto.getUtilisateurId());
 
-    private List<ListeAttenteDto> getOuvrageListeAttente(int utilisateurId) {
-        return reservationProxy.getAllReservationEnAttenteListByUtilisateurId(utilisateurId);
+        reservation.addObject("reservationList", ouvrageReservationDtoList);
+        reservation.addObject("listeAttente", ouvrageListeAttenteList);
+
+        return reservation;
     }
 
     /**
@@ -71,6 +67,12 @@ public class ReservationController {
     @GetMapping("/reservation/prolonger/{reservationId}")
     public RedirectView extendReservation(@PathVariable int reservationId) {
         reservationProxy.prolongateReservation(reservationId);
+        return new RedirectView("/reservation");
+    }
+
+    @GetMapping("/reservation/enattente/annuler")
+    public RedirectView annulerListeAttente(@RequestParam int listeAttenteId) {
+        reservationProxy.annulerListeAttente(listeAttenteId);
         return new RedirectView("/reservation");
     }
 

@@ -52,8 +52,15 @@ public class ReservationResource {
                 .ok(reservationService.findAllListeAttenteByUtilisateurId(utilisateurId).stream().map(listeAttente -> {
                     ListeAttenteDto listeAttenteDto = listeAttenteMapper.toReservationOuvrageInfoDto(listeAttente);
                     listeAttenteDto.setOuvrageName(ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId()).getName());
+                    listeAttenteDto.setProchaineDateRetour(reservationService.getNextReturnDate(listeAttente.getOuvrageId()));
                     return listeAttenteDto;
                 }).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/reservation/listeattente/annuler")
+    public ResponseEntity<String> annulerListeAttente(@RequestParam int listeAttenteId) {
+        reservationService.annulerReservationListeAttente(listeAttenteId);
+        return ResponseEntity.ok("Reservation annulée");
     }
 
     /**

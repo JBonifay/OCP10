@@ -25,5 +25,7 @@ public interface ReservationProxy {
     @PostMapping("/reservation/creer")
     void createNewReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId);
 
+    @GetMapping("/reservation/listeattente/annuler")
+    void annulerListeAttente(@RequestParam int listeAttenteId);
 }
 

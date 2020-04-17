@@ -1,15 +1,15 @@
 package com.openclassrooms.bibliotheque.reservation.dto;
 
-import lombok.AllArgsConstructor;
+import java.util.Date;
 import lombok.Data;
 
 @Data
 public class ListeAttenteDto {
 
-    private String ouvrageName;
     private int    listeAttenteId;
-    private int    utilisateurId;
     private int    ouvrageId;
+    private String ouvrageName;
     private int    positionFileAttente;
+    private Date   prochaineDateRetour;
 
 }

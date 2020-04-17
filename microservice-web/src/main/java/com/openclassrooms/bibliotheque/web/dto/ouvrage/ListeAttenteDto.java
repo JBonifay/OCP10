@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.web.dto.ouvrage;
 
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class ListeAttenteDto {
 
-    private int ouvrageId;
+    private int    listeAttenteId;
+    private int    ouvrageId;
     private String ouvrageName;
-    private int listeAttenteId;
-    private int utilisateurId;
-    private int positionFileAttente;
+    private int    positionFileAttente;
+    private Date   prochaineDateRetour;
 
 }
