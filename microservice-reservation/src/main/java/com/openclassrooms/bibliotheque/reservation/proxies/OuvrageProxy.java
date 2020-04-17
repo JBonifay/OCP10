@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "microservice-ouvrage")
 public interface OuvrageProxy {
@@ -14,6 +15,9 @@ public interface OuvrageProxy {
     OuvrageDto getOuvrageById(@PathVariable int ouvrageId);
     
     @PutMapping("/ouvrage/reserver/{ouvrageId}")
-    ResponseEntity<String> removeOneStockItem(@PathVariable int ouvrageId);
+    ResponseEntity<Boolean> removeOneStockItem(@PathVariable int ouvrageId);
+
+    @GetMapping("/ouvrage/info/nbrinstock")
+    Integer getNbrInStock(@RequestParam int ouvrageId);
     
 }

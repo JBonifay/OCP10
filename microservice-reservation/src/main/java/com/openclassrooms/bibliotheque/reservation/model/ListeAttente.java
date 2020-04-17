@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Data
 @Table(name = "liste_attente")
 public class ListeAttente {
 

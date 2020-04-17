@@ -1,9 +1,10 @@
-package com.openclassrooms.bibliotheque.reservation.rest.controller;
+package com.openclassrooms.bibliotheque.reservation.rest;
 
 import com.openclassrooms.bibliotheque.reservation.dto.ListeAttenteDto;
 import com.openclassrooms.bibliotheque.reservation.dto.ListeAttenteMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
+import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class ReservationResource {
 
     private final ReservationService reservationService;
@@ -96,6 +99,17 @@ public class ReservationResource {
     @PostMapping("/reservation/creer")
     public ResponseEntity<Reservation> createReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
         return ResponseEntity.ok(reservationService.createNewReservationForUser(ouvrageId, utilisateurId));
+    }
+
+    /**
+     * Create a new liste attente for specified user
+     *
+     * @param utilisateurId the user who reserve a book
+     * @return ResponseEntity
+     */
+    @PostMapping("/reservation/listeattente/creer")
+    public ResponseEntity<ListeAttente> createListeAttente(@RequestParam int utilisateurId, @RequestParam int ouvrageId) {
+        return ResponseEntity.ok(reservationService.createNewListeAttenteForUser(ouvrageId, utilisateurId));
     }
 
     /**

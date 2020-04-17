@@ -1,11 +1,11 @@
 package com.openclassrooms.bibliotheque.reservation.service;
 
+import com.openclassrooms.bibliotheque.reservation.exception.ReservationException;
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
-import com.openclassrooms.bibliotheque.reservation.rest.exception.ReservationException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +67,12 @@ public class ReservationService {
     @Transactional
     public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
         checkIfAlreadyInUserReservationList(ouvrageId, utilisateurId);
-        checkOuvrageStockAndRemoveOneItem(ouvrageId);
+
+        try {
+            ouvrageProxy.removeOneStockItem(ouvrageId);
+        } catch (Exception e) {
+            throw new ReservationException("L'ouvrage n'est plus en stock !");
+        }
 
         Reservation reservation = new Reservation();
         reservation.setUtilisateurId(utilisateurId);
@@ -79,13 +84,39 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    private void checkOuvrageStockAndRemoveOneItem(int ouvrageId) {
-        try {
-            ouvrageProxy.removeOneStockItem(ouvrageId);
-        } catch (Exception e) {
-            throw new ReservationException("L'ouvrage n'est plus en stock !");
+
+    /**
+     * Create a new liste attente for a user
+     *
+     * @param ouvrageId     the ouvrage to reserve
+     * @param utilisateurId the user who reserve
+     * @Return Null if reservation already exist
+     */
+    @Transactional
+    public ListeAttente createNewListeAttenteForUser(int ouvrageId, int utilisateurId) {
+        checkIfAlreadyInUserReservationList(ouvrageId, utilisateurId);
+
+        // Count how many ouvrage exist
+        int initialStock = reservationRepository.findAllByOuvrageId(ouvrageId).size() + ouvrageProxy.getNbrInStock(ouvrageId);
+        int enAttente = listeAttenteRepository.findAllByOuvrageId(ouvrageId).size();
+
+        if (enAttente >= (initialStock * 2)) {
+            throw new ReservationException("La liste d'attente est pleine.");
         }
+
+        int position = listeAttenteRepository.findAllByOuvrageId(ouvrageId).stream()
+                .mapToInt(ListeAttente::getPositionFileAttente)
+                .max()
+                .orElse(0);
+
+        ListeAttente newListeAttente = new ListeAttente();
+        newListeAttente.setOuvrageId(ouvrageId);
+        newListeAttente.setUtilisateurId(utilisateurId);
+        newListeAttente.setPositionFileAttente(position + 1);
+
+        return listeAttenteRepository.save(newListeAttente);
     }
+
 
     /**
      * Used to check if user have the ouvrage in his reservation list
@@ -95,9 +126,17 @@ public class ReservationService {
      */
     private void checkIfAlreadyInUserReservationList(int ouvrageId, int utilisateurId) {
         reservationRepository.findAllByUtilisateurId(utilisateurId).stream()
-                .filter(reservation -> reservation.getOuvrageId() == ouvrageId).forEach(reservation -> {
-            throw new ReservationException("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
-        });
+                .filter(reservation -> reservation.getOuvrageId() == ouvrageId)
+                .forEach(reservation -> {
+                    throw new ReservationException("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
+                });
+
+        listeAttenteRepository.findAllByUtilisateurId(utilisateurId).stream()
+                .filter(listeAttente -> listeAttente.getOuvrageId() == ouvrageId)
+                .forEach(listeAttente -> {
+                    throw new ReservationException(
+                            "La réservation est déjà présente dans la liste d'attente de l'utilisateur.");
+                });
     }
 
     /**

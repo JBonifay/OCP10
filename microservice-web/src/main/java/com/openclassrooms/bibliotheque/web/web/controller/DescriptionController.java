@@ -51,9 +51,26 @@ public class DescriptionController {
     @GetMapping("/reservation/creer")
     public RedirectView createReservationForUser(@RequestParam(value = "ouvrage_id") int ouvrageId, RedirectAttributes redirectAttributes) {
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        RedirectView redirectView = null;
+        RedirectView redirectView;
         try {
             reservationProxy.createNewReservation(utilisateurDto.getUtilisateurId(), ouvrageId);
+            redirectView = new RedirectView("/reservation");
+        } catch (FeignException e) {
+            redirectView = new RedirectView("/ouvrage/description");
+            redirectView.addStaticAttribute("id", ouvrageId);
+            redirectAttributes.addFlashAttribute(ERROR_MESSAGE, e.getMessage());
+        }
+
+        return redirectView;
+    }
+
+
+    @GetMapping("/reservation/listeattente/creer")
+    public RedirectView createListeAttenteForUser(@RequestParam(value = "ouvrage_id") int ouvrageId, RedirectAttributes redirectAttributes) {
+        UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        RedirectView redirectView;
+        try {
+            reservationProxy.createNewListeAttente(utilisateurDto.getUtilisateurId(), ouvrageId);
             redirectView = new RedirectView("/reservation");
         } catch (FeignException e) {
             redirectView = new RedirectView("/ouvrage/description");

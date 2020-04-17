@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web.dto.ouvrage;
+package com.openclassrooms.bibliotheque.web.dto.listeattente;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;

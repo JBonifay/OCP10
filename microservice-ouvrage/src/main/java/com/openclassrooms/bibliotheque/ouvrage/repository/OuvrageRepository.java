@@ -1,6 +1,7 @@
 package com.openclassrooms.bibliotheque.ouvrage.repository;
 
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
+import java.util.Optional;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OuvrageRepository extends JpaRepository<Ouvrage, String> {
 
-    Ouvrage findByOuvrageId(int ouvrageId);
+    Optional<Ouvrage> findByOuvrageId(int ouvrageId);
 
     @Query("select o "
             + "from Ouvrage o "

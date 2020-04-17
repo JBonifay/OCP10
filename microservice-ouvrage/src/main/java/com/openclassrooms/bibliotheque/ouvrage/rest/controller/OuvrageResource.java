@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -49,8 +50,7 @@ public class OuvrageResource {
      * @throws OuvrageNotFoundException if ouvrage not found
      */
     @GetMapping(value = "/ouvrage/description/{ouvrageId}")
-    public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId)
-            throws OuvrageNotFoundException {
+    public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId) {
         Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
         if (ouvrage == null) {
             throw new OuvrageNotFoundException("Ouvrage introuvable.");
@@ -79,9 +79,14 @@ public class OuvrageResource {
      * @return a response entity with Ok for success or Bad request if error occurred
      */
     @PutMapping("/ouvrage/reserver/{ouvrageId}")
-    public ResponseEntity<String> removeOneOuvrageQuantityFromStock(@PathVariable int ouvrageId) {
+    public ResponseEntity<Boolean> removeOneOuvrageQuantityFromStock(@PathVariable int ouvrageId) {
         ouvrageService.removeOneFromStock(ouvrageId);
-        return ResponseEntity.ok("Stock baissé d’une unité");
+        return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/ouvrage/info/nbrinstock")
+    public ResponseEntity<Integer> getNbrInStock(@RequestParam int ouvrageId) {
+        return ResponseEntity.ok(ouvrageService.getNumberInStock(ouvrageId));
     }
 
 }

@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.reservation.rest.exception;
+package com.openclassrooms.bibliotheque.reservation.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -47,12 +47,19 @@
       </th:block>
       <p class="mt-5" th:text="'Encore en stock: '"><h6 class="font-weight-bold" th:text="${ouvrage.quantity}"></h6>
 
-      <a class="nav-link" th:href="'/reservation/creer?ouvrage_id=' + ${ouvrage.ouvrageId}">
-        <div th:switch="${ouvrage.getQuantity()}">
-          <span th:case="'0'"><button class="btn btn-raised btn-primary" type="button">Liste d'attente</button></span>
-          <span th:case="*"><button class="btn btn-raised btn-primary" type="button">Réserver cet ouvrage</button></span>
+      <div th:switch="${ouvrage.getQuantity()}">
+        <div th:case="'0'">
+          <a class="nav-link" th:href="'/reservation/listeattente/creer?ouvrage_id=' + ${ouvrage.ouvrageId}">
+            <button class="btn btn-raised btn-primary" type="button">Liste d'attente</button>
+          </a>
         </div>
-      </a>
+
+        <div th:case="*">
+          <a class="nav-link" th:href="'/reservation/creer?ouvrage_id=' + ${ouvrage.ouvrageId}">
+            <button class="btn btn-raised btn-primary" type="button">Réserver cet ouvrage</button>
+          </a>
+        </div>
+      </div>
 
     </div>
   </div>

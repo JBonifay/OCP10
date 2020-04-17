@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.web.proxies;
 
-import com.openclassrooms.bibliotheque.web.dto.ouvrage.ListeAttenteDto;
+import com.openclassrooms.bibliotheque.web.dto.listeattente.ListeAttenteDto;
 import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +25,9 @@ public interface ReservationProxy {
 
     @PostMapping("/reservation/creer")
     void createNewReservation(@RequestParam int utilisateurId, @RequestParam int ouvrageId);
+
+    @PostMapping("/reservation/listeattente/creer")
+    void createNewListeAttente(@RequestParam int utilisateurId, @RequestParam int ouvrageId);
 
     @GetMapping("/reservation/listeattente/annuler")
     void annulerListeAttente(@RequestParam int listeAttenteId);
