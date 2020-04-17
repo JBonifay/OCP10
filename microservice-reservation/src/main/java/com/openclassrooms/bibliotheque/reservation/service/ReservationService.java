@@ -193,6 +193,15 @@ public class ReservationService {
         }
     }
 
+    public Number getNumberOfActiveReservationForOuvrageId(int ouvrageId) {
+        int size = reservationRepository.findAllByOuvrageId(ouvrageId).size();
+        if (size > 0) {
+            return size;
+        } else {
+            return null;
+        }
+    }
+
     public void annulerReservationListeAttente(int listeAttenteId) {
         listeAttenteRepository.deleteById(listeAttenteId);
     }

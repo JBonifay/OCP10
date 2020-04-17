@@ -30,6 +30,7 @@ public class RechercheService {
 
         ouvrageListByPage.stream().forEach(ouvrageStockDto -> {
             ouvrageStockDto.setNbrUserWaitingReturn(reservationProxy.getNbrOfUserWaitingForOuvrageId(ouvrageStockDto.getOuvrageId()));
+            ouvrageStockDto.setNbrActiveReservation(reservationProxy.getNbrOfActiveReservationForOuvrageId(ouvrageStockDto.getOuvrageId()));
             ouvrageStockDto.setNextReturnDate(reservationProxy.getNextReturnDateForOuvrageId(ouvrageStockDto.getOuvrageId()));
         });
 

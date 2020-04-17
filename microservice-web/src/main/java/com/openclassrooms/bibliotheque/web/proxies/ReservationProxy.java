@@ -32,10 +32,14 @@ public interface ReservationProxy {
     @GetMapping("/reservation/listeattente/annuler")
     void annulerListeAttente(@RequestParam int listeAttenteId);
 
-    @GetMapping("/reservation/listeattente/info/userwaiting")
+    @GetMapping("/reservation/listeattente/info/numberofuserwaiting")
     Number getNbrOfUserWaitingForOuvrageId(@RequestParam int ouvrageId);
+
+    @GetMapping("/reservation/listeattente/info/numberofactivereservation")
+    Number getNbrOfActiveReservationForOuvrageId(@RequestParam int ouvrageId);
 
     @GetMapping("/reservation/listeattente/info/nextreturndate")
     Date getNextReturnDateForOuvrageId(@RequestParam int ouvrageId);
+
 }
 

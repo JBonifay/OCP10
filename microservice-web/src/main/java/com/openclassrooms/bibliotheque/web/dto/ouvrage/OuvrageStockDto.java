@@ -15,6 +15,7 @@ public class OuvrageStockDto {
     private String author;
     private Date   releaseDate;
     private int    quantity;
+    private Number nbrActiveReservation;
     private Number nbrUserWaitingReturn;
     private Date   nextReturnDate;
 

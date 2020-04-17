@@ -68,6 +68,7 @@
               <th class="text-center align-middle" scope="col">Autheur</th>
               <th class="text-center align-middle" scope="col">Date de sortie</th>
               <th class="text-center align-middle" scope="col">Nombre en stock</th>
+              <th class="text-center align-middle" scope="col">Réservation en cours</th>
               <th class="text-center align-middle" scope="col">Personnes en attente</th>
               <th class="text-center align-middle" scope="col">Date de retour prévue</th>
             </tr>
@@ -80,6 +81,7 @@
               <td class="text-center align-middle" th:text="${ouvrage.author}"></td>
               <td class="text-center align-middle" th:text="${#dates.format(ouvrage.releaseDate, 'dd-MM-yyyy')}"></td>
               <td class="text-center align-middle" th:text="${ouvrage.quantity}"></td>
+              <td class="text-center align-middle" th:text="${ouvrage.getNbrActiveReservation()}"></td>
               <th class="text-center align-middle" th:text="${ouvrage.getNbrUserWaitingReturn()}"></th>
               <th class="text-center align-middle" th:text="${ouvrage.getNextReturnDate()}"></th>
             </tr>

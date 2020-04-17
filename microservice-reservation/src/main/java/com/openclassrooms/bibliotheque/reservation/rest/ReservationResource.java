@@ -72,9 +72,14 @@ public class ReservationResource {
         return ResponseEntity.ok(reservationService.getNextReturnDate(ouvrageId));
     }
 
-    @GetMapping("/reservation/listeattente/info/userwaiting")
+    @GetMapping("/reservation/listeattente/info/numberofuserwaiting")
     public ResponseEntity<Number> getNumberOfUserWaitingForOuvrageId(@RequestParam int ouvrageId) {
         return ResponseEntity.ok(reservationService.getNumberOfUserForOuvrageId(ouvrageId));
+    }
+
+    @GetMapping("/reservation/listeattente/info/numberofactivereservation")
+    public ResponseEntity<Number> getNumberOfActiveReservationForOuvrageId(@RequestParam int ouvrageId) {
+        return ResponseEntity.ok(reservationService.getNumberOfActiveReservationForOuvrageId(ouvrageId));
     }
 
     /**
