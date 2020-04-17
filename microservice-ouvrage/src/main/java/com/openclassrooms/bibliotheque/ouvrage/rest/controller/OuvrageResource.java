@@ -8,7 +8,9 @@ import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundException;
 import com.openclassrooms.bibliotheque.ouvrage.service.OuvrageService;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -64,12 +66,10 @@ public class OuvrageResource {
      */
     @PostMapping("/ouvrage/list")
     public ResponseEntity<List<OuvrageNameIdDto>> getAllOuvrageByOuvrageIdList(@RequestBody List<Integer> ouvrageIdList) {
-        if (ouvrageIdList.isEmpty()) {
-            throw new OuvrageNotFoundException("Erreur dans la récupération des reservations");
-        }
-        return ResponseEntity
+        return Optional.of(ResponseEntity
                 .ok(ouvrageService.findAllByOuvrageIdList(ouvrageIdList).stream().map(ouvrageMapper::toOuvrageNameIdDto)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList())))
+                .orElse(ResponseEntity.ok(Collections.emptyList()));
     }
 
     /**

@@ -1,8 +1,6 @@
 package com.openclassrooms.bibliotheque.web.web.controller;
 
-import com.openclassrooms.bibliotheque.web.dto.ouvrage.ListeAttenteDto;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageIdNameDto;
-import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageReservationDto;
 import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
 import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
@@ -43,17 +41,14 @@ public class ReservationController {
         List<ReservationDto> reservationDtoList = reservationProxy
                 .getAllReservationListByUtilisateurId(utilisateurDto.getUtilisateurId());
 
-        List<Integer> ouvrageIdList = reservationDtoList.stream().map(ReservationDto::getOuvrageId).collect(Collectors.toList());
+        List<OuvrageIdNameDto> ouvrageIdNameDtoList = ouvrageProxy.getAllOuvrageByOuvrageIdList(
+                reservationDtoList.stream().map(ReservationDto::getOuvrageId).collect(Collectors.toList()));
 
-        List<OuvrageIdNameDto> ouvrageIdNameDtoList = ouvrageProxy.getAllOuvrageByOuvrageIdList(ouvrageIdList);
+        reservation.addObject("reservationList",
+                reservationService.createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList));
 
-        List<OuvrageReservationDto> ouvrageReservationDtoList = reservationService
-                .createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList);
-        List<ListeAttenteDto> ouvrageListeAttenteList = reservationProxy
-                .getAllReservationEnAttenteListByUtilisateurId(utilisateurDto.getUtilisateurId());
-
-        reservation.addObject("reservationList", ouvrageReservationDtoList);
-        reservation.addObject("listeAttente", ouvrageListeAttenteList);
+        reservation.addObject("listeAttente",
+                reservationProxy.getAllReservationEnAttenteListByUtilisateurId(utilisateurDto.getUtilisateurId()));
 
         return reservation;
     }
