@@ -1,6 +1,6 @@
 package com.openclassrooms.bibliotheque.reservation.service;
 
-import com.openclassrooms.bibliotheque.reservation.exception.ReservationException;
+import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,19 +43,22 @@ public class ReservationService {
      * Extend the reservation to 4 weeks more
      *
      * @param reservationId the reservation to extend
-     * @return the reservation
      */
-    public Reservation extendReservation(int reservationId) {
-        return Optional.of(reservationRepository.getOne(reservationId))// Check if isDejaProlonge
-                .filter(reservation -> !reservation.isDejaProlonge())
-                // Check date
-                .filter(reservation -> !reservation.getReservationDateFin().before(new Date()))
-                // Process
-                .map(r -> {
-                    r.setReservationDateFin(addFourWeeksToDate(r.getReservationDateFin()));
-                    r.setDejaProlonge(true);
-                    return reservationRepository.save(r);
-                }).orElse(null);
+    @SneakyThrows
+    public void extendReservation(int reservationId) {
+        Reservation r = Optional.of(reservationRepository.getOne(reservationId)).orElseThrow(ReservationException::new);
+
+        if (!r.isDejaProlonge()) {
+            if (!r.getReservationDateFin().before(new Date())) {
+                r.setReservationDateFin(addFourWeeksToDate(r.getReservationDateFin()));
+                r.setDejaProlonge(true);
+                reservationRepository.save(r);
+            } else {
+                throw new ReservationException("La date de retour est trop proche.");
+            }
+        } else {
+            throw new ReservationException("La réservation à déjà été prolongée");
+        }
     }
 
     /**

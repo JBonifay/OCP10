@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.CONFLICT)
 public class ReservationException extends RuntimeException {
 
-    public static final String DEFAULT = "Conflict";
+    public static final String DEFAULT = "Réservation non trouvée.";
 
     public ReservationException() {
         super(DEFAULT);

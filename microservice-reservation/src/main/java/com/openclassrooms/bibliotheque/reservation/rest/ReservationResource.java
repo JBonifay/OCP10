@@ -90,9 +90,8 @@ public class ReservationResource {
      */
     @PutMapping("/reservation/prolonger/{reservationId}")
     public ResponseEntity<String> extendReservation(@PathVariable int reservationId) {
-        return Optional.ofNullable(reservationService.extendReservation(reservationId))
-                .map(i -> ResponseEntity.ok("Prolongement effectué.."))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Impossible de prolonger la réservation"));
+        reservationService.extendReservation(reservationId);
+        return ResponseEntity.ok("Prolongement effectué..");
     }
 
     /**
