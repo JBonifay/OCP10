@@ -6,6 +6,7 @@ import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.web.proxies.ReservationProxy;
 import com.openclassrooms.bibliotheque.web.service.ReservationService;
+import feign.FeignException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -13,15 +14,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class ReservationController {
+
+    private static final String ERROR_MESSAGE = "errorMessage";
 
     private final ReservationService reservationService;
     private final ReservationProxy   reservationProxy;
@@ -33,7 +38,7 @@ public class ReservationController {
      * @return a page with reservations for current user
      */
     @GetMapping("/reservation")
-    public ModelAndView getReservationPage() {
+    public ModelAndView getReservationPage(@ModelAttribute("errorMessage") String errorMessage) {
         ModelAndView reservation = new ModelAndView("reservation");
 
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -50,6 +55,8 @@ public class ReservationController {
         reservation.addObject("listeAttente",
                 reservationProxy.getAllReservationEnAttenteListByUtilisateurId(utilisateurDto.getUtilisateurId()));
 
+        reservation.addObject(ERROR_MESSAGE, errorMessage);
+
         return reservation;
     }
 
@@ -60,8 +67,12 @@ public class ReservationController {
      * @return reservation page
      */
     @GetMapping("/reservation/prolonger/{reservationId}")
-    public RedirectView extendReservation(@PathVariable int reservationId) {
-        reservationProxy.prolongateReservation(reservationId);
+    public RedirectView extendReservation(@PathVariable int reservationId, RedirectAttributes redirectAttributes) {
+        try {
+            reservationProxy.prolongateReservation(reservationId);
+        } catch (FeignException e) {
+            redirectAttributes.addFlashAttribute(ERROR_MESSAGE, e.getMessage());
+        }
         return new RedirectView("/reservation");
     }
 
