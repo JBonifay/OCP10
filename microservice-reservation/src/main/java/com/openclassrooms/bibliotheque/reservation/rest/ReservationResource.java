@@ -124,9 +124,7 @@ public class ReservationResource {
      */
     @PutMapping("reservation/retourner/{reservationId}")
     public ResponseEntity<Reservation> returnLoan(@PathVariable int reservationId) {
-        return Optional.ofNullable(reservationService.returnReservation(reservationId))
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "La réservation à déjà était retournée"));
+        return ResponseEntity.ok(reservationService.returnReservation(reservationId));
     }
 
 }

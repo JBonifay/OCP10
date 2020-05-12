@@ -1,15 +1,20 @@
 package com.openclassrooms.bibliotheque.reservation.service;
 
+import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
+import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
 import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
+import com.openclassrooms.bibliotheque.reservation.mail.Mail;
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
+import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +29,8 @@ public class ReservationService {
     private final ReservationRepository  reservationRepository;
     private final ListeAttenteRepository listeAttenteRepository;
     private final OuvrageProxy           ouvrageProxy;
+    private final UtilisateurProxy       utilisateurProxy;
+    private final Mail                   mail;
 
     /**
      * List all reservation fo the user
@@ -153,11 +160,32 @@ public class ReservationService {
         return reservationRepository.findById(reservationId).map(r -> {
             if (r.isActive()) {
                 r.setActive(false);
-                return reservationRepository.save(r);
+                Reservation reservation = reservationRepository.save(r);
+                sendNotificationToUserOuvrageAvailable(reservation.getOuvrageId());
+                return reservation;
             } else {
-                return null;
+                throw new ReservationException("La réservation à déjà était retournée");
             }
-        }).orElse(null);
+        }).orElseThrow(ReservationException::new);
+    }
+
+    /**
+     * Check if a user is waiting, and send a mail for notify him ouvrage availability
+     *
+     * @param ouvrageId the ouvrageId of the ouvrage
+     */
+    private void sendNotificationToUserOuvrageAvailable(@NotNull int ouvrageId) {
+        ListeAttente listeAttente = listeAttenteRepository.getByOuvrageIdAndPositionFileAttente(ouvrageId, 1);
+        UtilisateurDto utilisateurDto = utilisateurProxy.findUtilisateurById(String.valueOf(listeAttente.getUtilisateurId()));
+        OuvrageDto ouvrageDto = ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId());
+
+        StringBuilder mailText = new StringBuilder("Bonjour,\n\n")
+                .append("L'ouvrage ").append(ouvrageDto.getName())
+                .append(" de l'auteur ").append(ouvrageDto.getAuthor()).append(" des éditions ").append(ouvrageDto.getEditor())
+                .append("\nest de nouveau disponible dans votre bibliotheque")
+                .append(" vous disposez de 48h pour venir le récuperer ou votre reservation sera annulée.");
+
+        mail.sendSimpleMessage(utilisateurDto.getEmail(), "Un ouvrage est de nouveau en stock !", mailText.toString());
     }
 
     /**

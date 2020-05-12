@@ -1,6 +1,6 @@
-package com.openclassrooms.bibliotheque.reservation.batch;
+package com.openclassrooms.bibliotheque.reservation.mail;
 
-import com.openclassrooms.bibliotheque.reservation.batch.dto.EmailInfoDto;
+import com.openclassrooms.bibliotheque.reservation.mail.dto.EmailInfoDto;
 import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
 import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -27,10 +25,11 @@ import org.springframework.stereotype.Component;
 @EnableScheduling
 public class MailSenderBatch {
 
-    private final JavaMailSender        emailSender;
-    private final ReservationRepository reservationRepository;
-    private final UtilisateurProxy      utilisateurProxy;
-    private final OuvrageProxy          ouvrageProxy;
+    private static final String                MAIL_SUBJECT = "Vous avez dépassé la date de retour de votre prêt !";
+    private final        Mail                  mail;
+    private final        ReservationRepository reservationRepository;
+    private final        UtilisateurProxy      utilisateurProxy;
+    private final        OuvrageProxy          ouvrageProxy;
 
     /**
      * Set batch task each days at 00
@@ -72,31 +71,16 @@ public class MailSenderBatch {
         log.info("End of batch service");
     }
 
-
     public void prepareMails(List<EmailInfoDto> emailList) {
         emailList.forEach(e -> {
             StringBuilder sb = new StringBuilder();
-            sb.append("Bonjour " + e.getFirstName() + " " + e.getLastName() + ",\n");
-            sb.append("Vous avez dépassé la date de retour de votre prêt pour l'ouvrage:\n");
-            sb.append(e.getTitle() + " des éditions " + e.getEditor() + "\n\n");
-            sb.append("Merci de le rammener au plus vite !\n\n");
-            sb.append("La bibliotheque municipale");
+            sb.append("Bonjour ").append(e.getFirstName()).append(" ").append(e.getLastName()).append(",\n")
+                    .append("Vous avez dépassé la date de retour de votre prêt pour l'ouvrage:\n").append(e.getTitle())
+                    .append(" des éditions ").append(e.getEditor()).append("\n\n")
+                    .append("Merci de le rammener au plus vite !\n\n").append("La bibliotheque municipale");
 
-            this.sendSimpleMessage(e.getEmail(), sb.toString());
+            mail.sendSimpleMessage(e.getEmail(), MAIL_SUBJECT, sb.toString());
         });
     }
 
-    private void sendSimpleMessage(String to, String text) {
-
-        log.info("Sending email :");
-        log.info(text);
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject("Vous avez dépassé la date de retour de votre prêt !");
-        message.setText(text);
-        emailSender.send(message);
-
-        log.info("Mail sent");
-    }
 }
