@@ -1,29 +1,15 @@
-create table if not exists reservation.liste_attente
+CREATE TABLE IF NOT EXISTS reservation.liste_attente
 (
-    id                    int not null auto_increment primary key,
-    id_utilisateur        int not null,
-    id_ouvrage            int not null,
-    position_file_attente int not null
+    id                     INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_utilisateur         INT NOT NULL,
+    id_ouvrage             INT NOT NULL,
+    position_file_attente  INT NOT NULL,
+    notification_sent      BIT NOT NULL,
+    notification_timestamp TIMESTAMP,
+    is_active              BIT NOT NULL
 );
 
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (1, 1, 1, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (2, 2, 2, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (3, 3, 3, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (4, 4, 4, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (5, 5, 5, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (6, 6, 6, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (7, 7, 7, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (8, 8, 8, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (9, 9, 9, 1);
-insert into reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente)
-values (10, 10, 10, 1);
 
+INSERT INTO reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente, notification_sent,
+                                       notification_timestamp, is_active)
+VALUES (1, 1, 1, 1, FALSE, current_timestamp, TRUE);

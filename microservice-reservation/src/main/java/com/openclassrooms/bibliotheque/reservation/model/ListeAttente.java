@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.reservation.model;
 
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,8 +33,19 @@ public class ListeAttente {
     @Column(name = "id_ouvrage")
     private int ouvrageId;
 
-
+    @NotNull
     @Column(name = "position_file_attente")
     private int positionFileAttente;
 
+    @NotNull
+    @Column(name = "notification_sent")
+    private boolean notificationSent;
+
+    @Column(name = "notification_timestamp")
+    private Timestamp notificationTimestamp;
+
+    @NotNull
+    @Column(name = "is_active")
+    private boolean isActive;
 }
+
