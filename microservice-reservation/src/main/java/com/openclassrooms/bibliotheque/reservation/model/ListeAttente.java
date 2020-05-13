@@ -44,8 +44,5 @@ public class ListeAttente {
     @Column(name = "notification_timestamp")
     private Timestamp notificationTimestamp;
 
-    @NotNull
-    @Column(name = "is_active")
-    private boolean active;
 }
 

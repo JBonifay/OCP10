@@ -22,22 +22,23 @@ public class ListeAttenteBatch {
     private final        ListeAttenteRepository listeAttenteRepository;
 
     /**
-     * Set batch task each hours
+     * Batch task used to check each hours
+     * if reservation past the delay
+     * Delete reservation if delay is past
      */
-    @Scheduled(cron = "0 0 */1 * * ?")
+    @Scheduled(cron = "*/10 * * * * ?")
     public void execute() {
         new Thread(() -> {
             log.info("Starting batch task");
 
-            listeAttenteRepository.getAllByActiveIsTrueAndNotificationSentIsTrue()
+            listeAttenteRepository.getAllByNotificationSentIsTrue()
                     .ifPresent(listeAttentes -> listeAttentes.forEach(listeAttente -> {
                         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
                         Timestamp listeAttentePlusDurationTime = new Timestamp(
                                 listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
-
-                        if (listeAttentePlusDurationTime.after(currentTime)){
-                            listeAttente.setActive(false);
-                            listeAttenteRepository.save(listeAttente);
+                        // TODO: 13/05/2020 TEST THIS
+                        if (currentTime.after(listeAttentePlusDurationTime)){
+                            listeAttenteRepository.delete(listeAttente);
                         }
                     }));
 

@@ -5,11 +5,10 @@ CREATE TABLE IF NOT EXISTS reservation.liste_attente
     id_ouvrage             INT NOT NULL,
     position_file_attente  INT NOT NULL,
     notification_sent      BIT NOT NULL,
-    notification_timestamp TIMESTAMP,
-    is_active              BIT NOT NULL
+    notification_timestamp TIMESTAMP
 );
 
 
 INSERT INTO reservation.liste_attente (id, id_utilisateur, id_ouvrage, position_file_attente, notification_sent,
-                                       notification_timestamp, is_active)
-VALUES (1, 1, 1, 1, FALSE, current_timestamp, TRUE);
+                                       notification_timestamp)
+VALUES (1, 1, 1, 1, TRUE, current_timestamp);
