@@ -1,5 +1,6 @@
-package com.openclassrooms.bibliotheque.reservation.mail;
+package com.openclassrooms.bibliotheque.reservation.batch;
 
+import com.openclassrooms.bibliotheque.reservation.mail.Mail;
 import com.openclassrooms.bibliotheque.reservation.mail.dto.EmailInfoDto;
 import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
 import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 @EnableScheduling
-public class MailSenderBatch {
+public class ReservationDateReminderBatch {
 
     private static final String                MAIL_SUBJECT = "Vous avez dépassé la date de retour de votre prêt !";
     private final        Mail                  mail;
@@ -34,7 +35,7 @@ public class MailSenderBatch {
     /**
      * Set batch task each days at 00
      */
-    @Scheduled(cron = " 0 0 * * * ?")
+    @Scheduled(cron = "0 0 12 * * ?")
     public void execute() {
         log.info("Starting batch task");
 

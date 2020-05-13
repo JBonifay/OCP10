@@ -11,7 +11,6 @@ import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -180,8 +179,7 @@ public class ReservationService {
         ListeAttente listeAttente = listeAttenteRepository.getByOuvrageIdAndPositionFileAttente(ouvrageId, 1);
         UtilisateurDto utilisateurDto = utilisateurProxy.findUtilisateurById(String.valueOf(listeAttente.getUtilisateurId()));
         OuvrageDto ouvrageDto = ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId());
-        // TODO: 12/05/2020 Error handling
-        // TODO: 12/05/2020 48h check
+
         // Change status of ListeAttente in DB
         listeAttente.setNotificationSent(true);
         listeAttente.setNotificationTimestamp(new Timestamp(new Date().getTime()));

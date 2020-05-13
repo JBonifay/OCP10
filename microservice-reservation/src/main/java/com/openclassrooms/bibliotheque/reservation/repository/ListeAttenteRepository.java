@@ -2,6 +2,7 @@ package com.openclassrooms.bibliotheque.reservation.repository;
 
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +15,5 @@ public interface ListeAttenteRepository extends JpaRepository<ListeAttente, Inte
 
     ListeAttente getByOuvrageIdAndPositionFileAttente(int ouvrageId, int positionFileAttente);
 
+    Optional<List<ListeAttente>> getAllByActiveIsTrueAndNotificationSentIsTrue();
 }
