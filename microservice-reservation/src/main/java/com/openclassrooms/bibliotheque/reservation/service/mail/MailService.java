@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.reservation.mail;
+package com.openclassrooms.bibliotheque.reservation.service.mail;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class Mail {
+public class MailService {
 
     private final JavaMailSender emailSender;
 

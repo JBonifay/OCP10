@@ -1,7 +1,7 @@
 package com.openclassrooms.bibliotheque.reservation.batch;
 
-import com.openclassrooms.bibliotheque.reservation.mail.Mail;
-import com.openclassrooms.bibliotheque.reservation.mail.dto.EmailInfoDto;
+import com.openclassrooms.bibliotheque.reservation.service.mail.MailService;
+import com.openclassrooms.bibliotheque.reservation.service.mail.dto.EmailInfoDto;
 import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
 import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class ReservationDateReminderBatch {
 
     private static final String                MAIL_SUBJECT = "Vous avez dépassé la date de retour de votre prêt !";
-    private final        Mail                  mail;
+    private final        MailService           mailService;
     private final        ReservationRepository reservationRepository;
     private final        UtilisateurProxy      utilisateurProxy;
     private final        OuvrageProxy          ouvrageProxy;
@@ -80,7 +80,7 @@ public class ReservationDateReminderBatch {
                     .append(" des éditions ").append(e.getEditor()).append("\n\n")
                     .append("Merci de le rammener au plus vite !\n\n").append("La bibliotheque municipale");
 
-            mail.sendSimpleMessage(e.getEmail(), MAIL_SUBJECT, sb.toString());
+            mailService.sendSimpleMessage(e.getEmail(), MAIL_SUBJECT, sb.toString());
         });
     }
 

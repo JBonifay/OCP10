@@ -3,7 +3,7 @@ package com.openclassrooms.bibliotheque.reservation.service;
 import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
 import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
 import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
-import com.openclassrooms.bibliotheque.reservation.mail.Mail;
+import com.openclassrooms.bibliotheque.reservation.service.mail.MailService;
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
@@ -30,8 +30,8 @@ public class ReservationService {
     private final ReservationRepository  reservationRepository;
     private final ListeAttenteRepository listeAttenteRepository;
     private final OuvrageProxy           ouvrageProxy;
-    private final UtilisateurProxy       utilisateurProxy;
-    private final Mail                   mail;
+    private final UtilisateurProxy utilisateurProxy;
+    private final MailService      mailService;
 
     /**
      * List all reservation fo the user
@@ -190,7 +190,7 @@ public class ReservationService {
                 .append("\nest de nouveau disponible dans votre bibliotheque")
                 .append(" vous disposez de 48h pour venir le récuperer ou votre reservation sera annulée.");
 
-        mail.sendSimpleMessage(utilisateurDto.getEmail(), "Un ouvrage est de nouveau en stock !", mailText.toString());
+        mailService.sendSimpleMessage(utilisateurDto.getEmail(), "Un ouvrage est de nouveau en stock !", mailText.toString());
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.reservation.mail.dto;
+package com.openclassrooms.bibliotheque.reservation.service.mail.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
