@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -110,16 +112,14 @@ public class ReservationService {
 
         // Count how many ouvrage exist
         int initialStock = reservationRepository.findAllByOuvrageId(ouvrageId).size() + ouvrageProxy.getNbrInStock(ouvrageId);
-        int enAttente = listeAttenteRepository.findAllByOuvrageId(ouvrageId).size();
+        int enAttente = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId).size();
 
         if (enAttente >= (initialStock * 2)) {
             throw new ReservationException("La liste d'attente est pleine.");
         }
 
-        int position = listeAttenteRepository.findAllByOuvrageId(ouvrageId).stream()
-                .mapToInt(ListeAttente::getPositionFileAttente)
-                .max()
-                .orElse(0);
+        int position = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId).stream()
+                .mapToInt(ListeAttente::getPositionFileAttente).max().orElse(0);
 
         ListeAttente newListeAttente = new ListeAttente();
         newListeAttente.setOuvrageId(ouvrageId);
@@ -222,7 +222,7 @@ public class ReservationService {
     }
 
     public Number getNumberOfUserForOuvrageId(int ouvrageId) {
-        int size = listeAttenteRepository.findAllByOuvrageId(ouvrageId).size();
+        int size = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId).size();
         if (size > 0) {
             return size;
         } else {
@@ -240,6 +240,21 @@ public class ReservationService {
     }
 
     public void annulerReservationListeAttente(int listeAttenteId) {
+        int ouvrageId = listeAttenteRepository.getOne(listeAttenteId).getOuvrageId();
         listeAttenteRepository.deleteById(listeAttenteId);
+        updateListeAttente(ouvrageId);
+
+    }
+
+    public Optional<List<ListeAttente>> getAllByNotificationSentIsTrue() {
+        return listeAttenteRepository.getAllByNotificationSentIsTrue();
+    }
+
+    public void updateListeAttente(int ouvrageId) {
+        List<ListeAttente> listeAttenteList = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId);
+
+        IntStream.range(0, listeAttenteList.size()).forEach(i -> listeAttenteList.get(i).setPositionFileAttente(i + 1));
+        listeAttenteRepository.saveAll(listeAttenteList);
+
     }
 }

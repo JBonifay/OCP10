@@ -1,6 +1,7 @@
 package com.openclassrooms.bibliotheque.reservation.batch;
 
 import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
+import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,8 @@ import org.springframework.stereotype.Component;
 @EnableScheduling
 public class ListeAttenteBatch {
 
-    private static final long                   DURATION_HOUR = 48;
-    private final        ListeAttenteRepository listeAttenteRepository;
+    private static final long               DURATION_HOUR = 48;
+    private final        ReservationService reservationService;
 
     /**
      * Batch task used to check each hours
@@ -31,16 +32,15 @@ public class ListeAttenteBatch {
         new Thread(() -> {
             log.info("Starting batch task");
 
-            listeAttenteRepository.getAllByNotificationSentIsTrue()
-                    .ifPresent(listeAttentes -> listeAttentes.forEach(listeAttente -> {
-                        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-                        Timestamp listeAttentePlusDurationTime = new Timestamp(
-                                listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
-                        // TODO: 13/05/2020 TEST THIS
-                        if (currentTime.after(listeAttentePlusDurationTime)){
-                            listeAttenteRepository.delete(listeAttente);
-                        }
-                    }));
+            // TODO: 13/05/2020 TEST THIS
+            reservationService.getAllByNotificationSentIsTrue().ifPresent(listeAttentes -> listeAttentes.forEach(listeAttente -> {
+                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                Timestamp listeAttentePlusDurationTime = new Timestamp(
+                        listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
+                if (currentTime.after(listeAttentePlusDurationTime)) {
+                    reservationService.annulerReservationListeAttente(listeAttente.getListeAttenteId());
+                }
+            }));
 
             log.info("End of batch service");
 

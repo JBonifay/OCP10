@@ -11,7 +11,7 @@ public interface ListeAttenteRepository extends JpaRepository<ListeAttente, Inte
 
     List<ListeAttente> findAllByUtilisateurId(int utilisateurId);
 
-    List<ListeAttente> findAllByOuvrageId(int ouvrageId);
+    List<ListeAttente> findAllByOuvrageIdOrderByPositionFileAttente(int ouvrageId);
 
     ListeAttente getByOuvrageIdAndPositionFileAttente(int ouvrageId, int positionFileAttente);
 
