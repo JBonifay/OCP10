@@ -39,6 +39,7 @@ public class ListeAttenteBatch {
                         listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
                 if (currentTime.after(listeAttentePlusDurationTime)) {
                     reservationService.annulerReservationListeAttente(listeAttente.getListeAttenteId());
+                    reservationService.sendNotificationToUserOuvrageAvailable(listeAttente.getOuvrageId());
                 }
             }));
 

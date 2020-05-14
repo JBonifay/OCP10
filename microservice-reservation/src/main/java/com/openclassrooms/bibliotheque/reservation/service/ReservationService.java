@@ -175,7 +175,7 @@ public class ReservationService {
      *
      * @param ouvrageId the ouvrageId of the ouvrage
      */
-    private void sendNotificationToUserOuvrageAvailable(@NotNull int ouvrageId) {
+    public void sendNotificationToUserOuvrageAvailable(@NotNull int ouvrageId) {
         ListeAttente listeAttente = listeAttenteRepository.getByOuvrageIdAndPositionFileAttente(ouvrageId, 1);
         UtilisateurDto utilisateurDto = utilisateurProxy.findUtilisateurById(String.valueOf(listeAttente.getUtilisateurId()));
         OuvrageDto ouvrageDto = ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId());
@@ -243,7 +243,6 @@ public class ReservationService {
         int ouvrageId = listeAttenteRepository.getOne(listeAttenteId).getOuvrageId();
         listeAttenteRepository.deleteById(listeAttenteId);
         updateListeAttente(ouvrageId);
-
     }
 
     public Optional<List<ListeAttente>> getAllByNotificationSentIsTrue() {
