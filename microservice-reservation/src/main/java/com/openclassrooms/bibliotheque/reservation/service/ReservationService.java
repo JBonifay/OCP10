@@ -176,21 +176,22 @@ public class ReservationService {
      * @param ouvrageId the ouvrageId of the ouvrage
      */
     public void sendNotificationToUserOuvrageAvailable(@NotNull int ouvrageId) {
-        ListeAttente listeAttente = listeAttenteRepository.getByOuvrageIdAndPositionFileAttente(ouvrageId, 1);
-        UtilisateurDto utilisateurDto = utilisateurProxy.findUtilisateurById(String.valueOf(listeAttente.getUtilisateurId()));
-        OuvrageDto ouvrageDto = ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId());
+        Optional.ofNullable(listeAttenteRepository.getByOuvrageIdAndPositionFileAttente(ouvrageId, 1)).ifPresent(listeAttente -> {
+            UtilisateurDto utilisateurDto = utilisateurProxy.findUtilisateurById(String.valueOf(listeAttente.getUtilisateurId()));
+            OuvrageDto ouvrageDto = ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId());
 
-        // Change status of ListeAttente in DB
-        listeAttente.setNotificationSent(true);
-        listeAttente.setNotificationTimestamp(new Timestamp(new Date().getTime()));
-        listeAttenteRepository.save(listeAttente);
+            // Change status of ListeAttente in DB
+            listeAttente.setNotificationSent(true);
+            listeAttente.setNotificationTimestamp(new Timestamp(new Date().getTime()));
+            listeAttenteRepository.save(listeAttente);
 
-        StringBuilder mailText = new StringBuilder("Bonjour,\n\n").append("L'ouvrage ").append(ouvrageDto.getName())
-                .append(" de l'auteur ").append(ouvrageDto.getAuthor()).append(" des éditions ").append(ouvrageDto.getEditor())
-                .append("\nest de nouveau disponible dans votre bibliotheque")
-                .append(" vous disposez de 48h pour venir le récuperer ou votre reservation sera annulée.");
+            StringBuilder mailText = new StringBuilder("Bonjour,\n\n").append("L'ouvrage ").append(ouvrageDto.getName())
+                    .append(" de l'auteur ").append(ouvrageDto.getAuthor()).append(" des éditions ")
+                    .append(ouvrageDto.getEditor()).append("\nest de nouveau disponible dans votre bibliotheque")
+                    .append(" vous disposez de 48h pour venir le récuperer ou votre reservation sera annulée.");
 
-        mailService.sendSimpleMessage(utilisateurDto.getEmail(), "Un ouvrage est de nouveau en stock !", mailText.toString());
+            mailService.sendSimpleMessage(utilisateurDto.getEmail(), "Un ouvrage est de nouveau en stock !", mailText.toString());
+        });
     }
 
     /**
