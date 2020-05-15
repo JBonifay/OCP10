@@ -23,7 +23,6 @@ public class OuvrageService {
         Pageable pageRequest = PageRequest.of(ouvrageRechercheWrapper.getPageNumber(), ouvrageRechercheWrapper.getPageSize());
         Page<Ouvrage> ouvragePage;
 
-
         ouvragePage = ouvrageRepository.getFilteredResult(
                 "%" + ouvrageRechercheWrapper.getName() + "%",
                 "%" +ouvrageRechercheWrapper.getAuthor() + "%",

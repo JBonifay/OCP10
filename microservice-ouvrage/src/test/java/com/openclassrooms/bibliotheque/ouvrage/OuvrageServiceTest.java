@@ -2,18 +2,23 @@ package com.openclassrooms.bibliotheque.ouvrage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageRechercheWrapper;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.model.Stock;
 import com.openclassrooms.bibliotheque.ouvrage.service.OuvrageService;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @Slf4j
@@ -21,6 +26,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 public class OuvrageServiceTest {
 
+    public static final int PAGE_SIZE = 10;
+    public static final String PAGE_OBJECT_CONTAINS_D_ELEMENTS = "Page object contains : %d elements";
     @Autowired
     private             OuvrageService ouvrageService;
     public static final Ouvrage        OUVRAGE = new Ouvrage();
@@ -46,5 +53,77 @@ public class OuvrageServiceTest {
         assertThat(ouvrageService.findOuvrageById(1)).isEqualTo(OUVRAGE);
     }
 
+    @Test
+    public void pageFilteredNoFilterReturnOuvrages() {
+        Page<Ouvrage> page = ouvrageService.getFilteredResult(new OuvrageRechercheWrapper(0, PAGE_SIZE, "", "", "", 0, 0, 0));
+        assertThat(page.getContent()).isNotEmpty();
+        log.info(String.format(PAGE_OBJECT_CONTAINS_D_ELEMENTS, page.getContent().size()));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {100, 200, 300, 400})
+    public void pageFilteredFilterPageNumberReturnOuvrages(int numberOfPages) {
+        Page<Ouvrage> page = ouvrageService.getFilteredResult(new OuvrageRechercheWrapper(0, PAGE_SIZE, "", "", "", numberOfPages, 0, 0));
+
+        assertThat(page.getContent()).isNotEmpty();
+        log.info(String.format(PAGE_OBJECT_CONTAINS_D_ELEMENTS, page.getContent().size()));
+
+        page.getContent().forEach(ouvrage -> assertThat(ouvrage.getNumberOfPages() > numberOfPages));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5})
+    public void pageFilteredFilterNotationReturnOuvrages(int notation) {
+        Page<Ouvrage> page = ouvrageService.getFilteredResult(new OuvrageRechercheWrapper(0, PAGE_SIZE, "", "", "", 0, notation, 0));
+
+        assertThat(page.getContent()).isNotEmpty();
+        log.info(String.format(PAGE_OBJECT_CONTAINS_D_ELEMENTS, page.getContent().size()));
+
+        page.getContent().forEach(ouvrage -> assertThat(ouvrage.getNotation() == notation));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5})
+    public void pageFilteredFilterQuantityReturnOuvrages(int quantity) {
+        Page<Ouvrage> page = ouvrageService.getFilteredResult(new OuvrageRechercheWrapper(0, PAGE_SIZE, "", "", "", 0, 0, quantity));
+
+        assertThat(page.getContent()).isNotEmpty();
+        log.info(String.format(PAGE_OBJECT_CONTAINS_D_ELEMENTS, page.getContent().size()));
+
+        page.getContent().forEach(ouvrage -> assertThat(ouvrage.getStock().getQuantity() == quantity));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"ucla.edu", "delicious.com", "vinaora.com", "com.com", "slashdot.org"})
+    public void pageFilteredFilterEditorReturnOuvrages(String editor) {
+        Page<Ouvrage> page = ouvrageService.getFilteredResult(new OuvrageRechercheWrapper(0, PAGE_SIZE, "", "", editor, 0, 0, 0));
+
+        assertThat(page.getContent()).isNotEmpty();
+        log.info(String.format(PAGE_OBJECT_CONTAINS_D_ELEMENTS, page.getContent().size()));
+
+        page.getContent().forEach(ouvrage -> assertThat(Objects.equals(ouvrage.getEditor(), editor)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Acid House, The", "Life of Oharu, The (Saikaku ichidai onna)", "Batman Begins", "Muppets From Space", "Confidential Agent"})
+    public void pageFilteredFilterNameReturnOuvrages(String name) {
+        Page<Ouvrage> page = ouvrageService.getFilteredResult(new OuvrageRechercheWrapper(0, PAGE_SIZE, name, "", "", 0, 0, 0));
+
+        assertThat(page.getContent()).isNotEmpty();
+        log.info(String.format(PAGE_OBJECT_CONTAINS_D_ELEMENTS, page.getContent().size()));
+
+        page.getContent().forEach(ouvrage -> assertThat(Objects.equals(ouvrage.getName(), name)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Geneva Wetherby", "Algernon Solano", "Maxie Dominichelli", "Oona Dossantos", "Clarice Readshaw"})
+    public void pageFilteredFilterAuthorReturnOuvrages(String author) {
+        Page<Ouvrage> page = ouvrageService.getFilteredResult(new OuvrageRechercheWrapper(0, PAGE_SIZE, "", author, "", 0, 0, 0));
+
+        assertThat(page.getContent()).isNotEmpty();
+        log.info(String.format(PAGE_OBJECT_CONTAINS_D_ELEMENTS, page.getContent().size()));
+
+        page.getContent().forEach(ouvrage -> assertThat(Objects.equals(ouvrage.getAuthor(), author)));
+    }
 
 }
