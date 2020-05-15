@@ -2,6 +2,8 @@ package com.openclassrooms.bibliotheque.ouvrage.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -18,6 +20,7 @@ public class Stock {
     
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stock_id")
     private int stockId;
     @NotNull
