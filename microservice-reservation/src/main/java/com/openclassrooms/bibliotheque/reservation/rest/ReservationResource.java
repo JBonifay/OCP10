@@ -121,7 +121,7 @@ public class ReservationResource {
      * @return ResponseEntity ok if returned
      */
     @PutMapping("reservation/retourner/{reservationId}")
-    public ResponseEntity<Reservation> returnLoan(@PathVariable int reservationId) {
+    public ResponseEntity<Reservation> returnReservation(@PathVariable int reservationId) {
         return ResponseEntity.ok(reservationService.returnReservation(reservationId));
     }
 
