@@ -25,15 +25,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class OuvrageServiceIT {
-    // todo:
-    // Replace --> Add MockMVC and test
+    //Replace --> Add MockMVC and test
     // Test API REST Here
+    // FIXME: 15/05/2020
 
-    public static final int            PAGE_SIZE                       = 10;
-    public static final String         PAGE_OBJECT_CONTAINS_D_ELEMENTS = "Page object contains : %d elements";
+    public static final int PAGE_SIZE = 10;
+    public static final String PAGE_OBJECT_CONTAINS_D_ELEMENTS = "Page object contains : %d elements";
     @Autowired
     private             OuvrageService ouvrageService;
-    public static final Ouvrage        OUVRAGE                         = new Ouvrage();
+    public static final Ouvrage        OUVRAGE = new Ouvrage();
 
     @BeforeAll
     static void init() throws ParseException {
