@@ -69,4 +69,3 @@ VALUES (9, 4);
 INSERT
 INTO stock (ouvrage_id, quantity)
 VALUES (10, 5);
-
