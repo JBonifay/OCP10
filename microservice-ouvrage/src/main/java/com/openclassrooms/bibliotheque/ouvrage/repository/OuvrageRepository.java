@@ -21,7 +21,7 @@ public interface OuvrageRepository extends JpaRepository<Ouvrage, String> {
             + "and o.editor like :editor "
             + "and o.numberOfPages >= :numberOfPages "
             + "and o.notation >= :notation "
-            + "and o.stock.quantity >= :stock_quantity")
+            + "and o.stock.quantity >= :stockQuantity")
     Page<Ouvrage> getFilteredResult(
             @NotNull String name, @NotNull String author,
             String editor, int numberOfPages,
