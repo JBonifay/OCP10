@@ -25,6 +25,6 @@ public interface OuvrageRepository extends JpaRepository<Ouvrage, String> {
     Page<Ouvrage> getFilteredResult(
             @NotNull String name, @NotNull String author,
             String editor, int numberOfPages,
-            int notation, int stock_quantity, Pageable pageable);
+            int notation, int stockQuantity, Pageable pageable);
 
 }

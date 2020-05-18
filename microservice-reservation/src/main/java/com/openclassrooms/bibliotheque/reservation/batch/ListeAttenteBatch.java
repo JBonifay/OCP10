@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -23,29 +24,25 @@ public class ListeAttenteBatch {
     private final        ReservationService reservationService;
 
     /**
-     * Batch task used to check each hours
-     * if reservation past the delay
-     * Delete reservation if delay is past
+     * Batch task used to check each hours if reservation past the delay Delete reservation if delay is past
      */
     @Scheduled(cron = "*/10 * * * * ?")
     public void execute() {
-        new Thread(() -> {
-            log.info("Starting batch task");
+        log.info("Starting batch task");
 
-            // TODO: 13/05/2020 TEST THIS
-            reservationService.getAllByNotificationSentIsTrue().ifPresent(listeAttentes -> listeAttentes.forEach(listeAttente -> {
-                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-                Timestamp listeAttentePlusDurationTime = new Timestamp(
-                        listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
-                if (currentTime.after(listeAttentePlusDurationTime)) {
-                    reservationService.annulerReservationListeAttente(listeAttente.getListeAttenteId());
-                    reservationService.sendNotificationToUserOuvrageAvailable(listeAttente.getOuvrageId());
-                }
-            }));
+        // TODO: 13/05/2020 TEST THIS
+        reservationService.getAllByNotificationSentIsTrue().ifPresent(listeAttentes -> listeAttentes.forEach(listeAttente -> {
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            Timestamp listeAttentePlusDurationTime = new Timestamp(
+                    listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
+            if (currentTime.after(listeAttentePlusDurationTime)) {
+                reservationService.annulerReservationListeAttente(listeAttente.getListeAttenteId());
+                reservationService.sendNotificationToUserOuvrageAvailable(listeAttente.getOuvrageId());
+            }
+        }));
 
-            log.info("End of batch service");
+        log.info("End of batch service");
 
-        }).start();
     }
 
 

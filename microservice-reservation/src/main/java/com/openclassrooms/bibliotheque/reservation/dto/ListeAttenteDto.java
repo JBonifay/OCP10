@@ -14,6 +14,5 @@ public class ListeAttenteDto {
     private Date      prochaineDateRetour;
     private boolean   notificationSent;
     private Timestamp notificationTimestamp;
-    private boolean   isActive;
 
 }
