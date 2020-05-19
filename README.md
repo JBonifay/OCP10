@@ -5,7 +5,7 @@
 # Bibliotheque
 Développez le nouveau système d’information de la bibliothèque d’une grande ville.
 
-Openclassrooms Developpeur d'application Java Projet 7
+Openclassrooms Developpeur d'application Java Projet 10
 
 ## Installation
 #### Prérequis
