@@ -44,7 +44,7 @@ INTO stock (ouvrage_id, quantity)
 VALUES (1, 2);
 INSERT
 INTO stock (ouvrage_id, quantity)
-VALUES (2, 4);
+VALUES (2, 0);
 INSERT
 INTO stock (ouvrage_id, quantity)
 VALUES (3, 3);

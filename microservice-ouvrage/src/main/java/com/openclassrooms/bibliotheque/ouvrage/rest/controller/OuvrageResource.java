@@ -30,17 +30,7 @@ public class OuvrageResource {
     private final OuvrageService ouvrageService;
     private final OuvrageMapper  ouvrageMapper;
 
-    /**
-     * Get a page of Ouvrage objects
-     *
-     * @return a page filled with ouvrages objects filtered
-     */
-    @PostMapping(value = "/ouvrage/recherche")
-    public ResponseEntity<Page<OuvrageStockDto>> getAllOuvrageListe(@RequestBody OuvrageRechercheWrapper ouvrageRechercheWrapper) {
-            return ResponseEntity.ok(ouvrageService
-                .getFilteredResult(ouvrageRechercheWrapper)
-                .map(ouvrageMapper::toOuvrageStockDto));
-    }
+ 
 
     /**
      * Get a description of the ouvrage
@@ -51,11 +41,7 @@ public class OuvrageResource {
      */
     @GetMapping(value = "/ouvrage/description/{ouvrageId}")
     public ResponseEntity<OuvrageDescriptionDto> getDescriptionByOuvrageId(@PathVariable int ouvrageId) {
-        Ouvrage ouvrage = ouvrageService.findOuvrageById(ouvrageId);
-        if (ouvrage == null) {
-            throw new OuvrageNotFoundException("Ouvrage introuvable.");
-        }
-        return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrage));
+        return ResponseEntity.ok(ouvrageMapper.toOuvrageDescriptionDto(ouvrageService.findOuvrageById(ouvrageId)));
     }
 
     /**
