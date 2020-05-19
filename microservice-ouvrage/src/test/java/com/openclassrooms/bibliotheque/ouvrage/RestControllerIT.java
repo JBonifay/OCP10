@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class RestControllerTest {
+public class RestControllerIT {
 
     @Autowired
     private TestRestTemplate restTemplate;

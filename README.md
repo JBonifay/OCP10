@@ -1,6 +1,6 @@
-<a href="https://openclassrooms.com/fr/projects/124/assignment"><img src="https://wiki.froce.fr/images/8/83/Banni%C3%A8re_Lucas_Lhardi.png" title="lesamisdelescalade" alt="Bibliotheque"></a>
+<a href="https://openclassrooms.com/fr/projects/124/assignment"><img src="https://wiki.froce.fr/images/8/83/Banni%C3%A8re_Lucas_Lhardi.png" title="Bibliotheque" alt="Bibliotheque"></a>
 
-# Les amis de l'escalade
+# Bibliotheque
 Développez le nouveau système d’information de la bibliothèque d’une grande ville.
 
 Openclassrooms Developpeur d'application Java Projet 7
@@ -70,6 +70,11 @@ L'interface web est maintenant accessible sur **localhost:8080**
 ### Postman
 Toute les requetes utilisées sont disponible sur postman à l'adresse suivante:
 https://documenter.getpostman.com/view/7613584/SWTEbFr6?version=latest
+
+## Sonarqube
+```
+$ docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
+```
 
 ## FAQ
           
