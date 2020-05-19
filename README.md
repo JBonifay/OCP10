@@ -1,5 +1,7 @@
 <a href="https://openclassrooms.com/fr/projects/124/assignment"><img src="https://wiki.froce.fr/images/8/83/Banni%C3%A8re_Lucas_Lhardi.png" title="Bibliotheque" alt="Bibliotheque"></a>
 
+[![Build Status](https://travis-ci.com/JBonifay/OCP10.svg?token=5Q2eji3pFfb7CkjWDaKM&branch=master)](https://travis-ci.com/JBonifay/OCP10)
+
 # Bibliotheque
 Développez le nouveau système d’information de la bibliothèque d’une grande ville.
 
