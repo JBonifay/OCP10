@@ -3,8 +3,6 @@ package com.openclassrooms.bibliotheque.ouvrage.rest.controller;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageDescriptionDto;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageMapper;
 import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageNameIdDto;
-import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageRechercheWrapper;
-import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.ouvrage.model.Ouvrage;
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundException;
 import com.openclassrooms.bibliotheque.ouvrage.service.OuvrageService;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +26,6 @@ public class OuvrageResource {
 
     private final OuvrageService ouvrageService;
     private final OuvrageMapper  ouvrageMapper;
-
- 
 
     /**
      * Get a description of the ouvrage
