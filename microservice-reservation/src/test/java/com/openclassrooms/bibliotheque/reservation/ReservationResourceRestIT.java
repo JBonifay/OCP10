@@ -20,6 +20,7 @@ import org.junit.runner.manipulation.NoTestsRemainException;
 import org.mockito.Mockito;
 import org.mockito.exceptions.misusing.NullInsteadOfMockException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -31,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 @AutoConfigureMockMvc
+// @AutoConfigureRestDocs
 @SpringBootTest
 @Transactional // Each test should have a clean DB before start
 public class ReservationResourceRestIT {
