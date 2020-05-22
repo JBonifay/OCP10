@@ -76,7 +76,7 @@ public class OuvrageResourceRestIT {
                 .andReturn();
 
         assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(OuvrageNotFoundException.class);
-        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("Ouvrage non trouvé ...");
+        assertThat(mvcResult.getResolvedExcepgtion().getMessage()).isEqualTo("Ouvrage non trouvé ...");
     }
 
     // ===== Stock =====
