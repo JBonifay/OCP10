@@ -23,7 +23,7 @@ public class OuvrageServiceTest {
     }
 
     @Test
-    public void givenInvalidOuvrageId_whenFindOuvrageId_thenThrow() {
+    public void getFilteredResult() {
         when(ouvrageServiceMock.findOuvrageById(anyInt())).thenThrow(new OuvrageNotFoundException());
 
         Assertions.assertThatExceptionOfType(OuvrageNotFoundException.class).isThrownBy(() -> {
