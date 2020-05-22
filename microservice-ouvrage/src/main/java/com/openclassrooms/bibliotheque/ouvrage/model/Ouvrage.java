@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -23,39 +24,48 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 @Table(name = "ouvrage")
 public class Ouvrage {
-    
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ouvrage_id")
     private int    ouvrageId;
+
     @NotNull
     @Length(min = 3, max = 45)
     @Column(name = "name")
     private String name;
+
     @NotNull
     @Length(min = 3, max = 45)
     @Column(name = "author")
     private String author;
+
     @Past
     @NotNull
     @Column(name = "release_date")
     private Date   releaseDate;
+
     @Length(min = 1, max = 3000)
     @Column(name = "summary")
     private String summary;
+
     @Length(min = 1, max = 45)
     @Column(name = "editor")
     private String editor;
+
     @Min(value = 1)
     @Column(name = "number_of_pages")
     private int    numberOfPages;
+
+    @Max(value = 5)
     @Min(value = 1)
     @Column(name = "notation")
     private int    notation;
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ouvrage_id")
     private Stock  stock;
-    
+
 }
