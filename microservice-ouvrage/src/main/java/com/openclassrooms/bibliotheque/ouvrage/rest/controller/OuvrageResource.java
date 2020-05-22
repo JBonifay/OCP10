@@ -70,6 +70,11 @@ public class OuvrageResource {
         return ResponseEntity.ok(true);
     }
 
+    /**
+     * Used for get information of number of {@link Ouvrage} in stock
+     * @param ouvrageId the ouvrageId
+     * @return an int representing stock value
+     */
     @GetMapping("/ouvrage/info/nbrinstock")
     public ResponseEntity<Integer> getNbrInStock(@RequestParam int ouvrageId) {
         return ResponseEntity.ok(ouvrageService.getNumberInStock(ouvrageId));
