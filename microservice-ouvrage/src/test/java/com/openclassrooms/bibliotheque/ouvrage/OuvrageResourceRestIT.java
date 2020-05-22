@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.google.gson.Gson;
+import com.openclassrooms.bibliotheque.ouvrage.dto.OuvrageRechercheWrapper;
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.OuvrageNotFoundException;
 import com.openclassrooms.bibliotheque.ouvrage.rest.exceptions.StockErrorException;
 import java.util.Arrays;
@@ -32,6 +33,38 @@ public class OuvrageResourceRestIT {
 
     @Autowired
     private MockMvc          mockMvc;
+
+    // ===== Recherche  =====
+    @Test
+    public void getAllOuvrageListe_PageOne() throws Exception {
+        // Given object for filtering
+        OuvrageRechercheWrapper ouvrageRechercheWrapper = new OuvrageRechercheWrapper(0, 5, "", "", "", 0, 0, 0);
+
+        // When
+        // Then expecting page of 5 elements
+        mockMvc.perform(post("/ouvrage/recherche")
+                .contentType(APPLICATION_JSON)
+                .content(new Gson().toJson(ouvrageRechercheWrapper)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.numberOfElements").value(5));
+    }
+
+    @Test
+    public void getAllOuvrageListe_PageEmpty() throws Exception {
+        // Given object for filtering
+        OuvrageRechercheWrapper ouvrageRechercheWrapper = new OuvrageRechercheWrapper(10, 5, "", "", "", 0, 0, 0);
+
+        // When
+        // Then expecting page of 5 elements
+        mockMvc.perform(
+                post("/ouvrage/recherche")
+                        .contentType(APPLICATION_JSON)
+                        .content(new Gson().toJson(ouvrageRechercheWrapper)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.numberOfElements").value(0));
+    }
 
     // ===== Get all ouvrage  =====
     @Test
