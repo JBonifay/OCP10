@@ -2,9 +2,11 @@ package com.openclassrooms.bibliotheque.reservation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UtilisateurDto {
     
     private int    id;
