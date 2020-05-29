@@ -4,6 +4,8 @@ import com.openclassrooms.bibliotheque.reservation.dto.ListeAttenteDto;
 import com.openclassrooms.bibliotheque.reservation.dto.ListeAttenteMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
+import com.openclassrooms.bibliotheque.reservation.error.ListeAttenteException;
+import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
@@ -43,20 +45,27 @@ public class ReservationResource {
     public ResponseEntity<List<ReservationOuvrageInfoDto>> getReservationsByUtilisateurId(@PathVariable int utilisateurId) {
         return Optional.of(reservationService.findAllReservationByUtilisateurId(utilisateurId))
                 .filter(reservationList -> !reservationList.isEmpty())
-                .map(reservations -> ResponseEntity.ok(reservations.stream().map(reservationMapper::toReservationOuvrageInfoDto)
-                        .collect(Collectors.toList())))
+                .map(reservations -> ResponseEntity.ok(reservations.stream()
+                                                               .map(reservationMapper::toReservationOuvrageInfoDto)
+                                                               .collect(Collectors.toList())))
                 .orElse(ResponseEntity.ok(Collections.emptyList()));
     }
 
     @GetMapping("/reservation/listeattente/{utilisateurId}")
-    public ResponseEntity<List<ListeAttenteDto>> getListeAttenteByUtilisateurId(@PathVariable int utilisateurId) {
-        return ResponseEntity
-                .ok(reservationService.findAllListeAttenteByUtilisateurId(utilisateurId).stream().map(listeAttente -> {
-                    ListeAttenteDto listeAttenteDto = listeAttenteMapper.toReservationOuvrageInfoDto(listeAttente);
-                    listeAttenteDto.setOuvrageName(ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId()).getName());
-                    listeAttenteDto.setProchaineDateRetour(reservationService.getNextReturnDate(listeAttente.getOuvrageId()));
-                    return listeAttenteDto;
-                }).collect(Collectors.toList()));
+    public ResponseEntity<List<ListeAttenteDto>> getListeAttenteByUtilisateurId(@PathVariable int utilisateurId)
+            throws ListeAttenteException {
+        return ResponseEntity.ok(reservationService.findAllListeAttenteByUtilisateurId(utilisateurId)
+                                         .stream()
+                                         .map(listeAttente -> {
+                                             ListeAttenteDto listeAttenteDto = listeAttenteMapper.toReservationOuvrageInfoDto(
+                                                     listeAttente);
+                                             listeAttenteDto.setOuvrageName(ouvrageProxy.getOuvrageById(listeAttente.getOuvrageId())
+                                                                                    .getName());
+                                             listeAttenteDto.setProchaineDateRetour(reservationService.getNextReturnDate(
+                                                     listeAttente.getOuvrageId()));
+                                             return listeAttenteDto;
+                                         })
+                                         .collect(Collectors.toList()));
     }
 
     @GetMapping("/reservation/listeattente/annuler")

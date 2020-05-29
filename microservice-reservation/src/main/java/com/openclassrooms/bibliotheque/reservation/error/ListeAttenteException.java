@@ -4,15 +4,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class ReservationException extends RuntimeException {
+public class ListeAttenteException extends RuntimeException {
 
-    public static final String DEFAULT = "Réservation non trouvée.";
+    private static final String DEFAULT = "Liste attente non trouvé.";
 
-    public ReservationException() {
+    public ListeAttenteException() {
         super(DEFAULT);
     }
 
-    public ReservationException(String s) {
+    public ListeAttenteException(String s) {
         super(s);
     }
 }

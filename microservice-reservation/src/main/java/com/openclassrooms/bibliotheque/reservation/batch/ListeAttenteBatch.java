@@ -1,5 +1,6 @@
 package com.openclassrooms.bibliotheque.reservation.batch;
 
+import com.openclassrooms.bibliotheque.reservation.error.ListeAttenteException;
 import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
 import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import java.sql.Timestamp;
@@ -36,7 +37,11 @@ public class ListeAttenteBatch {
             Timestamp listeAttentePlusDurationTime = new Timestamp(
                     listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
             if (currentTime.after(listeAttentePlusDurationTime)) {
-                reservationService.annulerReservationListeAttente(listeAttente.getListeAttenteId());
+                try {
+                    reservationService.annulerReservationListeAttente(listeAttente.getListeAttenteId());
+                } catch (ListeAttenteException e) {
+                    log.error(e.getMessage());
+                }
                 reservationService.sendNotificationToUserOuvrageAvailable(listeAttente.getOuvrageId());
             }
         }));

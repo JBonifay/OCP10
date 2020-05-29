@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ListeAttenteRepository extends JpaRepository<ListeAttente, Integer> {
 
-    List<ListeAttente> findAllByUtilisateurId(int utilisateurId);
+    Optional<List<ListeAttente>> findAllByUtilisateurId(int utilisateurId);
 
-    List<ListeAttente> findAllByOuvrageIdOrderByPositionFileAttente(int ouvrageId);
+    Optional<List<ListeAttente>> findAllByOuvrageIdOrderByPositionFileAttente(int ouvrageId);
 
     ListeAttente getByOuvrageIdAndPositionFileAttente(int ouvrageId, int positionFileAttente);
 

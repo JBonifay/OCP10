@@ -2,24 +2,23 @@ package com.openclassrooms.bibliotheque.reservation.service;
 
 import com.openclassrooms.bibliotheque.reservation.dto.OuvrageDto;
 import com.openclassrooms.bibliotheque.reservation.dto.UtilisateurDto;
+import com.openclassrooms.bibliotheque.reservation.error.ListeAttenteException;
 import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
-import com.openclassrooms.bibliotheque.reservation.service.mail.MailService;
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
 import com.openclassrooms.bibliotheque.reservation.repository.ListeAttenteRepository;
 import com.openclassrooms.bibliotheque.reservation.repository.ReservationRepository;
+import com.openclassrooms.bibliotheque.reservation.service.mail.MailService;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +31,8 @@ public class ReservationService {
     private final ReservationRepository  reservationRepository;
     private final ListeAttenteRepository listeAttenteRepository;
     private final OuvrageProxy           ouvrageProxy;
-    private final UtilisateurProxy utilisateurProxy;
-    private final MailService      mailService;
+    private final UtilisateurProxy       utilisateurProxy;
+    private final MailService            mailService;
 
     /**
      * List all reservation fo the user
@@ -42,11 +41,11 @@ public class ReservationService {
      * @return a list of reservation
      */
     public List<Reservation> findAllReservationByUtilisateurId(int utilisateurId) {
-        return reservationRepository.findAllByUtilisateurId(utilisateurId);
+        return reservationRepository.findAllByUtilisateurId(utilisateurId).orElseThrow(ReservationException::new);
     }
 
     public List<ListeAttente> findAllListeAttenteByUtilisateurId(int utilisateurId) {
-        return listeAttenteRepository.findAllByUtilisateurId(utilisateurId);
+        return listeAttenteRepository.findAllByUtilisateurId(utilisateurId).orElseThrow(ListeAttenteException::new);
     }
 
     /**
@@ -54,9 +53,8 @@ public class ReservationService {
      *
      * @param reservationId the reservation to extend
      */
-    @SneakyThrows
-    public void extendReservation(int reservationId) {
-        Reservation r = Optional.of(reservationRepository.getOne(reservationId)).orElseThrow(ReservationException::new);
+    public void extendReservation(int reservationId) throws ReservationException {
+        Reservation r = reservationRepository.findById(reservationId).orElseThrow(ReservationException::new);
 
         if (!r.isDejaProlonge()) {
             if (!r.getReservationDateFin().before(new Date())) {
@@ -80,6 +78,7 @@ public class ReservationService {
      */
     @Transactional
     public Reservation createNewReservationForUser(int ouvrageId, int utilisateurId) {
+        checkIfUtilisateurExist(utilisateurId);
         checkIfAlreadyInUserReservationList(ouvrageId, utilisateurId);
 
         try {
@@ -98,6 +97,10 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
+    private void checkIfUtilisateurExist(int utilisateurId) {
+        utilisateurProxy.findUtilisateurById(String.valueOf(utilisateurId));
+    }
+
 
     /**
      * Create a new liste attente for a user
@@ -108,18 +111,28 @@ public class ReservationService {
      */
     @Transactional
     public ListeAttente createNewListeAttenteForUser(int ouvrageId, int utilisateurId) {
+        checkIfUtilisateurExist(utilisateurId);
         checkIfAlreadyInUserReservationList(ouvrageId, utilisateurId);
 
         // Count how many ouvrage exist
-        int initialStock = reservationRepository.findAllByOuvrageId(ouvrageId).size() + ouvrageProxy.getNbrInStock(ouvrageId);
-        int enAttente = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId).size();
+        int initialStock = reservationRepository.findAllByOuvrageId(ouvrageId)
+                .orElseThrow(ReservationException::new)
+                .size() + ouvrageProxy.getNbrInStock(ouvrageId);
+
+        int enAttente = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
+                .orElseThrow(ReservationException::new)
+                .size();
 
         if (enAttente >= (initialStock * 2)) {
             throw new ReservationException("La liste d'attente est pleine.");
         }
 
-        int position = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId).stream()
-                .mapToInt(ListeAttente::getPositionFileAttente).max().orElse(0);
+        int position = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
+                .orElseThrow(ListeAttenteException::new)
+                .stream()
+                .mapToInt(ListeAttente::getPositionFileAttente)
+                .max()
+                .orElse(0);
 
         ListeAttente newListeAttente = new ListeAttente();
         newListeAttente.setOuvrageId(ouvrageId);
@@ -137,17 +150,21 @@ public class ReservationService {
      * @param utilisateurId the utilisateur id
      */
     private void checkIfAlreadyInUserReservationList(int ouvrageId, int utilisateurId) {
-        reservationRepository.findAllByUtilisateurId(utilisateurId).stream()
-                .filter(reservation -> reservation.getOuvrageId() == ouvrageId)
-                .forEach(reservation -> {
+
+        reservationRepository.findAllByUtilisateurId(utilisateurId)
+                .flatMap(reservations -> reservations.stream()
+                        .filter(reservation -> reservation.getOuvrageId() == ouvrageId)
+                        .findAny())
+                .ifPresent(reservation -> {
                     throw new ReservationException("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
                 });
 
-        listeAttenteRepository.findAllByUtilisateurId(utilisateurId).stream()
-                .filter(listeAttente -> listeAttente.getOuvrageId() == ouvrageId)
-                .forEach(listeAttente -> {
-                    throw new ReservationException(
-                            "La réservation est déjà présente dans la liste d'attente de l'utilisateur.");
+        listeAttenteRepository.findAllByUtilisateurId(utilisateurId)
+                .flatMap(listeAttentes -> listeAttentes.stream()
+                        .filter(listeAttente -> listeAttente.getOuvrageId() == ouvrageId)
+                        .findAny())
+                .ifPresent(listeAttente -> {
+                    throw new ReservationException("La réservation est déjà présente dans la liste d'attente de l'utilisateur.");
                 });
     }
 
@@ -157,7 +174,7 @@ public class ReservationService {
      * @param reservationId the reservation
      * @return the reservation
      */
-    public Reservation returnReservation(int reservationId) {
+    public Reservation returnReservation(int reservationId) throws ReservationException {
         return reservationRepository.findById(reservationId).map(r -> {
             if (r.isActive()) {
                 r.setActive(false);
@@ -185,9 +202,13 @@ public class ReservationService {
             listeAttente.setNotificationTimestamp(new Timestamp(new Date().getTime()));
             listeAttenteRepository.save(listeAttente);
 
-            StringBuilder mailText = new StringBuilder("Bonjour,\n\n").append("L'ouvrage ").append(ouvrageDto.getName())
-                    .append(" de l'auteur ").append(ouvrageDto.getAuthor()).append(" des éditions ")
-                    .append(ouvrageDto.getEditor()).append("\nest de nouveau disponible dans votre bibliotheque")
+            StringBuilder mailText = new StringBuilder("Bonjour,\n\n").append("L'ouvrage ")
+                    .append(ouvrageDto.getName())
+                    .append(" de l'auteur ")
+                    .append(ouvrageDto.getAuthor())
+                    .append(" des éditions ")
+                    .append(ouvrageDto.getEditor())
+                    .append("\nest de nouveau disponible dans votre bibliotheque")
                     .append(" vous disposez de 48h pour venir le récuperer ou votre reservation sera annulée.");
 
             mailService.sendSimpleMessage(utilisateurDto.getEmail(), "Un ouvrage est de nouveau en stock !", mailText.toString());
@@ -213,8 +234,9 @@ public class ReservationService {
      * @param ouvrageId the ouvrage
      * @return the next return date of the ouvrage
      */
-    public Date getNextReturnDate(int ouvrageId) {
-     return reservationRepository.findAllByOuvrageId(ouvrageId)
+    public Date getNextReturnDate(int ouvrageId) throws ReservationException {
+        return reservationRepository.findAllByOuvrageId(ouvrageId)
+                .orElseThrow(() -> new ReservationException("Aucune reservation en cours pour cet ouvrage."))
                 .stream()
                 .filter(Reservation::isActive)
                 .map(Reservation::getReservationDateFin)
@@ -222,8 +244,11 @@ public class ReservationService {
                 .orElse(null);
     }
 
-    public Number getNumberOfUserForOuvrageId(int ouvrageId) {
-        int size = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId).size();
+    public Number getNumberOfUserForOuvrageId(int ouvrageId) throws ListeAttenteException {
+        int size = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
+                .orElseThrow(ListeAttenteException::new)
+                .size();
+
         if (size > 0) {
             return size;
         } else {
@@ -231,8 +256,8 @@ public class ReservationService {
         }
     }
 
-    public Number getNumberOfActiveReservationForOuvrageId(int ouvrageId) {
-        int size = reservationRepository.findAllByOuvrageId(ouvrageId).size();
+    public Number getNumberOfActiveReservationForOuvrageId(int ouvrageId) throws ReservationException {
+        int size = reservationRepository.findAllByOuvrageId(ouvrageId).orElseThrow(ReservationException::new).size();
         if (size > 0) {
             return size;
         } else {
@@ -240,18 +265,19 @@ public class ReservationService {
         }
     }
 
-    public void annulerReservationListeAttente(int listeAttenteId) {
-        int ouvrageId = listeAttenteRepository.getOne(listeAttenteId).getOuvrageId();
+    public void annulerReservationListeAttente(int listeAttenteId) throws ListeAttenteException {
+        ListeAttente listeAttente = listeAttenteRepository.findById(listeAttenteId).orElseThrow(ListeAttenteException::new);
         listeAttenteRepository.deleteById(listeAttenteId);
-        updateListeAttente(ouvrageId);
+        updateListeAttente(listeAttente.getOuvrageId());
     }
 
     public Optional<List<ListeAttente>> getAllByNotificationSentIsTrue() {
         return listeAttenteRepository.getAllByNotificationSentIsTrue();
     }
 
-    public void updateListeAttente(int ouvrageId) {
-        List<ListeAttente> listeAttenteList = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId);
+    public void updateListeAttente(int ouvrageId) throws ListeAttenteException {
+        List<ListeAttente> listeAttenteList = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
+                .orElseThrow(ListeAttenteException::new);
 
         IntStream.range(0, listeAttenteList.size()).forEach(i -> listeAttenteList.get(i).setPositionFileAttente(i + 1));
         listeAttenteRepository.saveAll(listeAttenteList);
