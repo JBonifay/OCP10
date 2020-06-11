@@ -1,4 +1,4 @@
-package com.openclassrooms.utilisateur;
+package com.openclassrooms.bibliotheque.utilisateur;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

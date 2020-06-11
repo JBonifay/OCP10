@@ -1,7 +1,7 @@
-package com.openclassrooms.utilisateur.rest;
+package com.openclassrooms.bibliotheque.utilisateur.rest;
 
-import com.openclassrooms.utilisateur.model.Utilisateur;
-import com.openclassrooms.utilisateur.repository.UtilisateurRepository;
+import com.openclassrooms.bibliotheque.utilisateur.model.Utilisateur;
+import com.openclassrooms.bibliotheque.utilisateur.repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

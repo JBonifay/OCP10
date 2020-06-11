@@ -1,4 +1,4 @@
-package com.openclassrooms.utilisateur.model;
+package com.openclassrooms.bibliotheque.utilisateur.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
