@@ -2,7 +2,8 @@ INSERT INTO reservation (ouvrage_id, utilisateur_id, reservation_date_debut, res
 VALUES (1, 1, '2020-05-01', '2020-05-30', TRUE, FALSE),
        (2, 2, '2020-05-01', '2020-05-30', TRUE, TRUE),
        (3, 3, '2020-05-01', '2020-05-30', FALSE, FALSE),
-       (4, 4, '2020-05-01', '2020-05-30', FALSE, TRUE);
+       (4, 4, '2020-05-01', '2020-05-30', FALSE, TRUE),
+       (5, 4, current_date, TIMESTAMPADD(DAY, 30, CURRENT_DATE), TRUE, FALSE);
 
 
 INSERT INTO liste_attente (id_utilisateur, id_ouvrage, position_file_attente, notification_sent, notification_timestamp)

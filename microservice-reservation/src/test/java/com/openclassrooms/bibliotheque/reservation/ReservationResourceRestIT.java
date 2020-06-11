@@ -16,21 +16,15 @@ import com.openclassrooms.bibliotheque.reservation.error.ListeAttenteException;
 import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
-import com.openclassrooms.bibliotheque.reservation.service.ReservationService;
 import com.openclassrooms.bibliotheque.reservation.service.mail.MailService;
-import feign.FeignException;
-import feign.FeignException.BadRequest;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
@@ -254,10 +248,12 @@ public class ReservationResourceRestIT {
         assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("Réservation non trouvée.");
     }
 
+    // ==== Extend Reservation ====
+
     @Test
     public void extendReservationExistingId() throws Exception {
         // Given an exising reservationId
-        String reservationId = "1";
+        String reservationId = "5";
 
         // When
         MvcResult mvcResult = mockMvc.perform(put("/reservation/prolonger/{reservationId}", reservationId))
@@ -265,8 +261,23 @@ public class ReservationResourceRestIT {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // Then
         assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("Prolongement effectué..");
+    }
+
+    @Test
+    public void extendReservationExistingId_ReservationDateReturnTooClose() throws Exception {
+        // Given an exising reservationId
+        String reservationId = "1";
+
+        // When
+        MvcResult mvcResult = mockMvc.perform(put("/reservation/prolonger/{reservationId}", reservationId))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        // Then
+        assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
+        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La date de retour est trop proche.");
     }
 
     @Test
@@ -284,6 +295,24 @@ public class ReservationResourceRestIT {
         assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
         assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("Réservation non trouvée.");
     }
+
+    @Test
+    public void extendReservationExistingId_AlreadyExtended() throws Exception {
+        // Given an exising reservationId
+        String reservationId = "2";
+
+        // When
+        MvcResult mvcResult = mockMvc.perform(put("/reservation/prolonger/{reservationId}", reservationId))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        // Then
+        assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
+        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La réservation à déjà été prolongée");
+    }
+
+    // ==== Create Reservation ====
 
     @Test
     public void createReservationExistingId() throws Exception {
@@ -318,6 +347,8 @@ public class ReservationResourceRestIT {
         assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
         assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("L'ouvrage n'est plus en stock !");
     }
+
+    // ==== Create Liste Attente ====
 
     @Test
     public void createListeAttente() throws Exception {
