@@ -1,14 +1,8 @@
 package com.openclassrooms.bibliotheque.web.web.controller;
 
-import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageIdNameDto;
-import com.openclassrooms.bibliotheque.web.dto.reservation.ReservationDto;
 import com.openclassrooms.bibliotheque.web.dto.utilisateur.UtilisateurDto;
-import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
-import com.openclassrooms.bibliotheque.web.proxies.ReservationProxy;
 import com.openclassrooms.bibliotheque.web.service.ReservationService;
 import feign.FeignException;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,11 +20,8 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequiredArgsConstructor
 public class ReservationController {
 
-    private static final String ERROR_MESSAGE = "errorMessage";
-
-    private final ReservationService reservationService;
-    private final ReservationProxy   reservationProxy;
-    private final OuvrageProxy       ouvrageProxy;
+    private static final String             ERROR_MESSAGE = "errorMessage";
+    private final        ReservationService reservationService;
 
     /**
      * Return reservation of current user
@@ -43,17 +34,7 @@ public class ReservationController {
 
         UtilisateurDto utilisateurDto = (UtilisateurDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<ReservationDto> reservationDtoList = reservationProxy
-                .getAllReservationListByUtilisateurId(utilisateurDto.getUtilisateurId());
-
-        List<OuvrageIdNameDto> ouvrageIdNameDtoList = ouvrageProxy.getAllOuvrageByOuvrageIdList(
-                reservationDtoList.stream().map(ReservationDto::getOuvrageId).collect(Collectors.toList()));
-
-        reservation.addObject("reservationList",
-                reservationService.createOuvrageReservationDto(reservationDtoList, ouvrageIdNameDtoList));
-
-        reservation.addObject("listeAttente",
-                reservationProxy.getAllReservationEnAttenteListByUtilisateurId(utilisateurDto.getUtilisateurId()));
+        reservationService.getReservationForUser(reservation, utilisateurDto);
 
         reservation.addObject(ERROR_MESSAGE, errorMessage);
 
@@ -69,7 +50,7 @@ public class ReservationController {
     @GetMapping("/reservation/prolonger/{reservationId}")
     public RedirectView extendReservation(@PathVariable int reservationId, RedirectAttributes redirectAttributes) {
         try {
-            reservationProxy.prolongateReservation(reservationId);
+            reservationService.prolongateReservation(reservationId);
         } catch (FeignException e) {
             redirectAttributes.addFlashAttribute(ERROR_MESSAGE, e.getMessage());
         }
@@ -78,7 +59,7 @@ public class ReservationController {
 
     @GetMapping("/reservation/enattente/annuler")
     public RedirectView annulerListeAttente(@RequestParam int listeAttenteId) {
-        reservationProxy.annulerListeAttente(listeAttenteId);
+        reservationService.annulerListeAttente(listeAttenteId);
         return new RedirectView("/reservation");
     }
 

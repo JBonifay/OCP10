@@ -324,7 +324,7 @@ public class ReservationResourceRestIT {
         mockMvc.perform(post("/reservation/creer").param("utilisateurId", utilisateurId).param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.reservationId").value(5))
+                .andExpect(jsonPath("$.reservationId").value(6))
                 .andExpect(jsonPath("$.utilisateurId").value(1))
                 .andExpect(jsonPath("$.ouvrageId").value(2));
     }

@@ -74,8 +74,15 @@ Toute les requetes utilisées sont disponible sur postman à l'adresse suivante:
 https://documenter.getpostman.com/view/7613584/SWTEbFr6?version=latest
 
 ## Sonarqube
+
+Docker image
 ```
 $ docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
+```
+
+Command
+```
+$ mvn clean verify sonar:sonar
 ```
 
 ## FAQ
