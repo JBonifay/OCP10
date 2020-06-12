@@ -53,13 +53,13 @@ public class ReservationResourceRestIT {
     private MailService mailService;
 
     @BeforeEach
-    public void init() {
+    public void init(){
         Mockito.doNothing().when(mailService).sendSimpleMessage(anyString(), anyString(), anyString());
 
         Mockito.when(ouvrageProxySpy.getOuvrageById(anyInt()))
                 .thenReturn(new OuvrageDto(1, "test", "", new DateTime().toDate(), "", "", 0, 0, 1));
 
-        Mockito.when(utilisateurProxy.findUtilisateurById(String.valueOf(anyInt())))
+        Mockito.when(utilisateurProxy.findUtilisateurById(anyString()))
                 .thenReturn(new UtilisateurDto(1, "test", "test", "test@test.co", "test"));
     }
 
