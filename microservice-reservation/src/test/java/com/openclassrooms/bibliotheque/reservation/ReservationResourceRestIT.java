@@ -1,6 +1,7 @@
 package com.openclassrooms.bibliotheque.reservation;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -17,14 +18,18 @@ import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.reservation.proxies.UtilisateurProxy;
 import com.openclassrooms.bibliotheque.reservation.service.mail.MailService;
+import javax.mail.internet.MimeMessage;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
@@ -348,6 +353,41 @@ public class ReservationResourceRestIT {
         assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("L'ouvrage n'est plus en stock !");
     }
 
+    @Test
+    public void createReservation_AlreadyInUserReservationList() throws Exception {
+        // Given
+        String utilisateurId = "1";
+        String ouvrageId = "1";
+
+        // When
+        MvcResult mvcResult = mockMvc.perform(post("/reservation/creer").param("utilisateurId", utilisateurId)
+                                                      .param("ouvrageId", ouvrageId))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
+        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
+    }
+
+    @Test
+    public void createReservation_AlreadyInUserListeAttenteList() throws Exception {
+        // Given
+        String ouvrageId = "2";
+        String utilisateurId = "4";
+
+        // When
+        MvcResult mvcResult = mockMvc.perform(post("/reservation/creer").param("utilisateurId", utilisateurId)
+                                                      .param("ouvrageId", ouvrageId))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
+        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo(
+                "La réservation est déjà présente dans la liste d'attente de l'utilisateur.");
+    }
+
     // ==== Create Liste Attente ====
 
     @Test
@@ -382,16 +422,33 @@ public class ReservationResourceRestIT {
         assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La liste d'attente est pleine.");
     }
 
-    // @Test
-    // public void returnReservation() throws Exception {
-    //     // TODO: 29/05/2020 Mock MailService
-    //
-    //     String reservationId = "1";
-    //
-    //     mockMvc.perform(put("/reservation/retourner/{reservationId}", reservationId))
-    //             .andDo(print())
-    //             .andExpect(status().isOk())
-    //             .andExpect(mvcResult -> assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(""));
-    //
-    // }
+    @Test
+    public void returnReservation() throws Exception {
+        // TODO: 29/05/2020 Mock MailService
+
+        String reservationId = "1";
+
+        mockMvc.perform(put("/reservation/retourner/{reservationId}", reservationId))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(mvcResult -> assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(""));
+
+    }
+
+    @Test
+    public void returnReservation_alreadyReturned() throws Exception {
+        // TODO: 29/05/2020 Mock MailService
+
+        String reservationId = "4";
+
+        MvcResult mvcResult = mockMvc.perform(put("/reservation/retourner/{reservationId}", reservationId))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
+        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La réservation à déjà était retournée");
+
+    }
+
 }

@@ -10,4 +10,4 @@ INSERT INTO liste_attente (id_utilisateur, id_ouvrage, position_file_attente, no
 VALUES (1, 1, 1, TRUE, current_timestamp),
        (2, 1, 2, FALSE, NULL),
        (3, 2, 1, FALSE, NULL),
-       (4, 2, 2, FALSE, NULL);
+       (4, 2, 2, TRUE, current_timestamp);
