@@ -24,10 +24,10 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         if (requestTokenHeader != null) {
             log.info("Jwt token is invalid ");
             log.info("Jwt token = " + requestTokenHeader);
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Jwt token is invalid ");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Jwt token is invalid");
         } else {
             log.error("Token not present, login credentials are invalid");
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Login details");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid Login details");
         }
 
     }
