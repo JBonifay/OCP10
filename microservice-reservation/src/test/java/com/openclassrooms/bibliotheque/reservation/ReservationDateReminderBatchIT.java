@@ -36,11 +36,11 @@ public class ReservationDateReminderBatchIT {
     public void init() {
         Mockito.doNothing().when(mailService).sendSimpleMessage(anyString(), anyString(), anyString());
     }
-
-    @Test
-    public void executeTest() {
-        reservationDateReminderBatch.execute();
-    }
-
+    //
+    // @Test
+    // public void executeTest() {
+    //     reservationDateReminderBatch.execute();
+    // }
+    //
 
 }
