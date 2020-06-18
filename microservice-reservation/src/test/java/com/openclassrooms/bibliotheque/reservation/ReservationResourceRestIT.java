@@ -422,18 +422,21 @@ public class ReservationResourceRestIT {
         assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La liste d'attente est pleine.");
     }
 
-    // @Test
-    // public void returnReservation() throws Exception {
-    //     // TODO: 29/05/2020 Mock MailService
-    //
-    //     String reservationId = "1";
-    //
-    //     mockMvc.perform(put("/reservation/retourner/{reservationId}", reservationId))
-    //             .andDo(print())
-    //             .andExpect(status().isOk())
-    //             .andExpect(mvcResult -> assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(""));
-    //
-    // }
+    @Test
+    public void returnReservation() throws Exception {
+        // TODO: 29/05/2020 Mock MailService
+
+        String reservationId = "1";
+
+        mockMvc.perform(put("/reservation/retourner/{reservationId}", reservationId))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.reservationId").value(1))
+                .andExpect(jsonPath("$.ouvrageId").value(1))
+                .andExpect(jsonPath("$.active").value(false))
+                .andExpect(jsonPath("$.dejaProlonge").value(false));
+
+    }
 
     @Test
     public void returnReservation_alreadyReturned() throws Exception {

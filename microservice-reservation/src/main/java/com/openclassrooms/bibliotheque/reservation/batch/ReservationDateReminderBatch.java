@@ -45,7 +45,7 @@ public class ReservationDateReminderBatch {
 
         ArrayList<EmailInfoDto> emailsToSend = new ArrayList<>();
 
-        if (reservationList.size() > 0) {
+        if (!reservationList.isEmpty()) {
             reservationList.forEach(reservation -> {
                 try {
 

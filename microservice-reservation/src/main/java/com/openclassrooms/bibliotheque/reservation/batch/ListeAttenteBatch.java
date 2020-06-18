@@ -31,11 +31,9 @@ public class ListeAttenteBatch {
     public void execute() {
         log.info("Starting batch task");
 
-        // TODO: 13/05/2020 TEST THIS
         reservationService.getAllByNotificationSentIsTrue().ifPresent(listeAttentes -> listeAttentes.forEach(listeAttente -> {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            Timestamp listeAttentePlusDurationTime = new Timestamp(
-                    listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
+            Timestamp listeAttentePlusDurationTime = new Timestamp(listeAttente.getNotificationTimestamp().getTime() + TimeUnit.HOURS.toMillis(DURATION_HOUR));
             if (currentTime.after(listeAttentePlusDurationTime)) {
                 try {
                     reservationService.annulerReservationListeAttente(listeAttente.getListeAttenteId());
