@@ -34,6 +34,9 @@ public class JwtTokenTest {
     @Autowired
     private JwtToken jwtToken;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @MockBean
     private UtilisateurProxy utilisateurProxy;
 
@@ -45,8 +48,7 @@ public class JwtTokenTest {
         utilisateurDto.setEmail("bbeeble0@instagram.com");
         utilisateurDto.setFirstName("Bridie");
         utilisateurDto.setLastName("Beeble");
-        utilisateurDto.setPassword("$2y$10$kAVjqCjOcq55vCc4IsaQTeYSV8Ml8lOcyYEeY3FCmVp4TXEhnnbeK");
-        utilisateurDto.setJwtToken("");
+        utilisateurDto.setPassword(bCryptPasswordEncoder.encode("user"));
 
         Mockito.when(utilisateurProxy.findUtilisateurByEmailIgnoreCase(anyString())).thenReturn(utilisateurDto);
     }
@@ -76,7 +78,7 @@ public class JwtTokenTest {
     public void shouldAuthenticateUser() throws Exception {
         mockMvc.perform(post("/authenticate")
                                 .param("username", utilisateurDto.getEmail())
-                                .param("password", utilisateurDto.getPassword()))
+                                .param("password", "user"))
                 .andExpect(status().isOk());
     }
 
