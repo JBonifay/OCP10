@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 @RequiredArgsConstructor
@@ -63,7 +61,7 @@ public class ReservationService {
     }
 
 
-    public void prolongateReservation(@PathVariable int reservationId) {
+    public void prolongateReservation(int reservationId) {
         reservationProxy.prolongateReservation(reservationId);
 
     }

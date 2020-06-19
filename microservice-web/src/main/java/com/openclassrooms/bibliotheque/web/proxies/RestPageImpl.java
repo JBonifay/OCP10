@@ -3,18 +3,15 @@ package com.openclassrooms.bibliotheque.web.proxies;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 @Getter
 public class RestPageImpl<T> extends PageImpl<T> {
 
-    private int totalPages;
+    private final int totalPages;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public RestPageImpl(@JsonProperty("content") List<T> content, @JsonProperty("number") int number,
@@ -24,18 +21,6 @@ public class RestPageImpl<T> extends PageImpl<T> {
                         @JsonProperty("first") boolean first, @JsonProperty("numberOfElements") int numberOfElements) {
         super(content, PageRequest.of(number + 1, size), totalElements);
         this.totalPages = totalPages;
-    }
-    
-    public RestPageImpl(List<T> content, Pageable pageable, long total) {
-        super(content, pageable, total);
-    }
-    
-    public RestPageImpl(List<T> content) {
-        super(content);
-    }
-    
-    public RestPageImpl() {
-        super(new ArrayList<>());
     }
     
 }

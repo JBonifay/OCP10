@@ -12,6 +12,7 @@ import com.openclassrooms.bibliotheque.web.dto.filtrage.OuvrageFiltre;
 import com.openclassrooms.bibliotheque.web.dto.ouvrage.OuvrageStockDto;
 import com.openclassrooms.bibliotheque.web.proxies.OuvrageProxy;
 import com.openclassrooms.bibliotheque.web.proxies.RestPageImpl;
+import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,18 @@ public class RechercheControllerIT {
 
     @BeforeEach
     public void init() {
-        Mockito.when(ouvrageProxy.getAllOuvrageListByPage(any())).thenReturn(new RestPageImpl<OuvrageStockDto>());
+        RestPageImpl<OuvrageStockDto> restPage = new RestPageImpl<OuvrageStockDto>(new ArrayList<>(),
+                                                                                   1,
+                                                                                   2,
+                                                                                   3L,
+                                                                                   null,
+                                                                                   false,
+                                                                                   10,
+                                                                                   null,
+                                                                                   true,
+                                                                                   10);
+
+        Mockito.when(ouvrageProxy.getAllOuvrageListByPage(any())).thenReturn(restPage);
     }
 
     @Test
