@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class RechercheController {
     }
 
     @PostMapping("/listedesouvrages")
-    public ModelAndView applyFilter(Pageable pageable, OuvrageFiltre ouvrageFiltre) {
+    public ModelAndView applyFilter(Pageable pageable, @RequestBody OuvrageFiltre ouvrageFiltre) {
         return getModelAndView(pageable, ouvrageFiltre);
     }
 

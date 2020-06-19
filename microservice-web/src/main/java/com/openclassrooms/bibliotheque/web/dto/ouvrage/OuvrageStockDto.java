@@ -19,5 +19,4 @@ public class OuvrageStockDto {
     private Number nbrUserWaitingReturn;
     private Date   nextReturnDate;
 
-
 }
