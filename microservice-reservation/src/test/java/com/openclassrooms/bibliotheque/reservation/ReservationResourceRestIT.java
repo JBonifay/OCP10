@@ -282,7 +282,7 @@ public class ReservationResourceRestIT {
 
         // Then
         assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
-        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La date de retour est trop proche.");
+        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La date de retour est dépassée.");
     }
 
     @Test

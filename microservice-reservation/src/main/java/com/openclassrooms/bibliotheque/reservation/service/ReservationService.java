@@ -63,7 +63,7 @@ public class ReservationService {
                 r.setDejaProlonge(true);
                 reservationRepository.save(r);
             } else {
-                throw new ReservationException("La date de retour est trop proche.");
+                throw new ReservationException("La date de retour est dépassée.");
             }
         } else {
             throw new ReservationException("La réservation à déjà été prolongée");

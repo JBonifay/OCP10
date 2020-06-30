@@ -151,3 +151,24 @@ $ mvn clean verify sonar:sonar
 * Selectionner la page reservation
 * Clicker sur l'onglet `EN ATTENTE`
 * Clicker sur `ANNULER`
+
+
+#### Ticket 2
+
+##### I. Il ne doit pas être possible pour l’usager de prolonger un prêt si la date de fin de prêt est dépassée.
+* Se connecter avec l'utilisateur id = 4
+     `UserId 100`  
+     `TestUser@test.au`  
+     `user`
+
+* Selectionner la page reservation
+* Clicker sur `Prolonger` de l'ouvrage `Crocodile Dundee II`
+* l'erreur suivante devrait s'afficher `La date de retour est dépassée.`
+
+#### Ticket 3
+
+Les differents modules contiennent:
+* Des tests unitaires
+* Des tests d’intégration
+
+La documentation postman se trouve à cette [adresse](https://documenter.getpostman.com/view/7613584/SWTEbFr6?version=latest)
