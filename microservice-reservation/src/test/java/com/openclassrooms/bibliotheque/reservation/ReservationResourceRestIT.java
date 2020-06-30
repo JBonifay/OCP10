@@ -53,13 +53,15 @@ public class ReservationResourceRestIT {
     private MailService mailService;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         Mockito.doNothing().when(mailService).sendSimpleMessage(anyString(), anyString(), anyString());
 
-        Mockito.when(ouvrageProxySpy.getOuvrageById(anyInt()))
+        Mockito
+                .when(ouvrageProxySpy.getOuvrageById(anyInt()))
                 .thenReturn(new OuvrageDto(1, "test", "", new DateTime().toDate(), "", "", 0, 0, 1));
 
-        Mockito.when(utilisateurProxy.findUtilisateurById(anyString()))
+        Mockito
+                .when(utilisateurProxy.findUtilisateurById(anyString()))
                 .thenReturn(new UtilisateurDto(1, "test", "test", "test@test.co", "test"));
     }
 
@@ -71,7 +73,8 @@ public class ReservationResourceRestIT {
 
         // When
         // Then
-        mockMvc.perform(get("/reservation/list/{utilisateurId}", userId))
+        mockMvc
+                .perform(get("/reservation/list/{utilisateurId}", userId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].reservationId").value(1))
@@ -88,13 +91,14 @@ public class ReservationResourceRestIT {
         int userId = 100;
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/list/{utilisateurId}", userId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/list/{utilisateurId}", userId))
                 .andDo(print())
-                .andExpect(status().isNotFound())
+                .andExpect(status().isOk())
                 .andReturn();
 
         // Then
-        assertThat(mvcResult.getResponse().getContentAsString()).isEmpty();
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("[]");
     }
 
     // ===== Liste attente =====
@@ -104,7 +108,8 @@ public class ReservationResourceRestIT {
         int userId = 1;
 
         // When
-        mockMvc.perform(get("/reservation/listeattente/{utilisateurId}", userId))
+        mockMvc
+                .perform(get("/reservation/listeattente/{utilisateurId}", userId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].listeAttenteId").value(1));
@@ -116,13 +121,14 @@ public class ReservationResourceRestIT {
         int userId = 100;
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/{utilisateurId}", userId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/{utilisateurId}", userId))
                 .andDo(print())
-                .andExpect(status().isNotFound())
+                .andExpect(status().isOk())
                 .andReturn();
 
         // Then
-        assertThat(mvcResult.getResponse().getContentAsString()).isEmpty();
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("[]");
     }
 
     @Test
@@ -131,7 +137,8 @@ public class ReservationResourceRestIT {
         String listeAttenteId = "1";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/annuler").param("listeAttenteId", listeAttenteId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/annuler").param("listeAttenteId", listeAttenteId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -146,7 +153,8 @@ public class ReservationResourceRestIT {
         String listeAttenteId = "100";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/annuler").param("listeAttenteId", listeAttenteId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/annuler").param("listeAttenteId", listeAttenteId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -162,7 +170,8 @@ public class ReservationResourceRestIT {
         String ouvrageId = "1";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/info/nextreturndate").param("ouvrageId", ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/info/nextreturndate").param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -177,7 +186,8 @@ public class ReservationResourceRestIT {
         String ouvrageId = "100";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/info/nextreturndate").param("ouvrageId", ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/info/nextreturndate").param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -193,8 +203,8 @@ public class ReservationResourceRestIT {
         String ouvrageId = "1";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/info/numberofuserwaiting").param("ouvrageId",
-                                                                                                              ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/info/numberofuserwaiting").param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -206,18 +216,18 @@ public class ReservationResourceRestIT {
     @Test
     public void getNumberOfUserWaitingForOuvrageIdNotExisting() throws Exception {
         // Given not exising ouvrageId
-        String ouvrageId = "100";
+        String ouvrageId = "1";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/info/numberofuserwaiting").param("ouvrageId",
-                                                                                                              ouvrageId))
+        // Then
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/info/numberofuserwaiting").param("ouvrageId", ouvrageId))
                 .andDo(print())
-                .andExpect(status().isNotFound())
+                .andExpect(status().isOk())
                 .andReturn();
 
-        // Then
-        assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ListeAttenteException.class);
-        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("Liste attente non trouvé.");
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("2");
+
     }
 
     @Test
@@ -226,8 +236,8 @@ public class ReservationResourceRestIT {
         String ouvrageId = "1";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/info/numberofactivereservation").param("ouvrageId",
-                                                                                                                    ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/info/numberofactivereservation").param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -242,8 +252,8 @@ public class ReservationResourceRestIT {
         String ouvrageId = "100";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/reservation/listeattente/info/numberofactivereservation").param("ouvrageId",
-                                                                                                                    ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(get("/reservation/listeattente/info/numberofactivereservation").param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -261,7 +271,8 @@ public class ReservationResourceRestIT {
         String reservationId = "5";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(put("/reservation/prolonger/{reservationId}", reservationId))
+        MvcResult mvcResult = mockMvc
+                .perform(put("/reservation/prolonger/{reservationId}", reservationId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -275,7 +286,8 @@ public class ReservationResourceRestIT {
         String reservationId = "1";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(put("/reservation/prolonger/{reservationId}", reservationId))
+        MvcResult mvcResult = mockMvc
+                .perform(put("/reservation/prolonger/{reservationId}", reservationId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -291,7 +303,8 @@ public class ReservationResourceRestIT {
         String reservationId = "100";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(put("/reservation/prolonger/{reservationId}", reservationId))
+        MvcResult mvcResult = mockMvc
+                .perform(put("/reservation/prolonger/{reservationId}", reservationId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -307,7 +320,8 @@ public class ReservationResourceRestIT {
         String reservationId = "2";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(put("/reservation/prolonger/{reservationId}", reservationId))
+        MvcResult mvcResult = mockMvc
+                .perform(put("/reservation/prolonger/{reservationId}", reservationId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -326,7 +340,8 @@ public class ReservationResourceRestIT {
         String ouvrageId = "2";
 
         // When
-        mockMvc.perform(post("/reservation/creer").param("utilisateurId", utilisateurId).param("ouvrageId", ouvrageId))
+        mockMvc
+                .perform(post("/reservation/creer").param("utilisateurId", utilisateurId).param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.reservationId").value(6))
@@ -343,8 +358,8 @@ public class ReservationResourceRestIT {
         String ouvrageId = "2";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(post("/reservation/creer").param("utilisateurId", utilisateurId)
-                                                      .param("ouvrageId", ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(post("/reservation/creer").param("utilisateurId", utilisateurId).param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -360,14 +375,15 @@ public class ReservationResourceRestIT {
         String ouvrageId = "1";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(post("/reservation/creer").param("utilisateurId", utilisateurId)
-                                                      .param("ouvrageId", ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(post("/reservation/creer").param("utilisateurId", utilisateurId).param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
 
         assertThat(mvcResult.getResolvedException().getClass()).isEqualTo(ReservationException.class);
-        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo("La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
+        assertThat(mvcResult.getResolvedException().getMessage()).isEqualTo(
+                "La réservation est déjà présente dans la liste de reservations de l'utilisateur.");
     }
 
     @Test
@@ -377,8 +393,8 @@ public class ReservationResourceRestIT {
         String utilisateurId = "4";
 
         // When
-        MvcResult mvcResult = mockMvc.perform(post("/reservation/creer").param("utilisateurId", utilisateurId)
-                                                      .param("ouvrageId", ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(post("/reservation/creer").param("utilisateurId", utilisateurId).param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -397,8 +413,10 @@ public class ReservationResourceRestIT {
         String utilisateurId = "1";
         String ouvrageId = "2";
 
-        mockMvc.perform(post("/reservation/listeattente/creer").param("utilisateurId", utilisateurId)
-                                .param("ouvrageId", ouvrageId))
+        mockMvc
+                .perform(post("/reservation/listeattente/creer")
+                                 .param("utilisateurId", utilisateurId)
+                                 .param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.utilisateurId").value(1))
@@ -412,8 +430,10 @@ public class ReservationResourceRestIT {
         String utilisateurId = "1";
         String ouvrageId = "2";
 
-        MvcResult mvcResult = mockMvc.perform(post("/reservation/listeattente/creer").param("utilisateurId", utilisateurId)
-                                                      .param("ouvrageId", ouvrageId))
+        MvcResult mvcResult = mockMvc
+                .perform(post("/reservation/listeattente/creer")
+                                 .param("utilisateurId", utilisateurId)
+                                 .param("ouvrageId", ouvrageId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -428,7 +448,8 @@ public class ReservationResourceRestIT {
 
         String reservationId = "1";
 
-        mockMvc.perform(put("/reservation/retourner/{reservationId}", reservationId))
+        mockMvc
+                .perform(put("/reservation/retourner/{reservationId}", reservationId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.reservationId").value(1))
@@ -444,7 +465,8 @@ public class ReservationResourceRestIT {
 
         String reservationId = "4";
 
-        MvcResult mvcResult = mockMvc.perform(put("/reservation/retourner/{reservationId}", reservationId))
+        MvcResult mvcResult = mockMvc
+                .perform(put("/reservation/retourner/{reservationId}", reservationId))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andReturn();
