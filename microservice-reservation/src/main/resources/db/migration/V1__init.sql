@@ -25,7 +25,7 @@ values (5, 5, 4, '2020-04-01', '2020-04-30', true);
 insert into reservation (reservation_id, ouvrage_id, utilisateur_id, reservation_date_debut, reservation_date_fin, active)
 values (6, 6, 1, '2020-04-01', '2020-04-30', true);
 insert into reservation (reservation_id, ouvrage_id, utilisateur_id, reservation_date_debut, reservation_date_fin, active)
-values (7, 7, 2, '2020-04-01', '2020-04-30', false);
+values (7, 7, 2, '2020-04-01', '2020-04-30', TRUE );
 insert into reservation (reservation_id, ouvrage_id, utilisateur_id, reservation_date_debut, reservation_date_fin, active)
 values (8, 8, 4, '2020-04-01', '2020-04-30', true);
 insert into reservation (reservation_id, ouvrage_id, utilisateur_id, reservation_date_debut, reservation_date_fin, active)

@@ -65,7 +65,7 @@ values (10, 'Crocodile Dundee II', 'Carolyn Keme', '2004-12-03',
 
 INSERT
 INTO ouvrage.stock (ouvrage_id, quantity)
-VALUES (1, 2);
+VALUES (1, 0;
 INSERT
 INTO ouvrage.stock (ouvrage_id, quantity)
 VALUES (2, 4);
@@ -83,7 +83,7 @@ INTO ouvrage.stock (ouvrage_id, quantity)
 VALUES (6, 1);
 INSERT
 INTO ouvrage.stock (ouvrage_id, quantity)
-VALUES (7, 3);
+VALUES (7, 0);
 INSERT
 INTO ouvrage.stock (ouvrage_id, quantity)
 VALUES (8, 2);

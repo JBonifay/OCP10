@@ -56,3 +56,7 @@ INSERT
 INTO utilisateur.utilisateur
     (utilisateur_id, first_name, last_name, email, password)
 VALUES (10, 'Gillan', 'Rapp', 'grapp9@nsw.gov.au', '$2y$10$kAVjqCjOcq55vCc4IsaQTeYSV8Ml8lOcyYEeY3FCmVp4TXEhnnbeK');
+INSERT
+INTO utilisateur.utilisateur
+    (utilisateur_id, first_name, last_name, email, password)
+VALUES (100, 'Test User', 'Test User', 'TestUser@test.au', '$2y$10$kAVjqCjOcq55vCc4IsaQTeYSV8Ml8lOcyYEeY3FCmVp4TXEhnnbeK');
