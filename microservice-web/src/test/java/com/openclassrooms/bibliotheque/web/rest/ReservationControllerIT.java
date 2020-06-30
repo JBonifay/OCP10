@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web;
+package com.openclassrooms.bibliotheque.web.rest;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;

@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 public class GlobalExceptionControllerAdvice {
 
+    public static final String DEFAULT_PAGE = "error";
+
     @ExceptionHandler(FeignException.BadRequest.class)
     public ModelAndView handleBadRequestException(FeignException.BadRequest e, HttpServletResponse response) {
         return new ModelAndView("error/400");
@@ -29,7 +31,7 @@ public class GlobalExceptionControllerAdvice {
 
     @ExceptionHandler(FeignException.InternalServerError.class)
     public ModelAndView handleInternalErrorException(FeignException.InternalServerError e, HttpServletResponse response) {
-        return new ModelAndView("error");
+        return new ModelAndView(DEFAULT_PAGE);
     }
 
     @ExceptionHandler(GlobalException.class)

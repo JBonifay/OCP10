@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web;
+package com.openclassrooms.bibliotheque.web.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -21,18 +21,11 @@ import org.springframework.security.core.Authentication;
 @SpringBootTest
 public class CustomAuthenticationProviderTest {
 
-    private static final UtilisateurDto               AUTHENTICATED_UTILISATEUR = new UtilisateurDto(1,
-                                                                                                     "firstname",
-                                                                                                     "lastname",
-                                                                                                     "test@test.co",
-                                                                                                     "password",
-                                                                                                     true,
-                                                                                                     "username",
-                                                                                                     new ArrayList<>(),
-                                                                                                     true,
-                                                                                                     true,
-                                                                                                     true,
-                                                                                                     "");
+    private static final UtilisateurDto               AUTHENTICATED_UTILISATEUR = new UtilisateurDto(1, "firstname", "lastname",
+                                                                                                     "test@test.co", "password",
+                                                                                                     true, "username",
+                                                                                                     new ArrayList<>(), true,
+                                                                                                     true, true, "");
     @Autowired
     private              CustomAuthenticationProvider customAuthenticationProvider;
     @MockBean

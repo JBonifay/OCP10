@@ -1,4 +1,4 @@
-package com.openclassrooms.bibliotheque.web;
+package com.openclassrooms.bibliotheque.web.rest;
 
 import com.openclassrooms.bibliotheque.web.proxies.RestPageImpl;
 import java.util.ArrayList;
