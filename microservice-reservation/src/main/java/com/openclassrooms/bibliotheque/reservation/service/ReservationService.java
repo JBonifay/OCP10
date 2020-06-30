@@ -13,6 +13,7 @@ import com.openclassrooms.bibliotheque.reservation.repository.ReservationReposit
 import com.openclassrooms.bibliotheque.reservation.service.mail.MailService;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -41,11 +42,11 @@ public class ReservationService {
      * @return a list of reservation
      */
     public List<Reservation> findAllReservationByUtilisateurId(int utilisateurId) {
-        return reservationRepository.findAllByUtilisateurId(utilisateurId).orElseThrow(ReservationException::new);
+        return reservationRepository.findAllByUtilisateurId(utilisateurId).orElse(Collections.emptyList());
     }
 
     public List<ListeAttente> findAllListeAttenteByUtilisateurId(int utilisateurId) {
-        return listeAttenteRepository.findAllByUtilisateurId(utilisateurId).orElseThrow(ListeAttenteException::new);
+        return listeAttenteRepository.findAllByUtilisateurId(utilisateurId).orElse(Collections.emptyList());
     }
 
     /**
@@ -246,7 +247,7 @@ public class ReservationService {
 
     public Number getNumberOfUserForOuvrageId(int ouvrageId) throws ListeAttenteException {
         int size = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
-                .orElseThrow(ListeAttenteException::new)
+                .orElse(Collections.emptyList())
                 .size();
 
         if (size > 0) {

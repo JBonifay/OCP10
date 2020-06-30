@@ -39,38 +39,41 @@
         <div class="alert alert-danger text-center" th:text="${errorMessage}"></div>
       </th:block>
 
-      <th:block th:each="reservation : ${reservationList}">
-        <th:block th:if="${reservation.active}">
-          <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="card m-3 border">
-              <img alt="Image du livre" class="card-img-top"
-                   src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg">
-              <div class="card-body">
-                <h5 class="card-title text-center font-weight-bold" th:text="${reservation.getName()}"></h5>
-                <p class="card-text text-center" th:text="${reservation.getAuthor()}"></p>
-                <div class="col d-flex justify-content-center mb-3">
-                  <th:block th:each="star: ${#numbers.sequence(1, reservation.getNotation())}">
-                    <img class="mx-1" height="40" th:src="@{/images/star.png}" width="40">
-                  </th:block>
-                </div>
-                <p class="card-text text-center"
-                   th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
-                <a class="btn btn-outline-secondary d-flex justify-content-center"
-                   th:href="@{'/ouvrage/description?id=' + ${reservation.ouvrageId}}">Description ..</a>
-                <th:block th:switch="${reservation.isAlreadyProlonger()}">
+      <div class="row">
+        <th:block th:each="reservation : ${reservationList}">
+          <th:block th:if="${reservation.active}">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+              <div class="card m-3 border">
+                <img alt="Image du livre" class="card-img-top"
+                     src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg">
+                <div class="card-body">
+                  <h5 class="card-title text-center font-weight-bold" th:text="${reservation.getName()}"></h5>
+                  <p class="card-text text-center" th:text="${reservation.getAuthor()}"></p>
+                  <div class="col d-flex justify-content-center mb-3">
+                    <th:block th:each="star: ${#numbers.sequence(1, reservation.getNotation())}">
+                      <img class="mx-1" height="40" th:src="@{/images/star.png}" width="40">
+                    </th:block>
+                  </div>
+                  <p class="card-text text-center"
+                     th:text="'Du ' + ${#dates.format(reservation.reservationDateDebut, 'dd-MM-yyyy')} + ' au ' + ${#dates.format(reservation.reservationDateFin, 'dd-MM-yyyy')}"></p>
+                  <a class="btn btn-outline-secondary d-flex justify-content-center"
+                     th:href="@{'/ouvrage/description?id=' + ${reservation.ouvrageId}}">Description ..</a>
+                  <th:block th:switch="${reservation.isAlreadyProlonger()}">
                 <span th:case="false">
                 <a class="btn btn-outline-secondary d-flex justify-content-center"
                    th:href="@{'/reservation/prolonger/' + ${reservation.reservationId}}">Prolonger ma réservation</a>
                 </span>
-                  <span th:case="true">
+                    <span th:case="true">
                   <a class="btn btn-outline-warning d-flex justify-content-center disabled">Réservation déjà prolongée...</a>
                 </span>
-                </th:block>
+                  </th:block>
+                </div>
               </div>
             </div>
-          </div>
+          </th:block>
         </th:block>
-      </th:block>
+      </div>
+
     </div>
     <div class="tab-pane fade" id="en_attente" role="tabpanel">
       <!-- Reservations: En attente -->
