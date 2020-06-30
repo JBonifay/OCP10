@@ -258,12 +258,11 @@ public class ReservationService {
     }
 
     public Number getNumberOfActiveReservationForOuvrageId(int ouvrageId) throws ReservationException {
-        int size = reservationRepository.findAllByOuvrageId(ouvrageId).orElseThrow(ReservationException::new).size();
-        if (size > 0) {
-            return size;
-        } else {
-            return null;
-        }
+        return (int) reservationRepository.findAllByOuvrageId(ouvrageId)
+                                              .orElseThrow(ReservationException::new)
+                                              .stream()
+                                              .filter(Reservation::isActive)
+                                              .count();
     }
 
     public void annulerReservationListeAttente(int listeAttenteId) throws ListeAttenteException {
