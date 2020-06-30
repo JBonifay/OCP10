@@ -89,7 +89,7 @@ INTO ouvrage.stock (ouvrage_id, quantity)
 VALUES (8, 2);
 INSERT
 INTO ouvrage.stock (ouvrage_id, quantity)
-VALUES (9, 4);
+VALUES (9, 0);
 INSERT
 INTO ouvrage.stock (ouvrage_id, quantity)
 VALUES (10, 5);

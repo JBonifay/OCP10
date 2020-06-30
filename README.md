@@ -17,8 +17,8 @@ Openclassrooms Developpeur d'application Java Projet 10
 
 - Lien du projet [`https://github.com/JBonifay/bibliotheque`](https://github.com/JBonifay/bibliotheque)
 
-#### BDD
-La base de donnée utilisée est MySQL.
+#### I.Base de données
+La base de données utilisé est MySQL.
 
 Afin de générer la base de donnée avec ses données:
 
@@ -32,12 +32,11 @@ docker-compose up -d
 ``` 
 Docker compose va créer la bdd MySql et jouer les scripts d’insertion de données
 
-#### Lancer l'application
+#### II.Lancer l'application
 Se placer à la racine du projet et lancer les microservices dans l'ordre suivant:
 ```text
-mvn clean package
+Il faut utiliser la commande 'mvn spring-boot:run' dans le folder des projets suivant cet ordre:
 
-Utiliser la commande 'mvn spring-boot:run' dans les projets :
 edgeservice-eureka/
 edgeservice-zuul/
 microservice-ouvrage/
@@ -54,11 +53,14 @@ L'interface web est maintenant accessible sur **localhost:8080**
 - Utilisateur
 
 
+    UserId 1:
+    bbeeble0@instagram.com
+    user
+
+    UserId 4:
     sblanket3@columbia.edu
     user
     
-    pdufrayx@stanford.edu
-    user
 
 ### Email
 

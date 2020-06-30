@@ -117,11 +117,11 @@ public class ReservationService {
 
         // Count how many ouvrage exist
         int initialStock = reservationRepository.findAllByOuvrageId(ouvrageId)
-                .orElseThrow(ReservationException::new)
+                .orElse(Collections.emptyList())
                 .size() + ouvrageProxy.getNbrInStock(ouvrageId);
 
         int enAttente = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
-                .orElseThrow(ReservationException::new)
+                .orElse(Collections.emptyList())
                 .size();
 
         if (enAttente >= (initialStock * 2)) {
@@ -129,7 +129,7 @@ public class ReservationService {
         }
 
         int position = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
-                .orElseThrow(ListeAttenteException::new)
+                .orElse(Collections.emptyList())
                 .stream()
                 .mapToInt(ListeAttente::getPositionFileAttente)
                 .max()
@@ -278,7 +278,7 @@ public class ReservationService {
 
     public void updateListeAttente(int ouvrageId) throws ListeAttenteException {
         List<ListeAttente> listeAttenteList = listeAttenteRepository.findAllByOuvrageIdOrderByPositionFileAttente(ouvrageId)
-                .orElseThrow(ListeAttenteException::new);
+                .orElse(Collections.emptyList());
 
         IntStream.range(0, listeAttenteList.size()).forEach(i -> listeAttenteList.get(i).setPositionFileAttente(i + 1));
         listeAttenteRepository.saveAll(listeAttenteList);
