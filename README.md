@@ -171,4 +171,8 @@ Les differents modules contiennent:
 * Des tests unitaires
 * Des tests d’intégration
 
+Les tests d'integration sont fait dans le code pour la simple raison qu'ils sont tous annoté de @Transactionnal, ce qui n'est pas possible avec postman, les tests ne pourraient etre joué qu'une seule fois.
+
+Postman contient les url avec les valeurs afin de tester les API.
+
 La documentation postman se trouve à cette [adresse](https://documenter.getpostman.com/view/7613584/SWTEbFr6?version=latest)
