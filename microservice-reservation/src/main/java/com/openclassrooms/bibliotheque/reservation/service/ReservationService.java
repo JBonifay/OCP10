@@ -150,7 +150,7 @@ public class ReservationService {
      * @param ouvrageId     the ouvrage id
      * @param utilisateurId the utilisateur id
      */
-    private void checkIfAlreadyInUserReservationList(int ouvrageId, int utilisateurId) {
+    public void checkIfAlreadyInUserReservationList(int ouvrageId, int utilisateurId) {
 
         reservationRepository.findAllByUtilisateurId(utilisateurId)
                 .flatMap(reservations -> reservations.stream()
@@ -222,7 +222,7 @@ public class ReservationService {
      * @param date Date used as reference
      * @return the new date (4 weeks more than input)
      */
-    private Date addFourWeeksToDate(Date date) {
+    public Date addFourWeeksToDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.WEEK_OF_MONTH, 4);

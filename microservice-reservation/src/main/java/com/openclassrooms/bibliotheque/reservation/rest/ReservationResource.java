@@ -5,7 +5,6 @@ import com.openclassrooms.bibliotheque.reservation.dto.ListeAttenteMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationMapper;
 import com.openclassrooms.bibliotheque.reservation.dto.ReservationOuvrageInfoDto;
 import com.openclassrooms.bibliotheque.reservation.error.ListeAttenteException;
-import com.openclassrooms.bibliotheque.reservation.error.ReservationException;
 import com.openclassrooms.bibliotheque.reservation.model.ListeAttente;
 import com.openclassrooms.bibliotheque.reservation.model.Reservation;
 import com.openclassrooms.bibliotheque.reservation.proxies.OuvrageProxy;
